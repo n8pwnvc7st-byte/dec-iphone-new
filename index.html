@@ -549,6 +549,10 @@ function igPostAuthor(post){
  if(n.startsWith("calafiori-"))return {name:"Riccardo Calafiori",handle:"riccardocalafiori",avatar:"./avatars/calafiori.JPG",fallback:"./avatars/calafiori.JPG"};
  if(n.startsWith("harry-"))return {name:"Harry Kane",handle:"harrykane",avatar:"./avatars/harrykane.JPG",fallback:"./avatars/harrykane.JPG"};
  if(n.startsWith("djed-"))return {name:"Djed Spence",handle:"djedspence",avatar:"./avatars/djed-ig.JPG",fallback:"./avatars/rice.JPG"};
+ if(n.startsWith("odegaard-"))return {name:"Martin Ødegaard",handle:"odegaard",avatar:"./avatars/odegaard.JPG",fallback:"./avatars/rice.JPG"};
+ if(n.startsWith("olise-"))return {name:"Michael Olise",handle:"m.olise",avatar:"./avatars/olise.JPG",fallback:"./avatars/rice.JPG"};
+ if(n.startsWith("saka-"))return {name:"Bukayo Saka",handle:"bukayosaka",avatar:"./avatars/saka.JPG",fallback:"./avatars/rice.JPG"};
+ if(n.startsWith("lamine-"))return {name:"Lamine Yamal",handle:"lamineyamal",avatar:"./avatars/jude-ig.JPG",fallback:"./avatars/rice.JPG"};
  if(n.startsWith("rice-"))return {name:"Declan Rice",handle:"declanrice",avatar:"./avatars/rice-ig.JPG",fallback:"./avatars/rice.JPG"};
  return {name:"Arsenal",handle:"arsenal",avatar:"./avatars/rice.JPG",fallback:"./avatars/rice.JPG"};
 }
@@ -572,7 +576,21 @@ function renderIgHomeFeed(){
  const stories=$("igStories");if(stories)stories.innerHTML=[{n:"Your story",img:"./avatars/rice-ig.JPG"},{n:"Jude",img:"./avatars/jude-ig.JPG"},{n:"Kai",img:"./avatars/havertz.JPG"},{n:"Calafiori",img:"./avatars/calafiori.JPG"},{n:"Harry",img:"./avatars/harrykane.JPG"}].map(x=>`<button class="ig-story"><span><img src="${x.img}" onerror="this.onerror=null;this.src='./avatars/rice.JPG'" alt=""></span><small>${x.n}</small></button>`).join("");
 }
 function renderIgExplore(){const host=$("igExploreGrid");if(!host)return;const posts=IG_REPO_POSTS.filter(p=>!/^rice-/i.test(p.name||""));host.innerHTML=posts.map((p,i)=>`<button data-ig-explore-photo="${i}"><img src="${p.src}" loading="lazy" alt="Explore post" onerror="this.style.opacity='.15'"></button>`).join("");host.querySelectorAll("[data-ig-explore-photo]").forEach(b=>b.onclick=()=>{const p=posts[Number(b.dataset.igExplorePhoto)];showIgPhoto(p.src,Number(b.dataset.igExplorePhoto),true)});}
-function renderIgReels(){const host=$("igReelsList");if(!host)return;const clips=[{src:"./tiktok-videos/jude-daily.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"A day with Jude"},{src:"./tiktok-videos/jude-funny.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"😂"},{src:"./tiktok-videos/rice-highlights.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Matchday moments ⚽"},{src:"./tiktok-videos/rice-jude.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"The lads ❤️"},{src:"./tiktok-videos/rice-lifestyle.MP4",name:"Kai Havertz",avatar:"./avatars/havertz.JPG",caption:"Training day"}];host.innerHTML=clips.map((v,i)=>`<article class="ig-reel-card"><video src="${v.src}" playsinline loop muted controls preload="metadata" onerror="this.setAttribute('controls','controls');this.style.background='#222'"></video><div class="ig-reel-overlay"><div><strong>${v.name}</strong><p>${v.caption}</p></div><img src="${v.avatar}" onerror="this.onerror=null;this.src='./avatars/rice.JPG'" alt=""></div></article>`).join("");host.querySelectorAll("video").forEach(v=>{v.muted=true;v.playsInline=true;v.preload="auto";v.addEventListener("click",()=>{if(v.paused)v.play().catch(()=>{v.controls=true});else v.pause()});v.addEventListener("error",()=>{console.warn("Reel video failed to load:",v.currentSrc||v.src)});});if("IntersectionObserver" in window){const io=new IntersectionObserver(entries=>entries.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{v.controls=true})}else v.pause()}),{threshold:.65});host.querySelectorAll("video").forEach(v=>io.observe(v));}}
+function renderIgReels(){const host=$("igReelsList");if(!host)return;const clips=[
+ {src:"./tiktok-videos/jude-daily.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"A day with Jude"},
+ {src:"./tiktok-videos/jude-edit.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"Jude edit ⚽"},
+ {src:"./tiktok-videos/jude-funny.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"😂"},
+ {src:"./tiktok-videos/jude-goat.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"The GOAT 🐐"},
+ {src:"./tiktok-videos/jude-honey.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"❤️"},
+ {src:"./tiktok-videos/jude-interview.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"Interview"},
+ {src:"./tiktok-videos/rice-basket.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"🏀"},
+ {src:"./tiktok-videos/rice-daily.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"A day with Declan"},
+ {src:"./tiktok-videos/rice-highlights.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Matchday moments ⚽"},
+ {src:"./tiktok-videos/rice-jude.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"The lads ❤️"},
+ {src:"./tiktok-videos/rice-lifestyle.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Off the pitch"},
+ {src:"./tiktok-videos/rice-rings.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Details ✨"},
+ {src:"./tiktok-videos/rice-teammate.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"With the teammates"}
+ ];host.innerHTML=clips.map((v,i)=>`<article class="ig-reel-card"><video src="${v.src}" playsinline loop muted controls preload="metadata" onerror="this.setAttribute('controls','controls');this.style.background='#222'"></video><div class="ig-reel-overlay"><div><strong>${v.name}</strong><p>${v.caption}</p></div><img src="${v.avatar}" onerror="this.onerror=null;this.src='./avatars/rice.JPG'" alt=""></div></article>`).join("");host.querySelectorAll("video").forEach(v=>{v.muted=true;v.playsInline=true;v.preload="auto";v.addEventListener("click",()=>{if(v.paused)v.play().catch(()=>{v.controls=true});else v.pause()});v.addEventListener("error",()=>{console.warn("Reel video failed to load:",v.currentSrc||v.src)});});if("IntersectionObserver" in window){const io=new IntersectionObserver(entries=>entries.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{v.controls=true})}else v.pause()}),{threshold:.65});host.querySelectorAll("video").forEach(v=>io.observe(v));}}
 const IG_DEFAULT_POSTS=[
  {label:"MATCH DAY ⚽",caption:"Matchday. Thank you for the support. ❤️",color:"linear-gradient(135deg,#242a33,#8b1d2c)"},
  {label:"TRAINING",caption:"Another session in the bank. Back to work.",color:"linear-gradient(135deg,#171b23,#56616d)"},
@@ -1006,14 +1024,19 @@ function renderTikTok(){
   {name:"Bukayo Saka",handle:"@bukayosaka",avatar:"BS",caption:"Always together. ❤️"}
  ];
  const REPO_TIKTOK_VIDEOS = [
+  {name:"Jude Bellingham · Daily",type:"video/mp4",url:"./tiktok-videos/jude-daily.MP4"},
+  {name:"Jude Bellingham · Edit",type:"video/mp4",url:"./tiktok-videos/jude-edit.MP4"},
+  {name:"Jude Bellingham · Funny moments",type:"video/mp4",url:"./tiktok-videos/jude-funny.MP4"},
+  {name:"Jude Bellingham · GOAT",type:"video/mp4",url:"./tiktok-videos/jude-goat.MP4"},
+  {name:"Jude Bellingham · Honey",type:"video/mp4",url:"./tiktok-videos/jude-honey.MP4"},
+  {name:"Jude Bellingham · Interview",type:"video/mp4",url:"./tiktok-videos/jude-interview.MP4"},
+  {name:"Declan Rice · Basket",type:"video/mp4",url:"./tiktok-videos/rice-basket.MP4"},
   {name:"Declan Rice · Daily",type:"video/mp4",url:"./tiktok-videos/rice-daily.MP4"},
   {name:"Declan Rice · Highlights",type:"video/mp4",url:"./tiktok-videos/rice-highlights.MP4"},
   {name:"Rice & Jude",type:"video/mp4",url:"./tiktok-videos/rice-jude.MP4"},
   {name:"Declan Rice · Lifestyle",type:"video/mp4",url:"./tiktok-videos/rice-lifestyle.MP4"},
-  {name:"Rice with teammates",type:"video/mp4",url:"./tiktok-videos/rice-teammate.MP4"},
-  {name:"Jude Bellingham · Daily",type:"video/mp4",url:"./tiktok-videos/jude-daily.MP4"},
-  {name:"Jude Bellingham · Funny moments",type:"video/mp4",url:"./tiktok-videos/jude-funny.MP4"},
-  {name:"Jude Bellingham · Interview",type:"video/mp4",url:"./tiktok-videos/jude-interview.MP4"}
+  {name:"Declan Rice · Rings",type:"video/mp4",url:"./tiktok-videos/rice-rings.MP4"},
+  {name:"Rice with teammates",type:"video/mp4",url:"./tiktok-videos/rice-teammate.MP4"}
  ];
  const clips=()=>[...REPO_TIKTOK_VIDEOS,...uploaded];
  function nav(){return '<div class="tt-nav"><button data-tt-tab="For You">⌂<small>For You</small></button><button data-tt-tab="Friends">♧<small>Friends</small></button><button data-tt-tab="Upload">＋<small>Upload</small></button><button data-tt-tab="Inbox">✉<small>Inbox</small></button><button data-tt-tab="Profile">●<small>Profile</small></button></div>'}
@@ -1233,7 +1256,7 @@ async function loadPhotos(){
  const saved=await photoTransaction("readonly",store=>store.getAll());
  photoUrls.forEach((url,id)=>{const item=photoItems.find(p=>p.id===id);if(item&&item.blob)URL.revokeObjectURL(url)});photoUrls.clear();
  (saved||[]).forEach(item=>photoUrls.set(item.id,URL.createObjectURL(item.blob)));
- if(!repoPhotoItems.length){try{const response=await fetch(PHOTO_REPO_API,{headers:{Accept:"application/vnd.github+json"}});if(response.ok){const files=await response.json();repoPhotoItems=files.filter(f=>f.type==="file"&&/\.(jpe?g|png|webp|gif)$/i.test(f.name)&&!/^photo-(?:3|9)(?:\.|$)/i.test(f.name)).map((f,i)=>({id:"repo-photo-"+f.name,name:f.name,addedAt:Date.now()-i,repoAsset:true,url:f.download_url}));repoPhotoItems.forEach(item=>photoUrls.set(item.id,item.url));}}catch(e){console.warn("Repository photos could not be loaded",e)}}
+ if(!repoPhotoItems.length){try{const response=await fetch(PHOTO_REPO_API,{headers:{Accept:"application/vnd.github+json"}});if(response.ok){const files=await response.json();repoPhotoItems=files.filter(f=>f.type==="file"&&/\.(jpe?g|png|webp|gif)$/i.test(f.name)).map((f,i)=>({id:"repo-photo-"+f.name,name:f.name,addedAt:Date.now()-i,repoAsset:true,url:f.download_url}));repoPhotoItems.forEach(item=>photoUrls.set(item.id,item.url));}}catch(e){console.warn("Repository photos could not be loaded",e)}}
  photoItems=[...(saved||[]).sort((a,b)=>b.addedAt-a.addedAt),...repoPhotoItems];renderPhotos();
 }
 function photoDate(ts){return new Date(ts).toLocaleDateString("zh-CN",{year:"numeric",month:"long",day:"numeric"})}
