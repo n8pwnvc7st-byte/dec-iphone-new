@@ -983,7 +983,7 @@ function renderSkySports(){
 function renderRiceMessages(){
  const c=$("decorContent");if(!c)return;$("decorTitle").textContent="Messages";
  const contacts=[
-  {name:"Jude 🐷",sub:"iMessage",avatar:avatarImgTag("jude","imessage","Jude"),msgs:[["them","You still awake? 😂"],["mine","Yeah, what’s up?"],["them","Training tomorrow. Don’t be late."],["them","Dinner after training? I’ll send you the place."]]},
+  {name:"Jude",sub:"iMessage",avatar:avatarImgTag("jude","imessage","Jude"),msgs:[["them","You still awake? 😂"],["mine","Yeah, what’s up?"],["them","Training tomorrow. Don’t be late."],["them","Dinner after training? I’ll send you the place."]]},
   {name:"Mom",sub:"iMessage",avatar:"M",msgs:[["them","Have you eaten? Make sure you get some rest ❤️"]]},
   {name:"Dad",sub:"iMessage",avatar:"D",msgs:[["them","Good luck for the next match. Proud of you."]]},
   {name:"Bukayo Saka",sub:"iMessage",avatar:"BS",msgs:[["them","Recovery session done?"]]},
@@ -1023,7 +1023,7 @@ function renderRiceEmail(){
  const mails=[
   {from:"Arsenal",address:"team@arsenal.example",subject:"First-team training schedule",time:"09:12",body:"Hi Declan,<br><br>Reminder: first-team training is scheduled for 09:00 tomorrow at Sobha Realty Training Centre. Please arrive early for the team briefing.<br><br>Arsenal Team Operations"},
   {from:"England Team",address:"camp@england.example",subject:"England camp — arrival details",time:"Yesterday",body:"Hi Declan,<br><br>Your arrival window and training details for the upcoming England camp are ready. Please confirm with team staff.<br><br>England Team Operations"},
-  {from:"Jude 🐷",address:"jude@example.test",subject:"Weekend plan — London",time:"Yesterday",body:"Hey mate,<br><br>I found a place in London for the weekend. Let me know if you’re free after recovery, and I’ll send over the details.<br><br>Jude"},
+  {from:"Jude",address:"jude@example.test",subject:"Weekend plan — London",time:"Yesterday",body:"Hey mate,<br><br>I found a place in London for the weekend. Let me know if you’re free after recovery, and I’ll send over the details.<br><br>Jude"},
   {from:"Arsenal Events",address:"events@arsenal.example",subject:"Invitation: team media event",time:"Mon",body:"You are invited to the first-team media event. Please check the proposed time and confirm your attendance with the club communications team."},
   {from:"Fitness Team",address:"performance@arsenal.example",subject:"Recovery and nutrition plan",time:"Sun",body:"Recovery reminder: hydrate well, complete your mobility routine and follow the nutrition plan shared by the performance team."},
   {from:"Club Travel",address:"travel@arsenal.example",subject:"Away match travel itinerary",time:"Fri",body:"Your team travel itinerary for the upcoming away fixture is ready. Please review the departure time, hotel check-in details and equipment checklist with the team coordinator."}
@@ -1903,7 +1903,7 @@ button.ios-setting-row{cursor:pointer}
  <div id="msgStudioPanel">
   <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><div style="font-size:22px;font-weight:750">Message Studio</div><div style="color:#a9b2c0;font-size:13px;margin-top:4px">Edit simulated messages and reply rules</div></div><button id="msgStudioClose" class="msgStudioSecondary">Close</button></div>
   <label>App<select id="studioApp"><option value="whatsapp">WhatsApp</option><option value="imessage">iMessage</option></select></label>
-  <label>Contact<select id="studioContact"><option>Jude 🐷</option><option>Mom</option><option>Dad</option><option>Brother</option><option>Jude Bellingham</option><option>Bukayo Saka</option><option>Riccardo Calafiori</option></select></label>
+  <label>Contact<select id="studioContact"><option>Jude</option><option>Mom</option><option>Dad</option><option>Brother</option><option>Jude Bellingham</option><option>Bukayo Saka</option><option>Riccardo Calafiori</option></select></label>
   <label>Message text<textarea id="studioText" rows="3" placeholder="Type the simulated message..."></textarea></label>
   <label>Keyword trigger (optional)<input id="studioKeyword" placeholder="e.g. training, dinner"></label>
   <label>Delay after script starts (seconds)<input id="studioDelay" type="number" min="0" max="86400" value="5"></label>
@@ -2482,4 +2482,42 @@ button.ios-setting-row{cursor:pointer}
 #decorApp #decorContent .tt-nav small{font-size:10px!important;color:#fff!important;white-space:nowrap!important}
 @media(max-width:390px){#decorApp #decorContent .tt-tabs{gap:10px!important;font-size:12px!important}#decorApp #decorContent .tt-overlay{right:66px!important;bottom:17px!important}#decorApp #decorContent .tt-actions{right:8px!important;gap:15px!important}}
 </style>
+
+
+
+<script id="rice-avatar-sync-migration-v1">
+(function(){
+  var defaultAvatar="./avatars/rice-ig.JPG";
+  function syncRiceXAvatar(){
+    try {
+      if(!localStorage.getItem("x-rice-avatar-migrated-v1")){
+        localStorage.setItem("x-profile-avatar",defaultAvatar);
+        localStorage.setItem("x-rice-avatar-migrated-v1","1");
+      }
+    } catch(e) {}
+    var profile=document.getElementById("xAvatarImage");
+    if(profile && !localStorage.getItem("x-profile-avatar")) profile.src=defaultAvatar;
+    if(profile && localStorage.getItem("x-profile-avatar")===defaultAvatar) profile.src=defaultAvatar;
+    var feed=document.getElementById("xFeedPosts");
+    if(feed){
+      feed.querySelectorAll(".x-feed-post").forEach(function(post){
+        var name=post.querySelector("b");
+        if(name && /Declan Rice|declanrice/i.test(name.textContent)){
+          var img=post.querySelector("img");
+          if(img){img.src=defaultAvatar;img.alt="Declan Rice";}
+        }
+      });
+    }
+    var tweets=document.getElementById("tweetsList");
+    if(tweets){
+      tweets.querySelectorAll(".x-post-avatar img").forEach(function(img){img.src=defaultAvatar;img.alt="Declan Rice";});
+    }
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",syncRiceXAvatar);
+  else syncRiceXAvatar();
+  document.addEventListener("click",function(e){
+    if(e.target.closest("#xOpenProfile,#xBackToFeed")) setTimeout(syncRiceXAvatar,0);
+  });
+})();
+</script>
 
