@@ -421,7 +421,16 @@ const CONFIG = {
 // Keep the files inside the avatars/ folder. Missing app-specific files fall back to rice.JPG / jude.JPG.
 const AVATAR_FILES = {
   rice: { phone: "./avatars/rice.JPG", imessage: "./avatars/rice-imessage.JPG", instagram: "./avatars/rice-ig.JPG", tiktok: "./avatars/rice-tiktok.JPG", appleId: "./avatars/rice-appleid.JPG", whatsapp: "./avatars/rice-what's.JPG", x: "./avatars/rice.JPG", youtube: "./avatars/rice-youtube.JPG" },
-  jude: { phone: "./avatars/jude.JPG", imessage: "./avatars/jude-imessage.JPG", instagram: "./avatars/jude-ig.JPG", tiktok: "./avatars/jude-tiktok.JPG", whatsapp: "./avatars/jude-what's.JPG" }
+  jude: { phone: "./avatars/jude.JPG", imessage: "./avatars/jude-imessage.JPG", instagram: "./avatars/jude-ig.JPG", tiktok: "./avatars/jude-tiktok.JPG", whatsapp: "./avatars/jude-what's.JPG", appleId: "./avatars/jude.JPG", x: "./avatars/jude.JPG", youtube: "./avatars/jude.JPG" },
+  saka: { phone: "./avatars/saka.JPG", imessage: "./avatars/saka.JPG", instagram: "./avatars/saka.JPG", tiktok: "./avatars/saka.JPG", whatsapp: "./avatars/saka.JPG", appleId: "./avatars/saka.JPG", x: "./avatars/saka.JPG", youtube: "./avatars/saka.JPG" },
+  calafiori: { phone: "./avatars/calafiori.JPG", imessage: "./avatars/calafiori.JPG", instagram: "./avatars/calafiori.JPG", tiktok: "./avatars/calafiori.JPG", whatsapp: "./avatars/calafiori.JPG", appleId: "./avatars/calafiori.JPG", x: "./avatars/calafiori.JPG", youtube: "./avatars/calafiori.JPG" },
+  havertz: { phone: "./avatars/havertz.JPG", imessage: "./avatars/havertz.JPG", instagram: "./avatars/havertz.JPG", tiktok: "./avatars/havertz.JPG", whatsapp: "./avatars/havertz.JPG", appleId: "./avatars/havertz.JPG", x: "./avatars/havertz.JPG", youtube: "./avatars/havertz.JPG" },
+  harrykane: { phone: "./avatars/harrykane.JPG", imessage: "./avatars/harrykane.JPG", instagram: "./avatars/harrykane.JPG", tiktok: "./avatars/harrykane.JPG", whatsapp: "./avatars/harrykane.JPG", appleId: "./avatars/harrykane.JPG", x: "./avatars/harrykane.JPG", youtube: "./avatars/harrykane.JPG" },
+  jamal: { phone: "./avatars/jamal.JPG", imessage: "./avatars/jamal.JPG", instagram: "./avatars/jamal.JPG", tiktok: "./avatars/jamal.JPG", whatsapp: "./avatars/jamal.JPG", appleId: "./avatars/jamal.JPG", x: "./avatars/jamal.JPG", youtube: "./avatars/jamal.JPG" },
+  olise: { phone: "./avatars/olise.JPG", imessage: "./avatars/olise.JPG", instagram: "./avatars/olise.JPG", tiktok: "./avatars/olise.JPG", whatsapp: "./avatars/olise.JPG", appleId: "./avatars/olise.JPG", x: "./avatars/olise.JPG", youtube: "./avatars/olise.JPG" },
+  odegaard: { phone: "./avatars/odegaard.JPG", imessage: "./avatars/odegaard.JPG", instagram: "./avatars/odegaard.JPG", tiktok: "./avatars/odegaard.JPG", whatsapp: "./avatars/odegaard.JPG", appleId: "./avatars/odegaard.JPG", x: "./avatars/odegaard.JPG", youtube: "./avatars/odegaard.JPG" },
+  lamine: { phone: "./avatars/lamine.JPG", imessage: "./avatars/lamine.JPG", instagram: "./avatars/lamine.JPG", tiktok: "./avatars/lamine.JPG", whatsapp: "./avatars/lamine.JPG", appleId: "./avatars/lamine.JPG", x: "./avatars/lamine.JPG", youtube: "./avatars/lamine.JPG" },
+  djed: { phone: "./avatars/djed-ig.JPG", imessage: "./avatars/djed-ig.JPG", instagram: "./avatars/djed-ig.JPG", tiktok: "./avatars/djed-ig.JPG", whatsapp: "./avatars/djed-ig.JPG", appleId: "./avatars/djed-ig.JPG", x: "./avatars/djed-ig.JPG", youtube: "./avatars/djed-ig.JPG" }
 };
 function avatarSrc(person, app) { return (AVATAR_FILES[person] && AVATAR_FILES[person][app]) || (person === "jude" ? "./avatars/jude.JPG" : "./avatars/rice.JPG"); }
 function avatarFallback(person) { return person === "jude" ? "./avatars/jude.JPG" : "./avatars/rice.JPG"; }
@@ -619,7 +628,19 @@ function renderIgReels(){const host=$("igReelsList");if(!host)return;const clips
  {src:"./tiktok-videos/rice-lifestyle.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Declan Rice · Lifestyle"},
  {src:"./tiktok-videos/rice-rings.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Declan Rice · Rings"},
  {src:"./tiktok-videos/rice-teammate.MP4",name:"Rice with teammates",avatar:"./avatars/rice-ig.JPG",caption:"Rice with teammates"},
- {src:"./tiktok-videos/ricky-arsenal.MP4",name:"Ricky",avatar:"./avatars/rice-ig.JPG",caption:"Ricky · Arsenal"}
+ {src:"./tiktok-videos/ricky-arsenal.MP4",name:"Riccardo Calafiori",avatar:"./avatars/calafiori.JPG",caption:"Ricky · Arsenal"},
+ {src:"./tiktok-videos/jude-cute.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"Jude Bellingham · Cute"},
+ {src:"./tiktok-videos/jude-gentle.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"Jude Bellingham · Gentle"},
+ {src:"./tiktok-videos/jude-rice.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"Jude & Declan Rice"},
+ {src:"./tiktok-videos/jude-young.MP4",name:"Jude Bellingham",avatar:"./avatars/jude-ig.JPG",caption:"Jude Bellingham · Young"},
+ {src:"./tiktok-videos/kai-cute.MP4",name:"Kai Havertz",avatar:"./avatars/havertz.JPG",caption:"Kai Havertz · Cute"},
+ {src:"./tiktok-videos/kai-funny.MP4",name:"Kai Havertz",avatar:"./avatars/havertz.JPG",caption:"Kai Havertz · Funny"},
+ {src:"./tiktok-videos/olise-funny.MP4",name:"Michael Olise",avatar:"./avatars/olise.JPG",caption:"Michael Olise · Funny"},
+ {src:"./tiktok-videos/rice-baby.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Declan Rice · Baby"},
+ {src:"./tiktok-videos/rice-champion.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Declan Rice · Champion"},
+ {src:"./tiktok-videos/rice-funny.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Declan Rice · Funny"},
+ {src:"./tiktok-videos/rice-gemini.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Declan Rice · Gemini"},
+ {src:"./tiktok-videos/rice-rice.MP4",name:"Declan Rice",avatar:"./avatars/rice-ig.JPG",caption:"Declan Rice · Rice"}
  ];host.innerHTML=clips.map((v,i)=>`<article class="ig-reel-card"><video src="${v.src}" playsinline loop muted controls preload="metadata" onerror="this.setAttribute('controls','controls');this.style.background='#222'"></video><div class="ig-reel-overlay"><div><strong>${v.name}</strong><p>${v.caption}</p></div><img src="${v.avatar}" onerror="this.onerror=null;this.src='./avatars/rice.JPG'" alt=""></div></article>`).join("");host.querySelectorAll("video").forEach(v=>{v.muted=true;v.playsInline=true;v.preload="auto";v.addEventListener("click",()=>{if(v.paused)v.play().catch(()=>{v.controls=true});else v.pause()});v.addEventListener("error",()=>{console.warn("Reel video failed to load:",v.currentSrc||v.src)});});if("IntersectionObserver" in window){const io=new IntersectionObserver(entries=>entries.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{v.controls=true})}else v.pause()}),{threshold:.65});host.querySelectorAll("video").forEach(v=>io.observe(v));}}
 const IG_DEFAULT_POSTS=[
  {label:"MATCH DAY ⚽",caption:"Matchday. Thank you for the support. ❤️",color:"linear-gradient(135deg,#242a33,#8b1d2c)"},
@@ -1084,7 +1105,19 @@ function renderTikTok(){
   {name:"Declan Rice · Lifestyle",type:"video/mp4",url:"./tiktok-videos/rice-lifestyle.MP4"},
   {name:"Declan Rice · Rings",type:"video/mp4",url:"./tiktok-videos/rice-rings.MP4"},
   {name:"Rice with teammates",type:"video/mp4",url:"./tiktok-videos/rice-teammate.MP4"},
-  {name:"Ricky · Arsenal",type:"video/mp4",url:"./tiktok-videos/ricky-arsenal.MP4"}
+  {name:"Ricky · Arsenal",type:"video/mp4",url:"./tiktok-videos/ricky-arsenal.MP4"},
+  {name:"Jude Bellingham · Cute",type:"video/mp4",url:"./tiktok-videos/jude-cute.MP4",creator:"jude"},
+  {name:"Jude Bellingham · Gentle",type:"video/mp4",url:"./tiktok-videos/jude-gentle.MP4",creator:"jude"},
+  {name:"Jude & Declan Rice",type:"video/mp4",url:"./tiktok-videos/jude-rice.MP4",creator:"jude"},
+  {name:"Jude Bellingham · Young",type:"video/mp4",url:"./tiktok-videos/jude-young.MP4",creator:"jude"},
+  {name:"Kai Havertz · Cute",type:"video/mp4",url:"./tiktok-videos/kai-cute.MP4",creator:"havertz"},
+  {name:"Kai Havertz · Funny",type:"video/mp4",url:"./tiktok-videos/kai-funny.MP4",creator:"havertz"},
+  {name:"Michael Olise · Funny",type:"video/mp4",url:"./tiktok-videos/olise-funny.MP4",creator:"olise"},
+  {name:"Declan Rice · Baby",type:"video/mp4",url:"./tiktok-videos/rice-baby.MP4",creator:"rice"},
+  {name:"Declan Rice · Champion",type:"video/mp4",url:"./tiktok-videos/rice-champion.MP4",creator:"rice"},
+  {name:"Declan Rice · Funny",type:"video/mp4",url:"./tiktok-videos/rice-funny.MP4",creator:"rice"},
+  {name:"Declan Rice · Gemini",type:"video/mp4",url:"./tiktok-videos/rice-gemini.MP4",creator:"rice"},
+  {name:"Declan Rice · Rice",type:"video/mp4",url:"./tiktok-videos/rice-rice.MP4",creator:"rice" }
  ];
  const videoCreatorMap={
   "arsenal-RM.MP4":"jude","calafiori-daily.MP4":"calafiori","decccc.MP4":"rice",
@@ -1094,7 +1127,10 @@ function renderTikTok(){
   "jude-interview.MP4":"jude","jude-video.MP4":"jude","jude-walk.MP4":"jude",
   "olise-walk.MP4":"olise","rice-basket.MP4":"rice","rice-daily.MP4":"rice",
   "rice-highlights.MP4":"rice","rice-jude.MP4":"rice","rice-lifestyle.MP4":"rice",
-  "rice-rings.MP4":"rice","rice-teammate.MP4":"rice","ricky-arsenal.MP4":"calafiori"
+  "rice-rings.MP4":"rice","rice-teammate.MP4":"rice","ricky-arsenal.MP4":"calafiori",
+  "jude-cute.MP4":"jude","jude-gentle.MP4":"jude","jude-rice.MP4":"jude","jude-young.MP4":"jude",
+  "kai-cute.MP4":"havertz","kai-funny.MP4":"havertz","olise-funny.MP4":"olise",
+  "rice-baby.MP4":"rice","rice-champion.MP4":"rice","rice-funny.MP4":"rice","rice-gemini.MP4":"rice","rice-rice.MP4":"rice"
  };
  function creatorForClip(clip){
   if(!clip)return people[0];
@@ -2622,3 +2658,5 @@ document.addEventListener("click",function(e){if(e.target.closest("#ytPlayerBack
  document.addEventListener("keydown",function(e){if(e.key==="Escape"){var p=document.getElementById("ytPlayer");if(p&&p.classList.contains("active"))closeYoutube(false);else closeMusic();}});
 })();
 </script>
+
+<!-- asset-library-sync-20261025: synced newly uploaded TikTok videos and app avatar mappings -->
