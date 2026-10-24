@@ -421,9 +421,9 @@
             <img src="./avatars/masonmount-ig.JPG" alt="Mason Mount" onerror="this.onerror=null;this.src='./avatars/rice.JPG'">
             <span class="ig-inbox-person"><strong>Mason Mount</strong><small>How's everything going?</small></span>
           </button>
-          <button class="ig-inbox-row" data-ig-contact="Marcus Rashford">
-            <img src="./avatars/rashford-ig.JPG" alt="Marcus Rashford" onerror="this.onerror=null;this.src='./avatars/rice.JPG'">
-            <span class="ig-inbox-person"><strong>Marcus Rashford</strong><small>Catch up soon 🤝</small></span>
+          <button class="ig-inbox-row" data-ig-contact="Jack Grealish">
+            <img src="./avatars/grealish-ig.JPG" alt="Jack Grealish" onerror="this.onerror=null;this.src='./avatars/rice.JPG'">
+            <span class="ig-inbox-person"><strong>Jack Grealish</strong><small>Catch up soon 🤝</small></span>
           </button>
         </div>
       </div>
@@ -914,7 +914,7 @@ document.querySelectorAll(".ig-inbox-row").forEach(row=>row.addEventListener("cl
     const avatar=header.querySelector("img");
     if(title)title.textContent=name;
     if(handle)handle.textContent=name==="Jude Bellingham"?"@judebellingham":"@"+name.toLowerCase().replace(/[^a-z0-9]+/g,"");
-    if(avatar){const map={"Jude Bellingham":"./avatars/jude-ig.JPG","Bukayo Saka":"./avatars/saka-ig.JPG","Martin Ødegaard":"./avatars/odegaard-ig.JPG","Ben White":"./avatars/benwhite-ig.JPG","Mason Mount":"./avatars/masonmount-ig.JPG","Marcus Rashford":"./avatars/rashford-ig.JPG","Kai Havertz":"./avatars/havertz.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Harry Kane":"./avatars/harrykane.JPG","Djed Spence":"./avatars/djed-ig.JPG"};avatar.src=map[name]||"./avatars/rice.JPG";avatar.onerror=()=>{avatar.onerror=null;avatar.src="./avatars/rice.JPG";};avatar.alt=name;}
+    if(avatar){const map={"Jude Bellingham":"./avatars/jude-ig.JPG","Bukayo Saka":"./avatars/saka-ig.JPG","Martin Ødegaard":"./avatars/odegaard-ig.JPG","Ben White":"./avatars/benwhite-ig.JPG","Mason Mount":"./avatars/masonmount-ig.JPG","Jack Grealish":"./avatars/grealish-ig.JPG","Kai Havertz":"./avatars/havertz.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Harry Kane":"./avatars/harrykane.JPG","Djed Spence":"./avatars/djed-ig.JPG"};avatar.src=map[name]||"./avatars/rice.JPG";avatar.onerror=()=>{avatar.onerror=null;avatar.src="./avatars/rice.JPG";};avatar.alt=name;}
   }
   openInstagramDM();
 }));
