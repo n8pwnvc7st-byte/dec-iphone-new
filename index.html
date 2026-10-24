@@ -241,6 +241,9 @@
 <style id="online-wallpaper-settings-style-v1">
 .online-wallpaper-settings{padding:18px 16px 35px;color:#f5f5f7;max-width:620px;margin:auto}.ow-back{display:flex;align-items:center;gap:7px;background:transparent;color:#65aaff;font-size:19px;margin:0 0 18px}.ow-back span{font-size:15px}.online-wallpaper-settings h1{font-size:30px;margin:0 0 8px;font-weight:750}.ow-desc{font-size:13px;line-height:1.55;color:#a6a6ad;margin:0 0 18px}.ow-preview{height:290px;max-width:190px;margin:0 auto 22px;border-radius:26px;overflow:hidden;background:linear-gradient(145deg,#233c35,#bdb4a7 50%,#3d5550);border:1px solid #ffffff30;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:12px;text-align:center}.ow-preview img{width:100%;height:100%;object-fit:cover}.ow-label{display:block;font-size:13px;color:#aaa;margin-bottom:8px}.ow-url,#owUrl{display:block;width:100%;box-sizing:border-box;border:1px solid #444;background:#222226;color:#fff;border-radius:12px;padding:13px;font-size:13px;outline:none}.ow-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.ow-actions button{border-radius:12px;padding:13px 7px;background:#333;color:white;font-size:14px;font-weight:650}.ow-actions button+button{background:#0a84ff}.ow-reset{width:100%;margin-top:12px;padding:13px;border-radius:12px;background:#28282b;color:#ff7777}.ow-status{font-size:12px;color:#a8a8ad;line-height:1.5;margin-top:13px;min-height:18px}
 </style>
+<style id="settings-detail-pages-style-v1">
+.ios-detail-page{padding:16px 16px 38px;max-width:620px;margin:0 auto;color:#f5f5f7}.ios-detail-back{display:flex;align-items:center;gap:6px;background:transparent;color:#65aaff;font-size:28px;margin:0 0 16px;padding:2px 0}.ios-detail-back span{font-size:15px}.ios-detail-page h1{font-size:30px;line-height:1.15;margin:0 0 9px;font-weight:760;letter-spacing:-.5px}.ios-detail-desc{font-size:13px;line-height:1.55;color:#a5a5ad;margin:0 0 20px}.ios-detail-group{background:#252528;border-radius:14px;overflow:hidden}.ios-detail-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:51px;padding:12px 15px;border-bottom:1px solid #414145;font-size:14px}.ios-detail-row:last-child{border-bottom:0}.ios-detail-value{color:#a7a7ad;text-align:right;font-size:13px;white-space:pre-line}.ios-detail-footnote{font-size:12px;line-height:1.5;color:#8d8d94;margin:12px 3px}
+</style>
 </head>
 <body>
 <div class="phone" id="phone">
@@ -1473,14 +1476,14 @@ function openSettings(){
   $("decorTitle").textContent=tr("Settings");
   $("decorContent").innerHTML=`<div class="ios-settings ios-settings-onepage">
     <h1 class="ios-settings-title">Settings</h1>
-    <button class="ios-account-card" id="iosAccountCard">
+    <button class="ios-account-card" id="iosAccountCard" type="button">
       <span class="ios-account-avatar"><img src="./avatars/rice-appleid.JPG" alt="Declan Rice" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"></span>
       <span class="ios-account-copy"><strong>Declan Rice</strong><small>Apple Account, iCloud and more</small></span><span class="ios-chevron">›</span>
       <span class="ios-account-suggestion"><span>Apple Account Suggestions</span><b>4</b><span class="ios-chevron">›</span></span>
     </button>
     <button class="ios-single-row" data-ios-detail="Services"><span>Services Included with Purchase</span><b class="ios-red-count">1</b><span class="ios-chevron">›</span></button>
     <div class="ios-group">
-      <label class="ios-setting-row"><span class="ios-setting-icon airplane">✈</span><span class="ios-setting-label">Airplane Mode</span><label class="ios-switch"><input type="checkbox" data-ios-toggle="airplane"><span></span></label></label>
+      <label class="ios-setting-row" data-ios-detail="Airplane Mode"><span class="ios-setting-icon airplane">✈</span><span class="ios-setting-label">Airplane Mode</span><label class="ios-switch"><input type="checkbox" data-ios-toggle="airplane"><span></span></label></label>
       <button class="ios-setting-row" data-ios-detail="Wi-Fi"><span class="ios-setting-icon wifi">⌁</span><span class="ios-setting-label">Wi-Fi</span><span class="ios-muted" id="iosWifiValue">Not Connected</span><span class="ios-chevron">›</span></button>
       <button class="ios-setting-row" data-ios-detail="Bluetooth"><span class="ios-setting-icon bluetooth">ᛒ</span><span class="ios-setting-label">Bluetooth</span><span class="ios-muted" id="iosBluetoothValue">On</span><span class="ios-chevron">›</span></button>
       <button class="ios-setting-row" data-ios-detail="Cellular"><span class="ios-setting-icon cellular">◉</span><span class="ios-setting-label">Cellular</span><span class="ios-chevron">›</span></button>
@@ -1504,21 +1507,13 @@ function openSettings(){
     <div class="ios-settings-note">Demo settings · Language: <span id="iosLanguageValue">${currentLanguage==="zh"?"简体中文":"English"}</span></div>
   </div>`;
   showScreen("decorApp");
-  $("decorContent").querySelectorAll("[data-ios-detail]").forEach(btn=>btn.addEventListener("click",()=>{
+  $("decorContent").querySelectorAll("[data-ios-detail]").forEach(btn=>btn.addEventListener("click",e=>{
+    if(e.target.closest("input"))return;
     const name=btn.dataset.iosDetail;
-    if(name==="Wallpaper"){openOnlineWallpaperSettings();return;}if(name==="Photos"){showScreen("photosApp");renderPhotos();return;}
-    if(name==="WhatsApp"){openWaStudio("profile");return;}
-    if(name==="Language"){
-      const existing=$("iosLanguageSheet");if(existing)existing.remove();
-      const sheet=document.createElement("div");sheet.id="iosLanguageSheet";sheet.className="ios-settings-sheet";
-      sheet.innerHTML=`<div class="ios-sheet-title">Language</div><button data-lang="en">English ${currentLanguage==="en"?"✓":""}</button><button data-lang="zh">简体中文 ${currentLanguage==="zh"?"✓":""}</button><button data-sheet-close>Cancel</button>`;
-      $("decorContent").appendChild(sheet);
-      sheet.querySelectorAll("[data-lang]").forEach(b=>b.onclick=()=>{setLanguage(b.dataset.lang);openSettings();});
-      sheet.querySelector("[data-sheet-close]").onclick=()=>sheet.remove();return;
-    }
-    if(name==="Passcode"){alert("Your demo passcode is 0114.");return;}
-    alert(name+" settings are visual demo controls.");
+    if(name==="Wallpaper"){openOnlineWallpaperSettings();return;}
+    openIosSettingDetail(name);
   }));
+  const account=$("iosAccountCard");if(account)account.addEventListener("click",()=>openIosSettingDetail("Apple Account"));
   $("decorContent").querySelectorAll("[data-ios-toggle]").forEach(input=>input.addEventListener("change",()=>{
     if(input.dataset.iosToggle==="airplane"){
       const wifi=$("iosWifiValue"),bt=$("iosBluetoothValue");
@@ -1526,6 +1521,43 @@ function openSettings(){
       else{wifi.textContent="Not Connected";bt.textContent="On";}
     }
   }));
+}
+
+
+function openIosSettingDetail(name){
+ const details={
+ "Apple Account":["Apple Account","Manage your Apple Account, iCloud, sign-in and account suggestions.","Apple Account\n iCloud\n Sign-In & Security\n Payment & Shipping"],
+ "Services":["Services Included with Purchase","Review services associated with this device. This is a visual demo page.","Available services\n Subscription details\n Purchase history"],
+ "Airplane Mode":["Airplane Mode","Airplane Mode controls wireless connections in this demo. The switch on the previous page is simulated.","When enabled, Wi-Fi and Bluetooth status labels change to unavailable/off."],
+ "Wi-Fi":["Wi-Fi","Choose a network to connect to. Network selection is shown for demonstration only.","My Network · Not Connected\n Guest Wi-Fi · Secured\n Other…"],
+ "Bluetooth":["Bluetooth","Manage nearby Bluetooth accessories. Pairing is not connected to real devices.","My Devices\n No devices connected\n Other Devices"],
+ "Cellular":["Cellular","Mobile network details for this simulated iPhone.","Cellular Data · On\n Network Selection · Automatic\n Data Usage · —"],
+ "Personal Hotspot":["Personal Hotspot","Share this phone's connection. This demo does not create a real hotspot.","Allow Others to Join · Off\n Wi-Fi Password · ••••••••"],
+ "Battery":["Battery","Battery status and usage information for this simulated device.","Battery Level · 82%\n Battery Health · Normal\n Last 24 Hours"],
+ "VPN":["VPN & Device Management","VPN connection details are simulated and do not create a real network tunnel.","VPN Status · Connected (Demo)\n Add VPN Configuration"],
+ "General":["General","General device information and system options.","About\n Software Update\n iPhone Storage\n Date & Time\n Language & Region\n Transfer or Reset iPhone"],
+ "Accessibility":["Accessibility","Display, motion, hearing and interaction preferences.","Vision\n Motion\n Hearing\n Physical and Motor"],
+ "Home Screen":["Home Screen & App Library","Choose how apps and notifications appear on your Home Screen.","Newly Downloaded Apps · Add to Home Screen\n Notification Badges · On"],
+ "StandBy":["StandBy","StandBy is a simulated view shown while the phone is charging and placed sideways.","StandBy · On\n Display · Automatically Turn Off"],
+ "Camera":["Camera","Camera preferences for this simulated device.","Formats\n Record Video · 4K\n Preserve Settings\n Grid · Off"],
+ "Action Button":["Action Button","Choose what the Action Button would do on this simulated phone.","Silent Mode\n Focus\n Camera\n Flashlight\n Shortcut"],
+ "Control Center":["Control Center","Customize the quick controls shown in Control Center.","Included Controls\n Connectivity\n Screen Recording\n Flashlight"],
+ "Search":["Search","Choose how search and suggestions appear on this device.","Show Suggestions · On\n Show Recent Searches · On\n Apps in Search"],
+ "Display & Brightness":["Display & Brightness","Appearance and screen settings for this simulated iPhone.","Appearance · Dark\n Text Size\n Auto-Lock · 1 Minute\n True Tone"],
+ "Siri":["Siri","Voice assistant preferences for this simulated device.","Talk to Siri\n Language · English\n Siri Responses"],
+ "Photos":["Photos","Photo library preferences for this simulated device.","iCloud Photos · Off\n Memories\n Shared Albums"],
+ "Language":["Language","Choose the language displayed by the demo interface.","English\n 简体中文"],
+ "Passcode":["Passcode","Your demo passcode is 0114. This page does not change the passcode.","Require Passcode · Immediately\n Change Passcode"]
+ };
+ const item=details[name]||[name,name+" settings and information for this simulated iPhone.","Additional options\n Status\n About"];
+ const c=$("decorContent");$("decorTitle").textContent=name;
+ c.innerHTML=`<div class="ios-detail-page" id="settings-detail-pages-v1">
+  <button class="ios-detail-back" id="iosDetailBack">‹ <span>Settings</span></button>
+  <h1>${escapeHtml(item[0])}</h1><p class="ios-detail-desc">${escapeHtml(item[1])}</p>
+  <div class="ios-detail-group">${item[2].split("\n").map(line=>line.trim()).filter(Boolean).map((line,i)=>`<div class="ios-detail-row"><span>${escapeHtml(line.split(" · ")[0])}</span><span class="ios-detail-value">${escapeHtml(line.includes(" · ")?line.split(" · ").slice(1).join(" · "):"›")}</span></div>`).join("")}</div>
+  <p class="ios-detail-footnote">Demo interface · These options are for viewing only and do not change real device settings.</p>
+ </div>`;
+ $("iosDetailBack").onclick=()=>openSettings();
 }
 
 function openOnlineWallpaperSettings(){
