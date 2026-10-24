@@ -238,7 +238,7 @@
         </div>
       </div>
       <div class="wa-me-card" id="myProfile">
-        <div class="profile-avatar"><img src="./avatars/rice-whatsapp.JPG" alt="Your profile" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"></div>
+        <div class="profile-avatar"><img src="./avatars/rice-what’s.JPG" alt="Your profile" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"></div>
         <div class="wa-me-copy"><b id="myName">declanrice</b><span>你的个人资料 · 点击编辑</span></div>
         <span class="wa-chevron">›</span>
       </div>
@@ -246,7 +246,7 @@
       <label class="wa-search"><span>⌕</span><input id="waSearchInput" type="search" placeholder="搜索聊天" autocomplete="off"></label>
       <div class="wa-chat-list" id="waChatList">
         <button type="button" class="wa-chat-row" id="openFriend">
-          <span class="friend-avatar wa-contact-avatar"><img src="./avatars/jude-ig.JPG" alt="Jude Bellingham" onerror="this.onerror=null;this.src='./avatars/jude.JPG'"></span>
+          <span class="friend-avatar wa-contact-avatar"><img src="./avatars/jude-what’s.JPG" alt="Jude Bellingham" onerror="this.onerror=null;this.src='./avatars/jude.JPG'"></span>
           <span class="wa-chat-copy"><span class="friend-name" id="friendName">Jude Bellingham</span><span class="wa-chat-preview" id="waLastPreview">点此开始聊天</span></span>
           <span class="wa-chat-meta"><time id="waLastTime">现在</time><span class="wa-chat-check">›</span></span>
         </button>
@@ -2334,6 +2334,66 @@ button.ios-setting-row{cursor:pointer}
  }
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initWhatsAppFix);
  else initWhatsAppFix();
+})();
+</script>
+
+
+
+<style id="whatsapp-avatar-circles-v3">
+#whatsApp .wa-me-card .profile-avatar,
+#whatsApp .wa-chat-row .friend-avatar,
+#chatPage .chat-top .friend-avatar,
+#whatsApp .wa-contact-avatar {
+  display:block!important;
+  flex:0 0 54px!important;
+  width:54px!important;
+  height:54px!important;
+  min-width:54px!important;
+  min-height:54px!important;
+  aspect-ratio:1/1!important;
+  border-radius:50%!important;
+  overflow:hidden!important;
+  padding:0!important;
+  box-sizing:border-box!important;
+  background:#e9ebee!important;
+}
+#whatsApp .wa-me-card .profile-avatar img,
+#whatsApp .wa-chat-row .friend-avatar img,
+#chatPage .chat-top .friend-avatar img,
+#whatsApp .wa-contact-avatar img {
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:100%!important;
+  min-height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  border-radius:50%!important;
+}
+#whatsApp .wa-me-card .profile-avatar{flex-basis:50px!important;width:50px!important;height:50px!important;min-width:50px!important;min-height:50px!important}
+#chatPage .chat-top .friend-avatar{flex-basis:42px!important;width:42px!important;height:42px!important;min-width:42px!important;min-height:42px!important}
+</style>
+<script id="whatsapp-avatar-circles-init-v3">
+(function(){
+  function setWhatsAppAvatars(){
+    const key="iphone-wa-studio-v1";
+    try{
+      const data=JSON.parse(localStorage.getItem(key)||"null");
+      if(data&&data.profile){
+        const p=data.profile;
+        if(!p.avatar||/rice(?:-whatsapp)?\.JPG$/i.test(p.avatar)) p.avatar="./avatars/rice-what’s.JPG";
+        if(!p.contactAvatar||/jude(?:-ig)?\.JPG$/i.test(p.contactAvatar)) p.contactAvatar="./avatars/jude-what’s.JPG";
+        localStorage.setItem(key,JSON.stringify(data));
+      }
+    }catch(e){}
+    const me=document.querySelector("#whatsApp .wa-me-card .profile-avatar img");
+    if(me&&!me.src)me.src="./avatars/rice-what’s.JPG";
+    const contact=document.querySelector("#whatsApp .wa-chat-row .friend-avatar img");
+    if(contact&&!contact.src)contact.src="./avatars/jude-what’s.JPG";
+    if(typeof window.waRenderChat==="function"&&document.getElementById("chatPage")?.classList.contains("active"))window.waRenderChat();
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",setWhatsAppAvatars);
+  else setWhatsAppAvatars();
 })();
 </script>
 
