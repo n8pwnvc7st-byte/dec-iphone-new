@@ -281,15 +281,15 @@
             <span class="ig-inbox-dot"></span>
           </button>
           <button class="ig-inbox-row" data-ig-contact="Bukayo Saka">
-            <img src="./avatars/rice.JPG" alt="Bukayo Saka">
+            <img src="./avatars/saka.JPG" alt="Bukayo Saka">
             <span class="ig-inbox-person"><strong>Bukayo Saka</strong><small>See you at training tomorrow</small></span>
           </button>
           <button class="ig-inbox-row" data-ig-contact="Martin Ødegaard">
-            <img src="./avatars/rice.JPG" alt="Martin Ødegaard">
+            <img src="./avatars/odegaard.JPG" alt="Martin Ødegaard">
             <span class="ig-inbox-person"><strong>Martin Ødegaard</strong><small>Good work today, mate</small></span>
           </button>
           <button class="ig-inbox-row" data-ig-contact="Kai Havertz">
-            <img src="./avatars/rice.JPG" alt="Kai Havertz">
+            <img src="./avatars/havertz.JPG" alt="Kai Havertz">
             <span class="ig-inbox-person"><strong>Kai Havertz</strong><small>👍</small></span>
           </button>
           <button class="ig-inbox-row" data-ig-contact="Riccardo Calafiori">
@@ -299,10 +299,6 @@
           <button class="ig-inbox-row" data-ig-contact="Harry Kane">
             <img src="./avatars/harrykane.JPG" alt="Harry Kane">
             <span class="ig-inbox-person"><strong>Harry Kane</strong><small>Good luck for the next one ⚽</small></span>
-          </button>
-          <button class="ig-inbox-row" data-ig-contact="Riccardo Calafiori">
-            <img src="./avatars/calafiori.JPG" alt="Riccardo Calafiori">
-            <span class="ig-inbox-person"><strong>Riccardo Calafiori</strong><small>See you at training</small></span>
           </button>
         </div>
       </div>
@@ -831,9 +827,9 @@ const ytDefaultVideos = [
  {title:"Inside England Camp 🏴 | Training Day",views:"246K views",age:"1 week ago",duration:"12:16",kind:"match",icon:"🏴",thumb:"./covers/youtube-2.jpg",desc:"Behind the scenes from England camp, warm-ups and team drills."},
  {title:"Declan Rice — Midfield Work & Recovery",views:"93K views",age:"2 weeks ago",duration:"06:31",kind:"rice",icon:"🎯",thumb:"./covers/youtube-3.jpg",desc:"Midfield drills, ball control and recovery work."},
  {title:" rondo, finishing and good vibes at training",views:"71K views",age:"3 weeks ago",duration:"04:58",kind:"training",icon:"🟢",thumb:"./covers/youtube-4.jpg",desc:"A short training montage with the lads."},
- {title:"Matchday Arrival | Arsenal Behind the Scenes",views:"182K views",age:"1 month ago",duration:"05:42",kind:"match",icon:"🏟️",desc:"A fictional matchday-arrival video card."},
- {title:"Declan Rice Passing Challenge",views:"204K views",age:"1 month ago",duration:"07:12",kind:"rice",icon:"🎯",desc:"A simulated passing challenge video card."},
- {title:"England Camp: Day in the Life",views:"311K views",age:"1 month ago",duration:"10:04",kind:"match",icon:"🏴",desc:"A fictional behind-the-scenes camp video card."},
+ {title:"Matchday Arrival | Arsenal Behind the Scenes",views:"182K views",age:"1 month ago",duration:"05:42",kind:"match",icon:"🏟️",thumb:"./covers/youtube-5.jpg",desc:"A fictional matchday-arrival video card."},
+ {title:"Declan Rice Passing Challenge",views:"204K views",age:"1 month ago",duration:"07:12",kind:"rice",icon:"🎯",thumb:"./covers/youtube-6.jpg",desc:"A simulated passing challenge video card."},
+ {title:"England Camp: Day in the Life",views:"311K views",age:"1 month ago",duration:"10:04",kind:"match",icon:"🏴",thumb:"./covers/youtube-7.jpg",desc:"A fictional behind-the-scenes camp video card."},
  {title:"The Lads Play a Football Challenge",views:"98K views",age:"2 months ago",duration:"09:31",kind:"training",icon:"😂",desc:"A simulated team challenge video card."},
  {title:"Midfield Masterclass | Training Drills",views:"156K views",age:"2 months ago",duration:"06:18",kind:"rice",icon:"⚽",desc:"A fictional training-drill video card."},
  {title:"Away Day Vlog | Travel with the Squad",views:"87K views",age:"2 months ago",duration:"11:22",kind:"match",icon:"🚌",desc:"A simulated travel vlog video card."},
@@ -1232,7 +1228,7 @@ const CALL_VIDEO_BANK = {
 };
 function chooseCallVideo(name, fallback){const choices=CALL_VIDEO_BANK[name]||[fallback];return choices[Math.floor(Math.random()*choices.length)];}
 function callerFallbackVideo(){const caller=window.currentIgCallName||CONFIG.instagram?.callerName||"Jude Bellingham";const map={"Jude Bellingham":"./call-videos/jude.MOV","Declan Rice":"./call-videos/rice.mov","Kai Havertz":"./call-videos/havertz-call.MP4","Harry Kane":"./call-videos/harrykane-call.MP4","Riccardo Calafiori":"./call-videos/calafiori-call.MP4"};return map[caller]||"./call-videos/jude.MOV";}
-function startIncoming(){stopCall(false);$("incoming").classList.add("active");$("videoCall").classList.remove("active");const caller=window.currentIgCallName||CONFIG.instagram?.callerName||"Jude Bellingham";$("incomingName").textContent=caller;$("videoCaller").textContent=caller;window.activeCallVideos={main:chooseCallVideo(caller,CONFIG.instagram?.video||"./call-videos/jude-call.MP4"),pip:chooseCallVideo("Declan Rice","./call-videos/rice-call.MP4")};const avatarMap={"Jude Bellingham":avatarSrc("jude","instagram"),"Bukayo Saka":"./avatars/saka.JPG","Martin Ødegaard":"./avatars/odegaard.JPG","Kai Havertz":"./avatars/havertz.JPG","William Saliba":"./avatars/rice.JPG","Harry Kane":"./avatars/harrykane.JPG","Mason Mount":"./avatars/rice.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Declan Rice":avatarSrc("rice","instagram")};$("incomingAvatar").src=avatarMap[caller]||CONFIG.instagram?.avatar||"./avatars/jude.JPG";$("incomingAvatar").onerror=()=>{$("incomingAvatar").src="";$("incomingAvatar").style.background="linear-gradient(135deg,#55475f,#b8a5a3)";};}
+function startIncoming(){stopCall(false);$("incoming").classList.add("active");$("videoCall").classList.remove("active");const caller=window.currentIgCallName||CONFIG.instagram?.callerName||"Jude Bellingham";$("incomingName").textContent=caller;$("videoCaller").textContent=caller;window.activeCallVideos={main:chooseCallVideo(caller,CONFIG.instagram?.video||"./call-videos/jude-call.MP4"),pip:chooseCallVideo("Declan Rice","./call-videos/rice-call.MP4")};const avatarMap={"Jude Bellingham":avatarSrc("jude","instagram"),"Bukayo Saka":"./avatars/saka.JPG","Martin Ødegaard":"./avatars/odegaard.JPG","Kai Havertz":"./avatars/havertz.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Harry Kane":"./avatars/harrykane.JPG","Mason Mount":"./avatars/rice.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Declan Rice":avatarSrc("rice","instagram")};$("incomingAvatar").src=avatarMap[caller]||CONFIG.instagram?.avatar||"./avatars/jude.JPG";$("incomingAvatar").onerror=()=>{$("incomingAvatar").src="";$("incomingAvatar").style.background="linear-gradient(135deg,#55475f,#b8a5a3)";};}
 function stopCall(reset=true){if(callTicker){clearInterval(callTicker);callTicker=null}msgTimers.forEach(clearTimeout);msgTimers=[];presetIndex=0;const v=$("mainVideo");const p=$("pipVideo");[v,p].forEach(el=>{el.pause();el.removeAttribute("src");el.load()});$("incoming").classList.remove("active");$("videoCall").classList.remove("active");$("chatOverlay").innerHTML="";if(reset&&currentScreen==="instagramApp")showScreen("desktop")}
 $("declineCall").addEventListener("click",()=>{stopCall();showScreen("desktop")});
 $("acceptCall").addEventListener("click",async()=>{ $("incoming").classList.remove("active");$("videoCall").classList.add("active");const main=$("mainVideo"),pip=$("pipVideo");main.src=(window.activeCallVideos&&window.activeCallVideos.main)||CONFIG.instagram.video||"./call-videos/jude-call.MP4";pip.src=(window.activeCallVideos&&window.activeCallVideos.pip)||CONFIG.instagram.selfVideo||"./call-videos/rice-call.MP4";main.onerror=()=>{if(!main.dataset.fallbackTried){main.dataset.fallbackTried="1";main.src=callerFallbackVideo();}};pip.onerror=()=>{if(!pip.dataset.fallbackTried){pip.dataset.fallbackTried="1";pip.src="./call-videos/rice.mov";}};main.muted=true;pip.muted=true;main.loop=true;pip.loop=true;main.playsInline=true;pip.playsInline=true;await Promise.allSettled([main.play(),pip.play()]);callStart=Date.now();$("callTimer").textContent="00:00";if(callTicker)clearInterval(callTicker);callTicker=setInterval(()=>{const s=Math.floor((Date.now()-callStart)/1000);$("callTimer").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")},1000);scheduleMessages()});
