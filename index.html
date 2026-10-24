@@ -548,7 +548,7 @@ function igPostAuthor(post){
  if(n.startsWith("havertz-"))return {name:"Kai Havertz",handle:"kaihavertz",avatar:"./avatars/havertz.JPG",fallback:"./avatars/havertz.JPG"};
  if(n.startsWith("calafiori-"))return {name:"Riccardo Calafiori",handle:"riccardocalafiori",avatar:"./avatars/calafiori.JPG",fallback:"./avatars/calafiori.JPG"};
  if(n.startsWith("harry-"))return {name:"Harry Kane",handle:"harrykane",avatar:"./avatars/harrykane.JPG",fallback:"./avatars/harrykane.JPG"};
- if(n.startsWith("djed-"))return {name:"Djed Spence",handle:"djedspence",avatar:"./avatars/djed.JPG",fallback:"./avatars/jude.JPG"};
+ if(n.startsWith("djed-"))return {name:"Djed Spence",handle:"djedspence",avatar:"./avatars/djed-ig.JPG",fallback:"./avatars/rice.JPG"};
  if(n.startsWith("rice-"))return {name:"Declan Rice",handle:"declanrice",avatar:"./avatars/rice-ig.JPG",fallback:"./avatars/rice.JPG"};
  return {name:"Arsenal",handle:"arsenal",avatar:"./avatars/rice.JPG",fallback:"./avatars/rice.JPG"};
 }
@@ -714,7 +714,7 @@ document.querySelectorAll(".ig-inbox-row").forEach(row=>row.addEventListener("cl
     const avatar=header.querySelector("img");
     if(title)title.textContent=name;
     if(handle)handle.textContent=name==="Jude Bellingham"?"@judebellingham":"@"+name.toLowerCase().replace(/[^a-z0-9]+/g,"");
-    if(avatar){const map={"Jude Bellingham":"./avatars/jude-ig.JPG","Bukayo Saka":"./avatars/saka.JPG","Martin Ødegaard":"./avatars/odegaard.JPG","Kai Havertz":"./avatars/havertz.JPG","William Saliba":"./avatars/rice.JPG","Harry Kane":"./avatars/harrykane.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Djed Spence":"./avatars/rice.JPG"};avatar.src=map[name]||"./avatars/rice.JPG";avatar.onerror=()=>{avatar.onerror=null;avatar.src="./avatars/rice.JPG";};avatar.alt=name;}
+    if(avatar){const map={"Jude Bellingham":"./avatars/jude-ig.JPG","Bukayo Saka":"./avatars/saka.JPG","Martin Ødegaard":"./avatars/odegaard.JPG","Kai Havertz":"./avatars/havertz.JPG","William Saliba":"./avatars/rice.JPG","Harry Kane":"./avatars/harrykane.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Djed Spence":"./avatars/djed-ig.JPG"};avatar.src=map[name]||"./avatars/rice.JPG";avatar.onerror=()=>{avatar.onerror=null;avatar.src="./avatars/rice.JPG";};avatar.alt=name;}
   }
   openInstagramDM();
 }));
