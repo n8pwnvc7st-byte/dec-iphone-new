@@ -1049,9 +1049,16 @@ function renderTikTok(){
  let uploaded=[];try{uploaded=JSON.parse(localStorage.getItem(savedKey)||"[]")}catch(e){}
  let activeTab="For You",activeChat=null,clipIndex=0;
  const people=[
-  {name:"Declan Rice",handle:"@declanrice",avatar:avatarImgTag("rice","tiktok","Declan Rice"),caption:"Training day. Focus on the next one. ⚽"},
-  {name:"Jude Bellingham",handle:"@judebellingham",avatar:avatarImgTag("jude","tiktok","Jude Bellingham"),caption:"Good work with the lads today 🏴"},
-  {name:"Bukayo Saka",handle:"@bukayosaka",avatar:"BS",caption:"Always together. ❤️"}
+  {key:"rice",name:"Declan Rice",handle:"@declanrice",avatar:'<img src="./avatars/rice-tiktok.JPG" alt="Declan Rice" onerror="this.onerror=null;this.src=\'./avatars/rice-ig.JPG\'">',caption:"Training day. Focus on the next one. ⚽"},
+  {key:"jude",name:"Jude Bellingham",handle:"@judebellingham",avatar:'<img src="./avatars/jude-tiktok.JPG" alt="Jude Bellingham" onerror="this.onerror=null;this.src=\'./avatars/jude-ig.JPG\'">',caption:"Good work with the lads today 🏴"},
+  {key:"saka",name:"Bukayo Saka",handle:"@bukayosaka",avatar:'<img src="./avatars/saka.JPG" alt="Bukayo Saka">',caption:"Always together. ❤️"},
+  {key:"calafiori",name:"Riccardo Calafiori",handle:"@riccardocalafiori",avatar:'<img src="./avatars/calafiori.JPG" alt="Riccardo Calafiori">',caption:"Back to work. 🔴⚪"},
+  {key:"jamal",name:"Jamal Musiala",handle:"@jamalmusiala",avatar:'<img src="./avatars/jamal.JPG" alt="Jamal Musiala">',caption:"Enjoying the game. ✨"},
+  {key:"olise",name:"Michael Olise",handle:"@m.olise",avatar:'<img src="./avatars/olise.JPG" alt="Michael Olise">',caption:"One step at a time. 👊"},
+  {key:"odegaard",name:"Martin Ødegaard",handle:"@martinodegaard",avatar:'<img src="./avatars/odegaard.JPG" alt="Martin Ødegaard">',caption:"Small details make the difference."},
+  {key:"havertz",name:"Kai Havertz",handle:"@kaihavertz",avatar:'<img src="./avatars/havertz.JPG" alt="Kai Havertz">',caption:"Team first. Always. 🔴⚪"},
+  {key:"kane",name:"Harry Kane",handle:"@harrykane",avatar:'<img src="./avatars/harrykane.JPG" alt="Harry Kane">',caption:"Onto the next challenge. 🦁"},
+  {key:"lamine",name:"Lamine Yamal",handle:"@lamineyamal",avatar:'<img src="./avatars/lamine.JPG" alt="Lamine Yamal">',caption:"Keep enjoying the football."}
  ];
  const REPO_TIKTOK_VIDEOS = [
   {name:"Arsenal vs Real Madrid",type:"video/mp4",url:"./tiktok-videos/arsenal-RM.MP4"},
@@ -1079,6 +1086,22 @@ function renderTikTok(){
   {name:"Rice with teammates",type:"video/mp4",url:"./tiktok-videos/rice-teammate.MP4"},
   {name:"Ricky · Arsenal",type:"video/mp4",url:"./tiktok-videos/ricky-arsenal.MP4"}
  ];
+ const videoCreatorMap={
+  "arsenal-RM.MP4":"jude","calafiori-daily.MP4":"calafiori","decccc.MP4":"rice",
+  "england-training.MP4":"rice","jamal-funny.MP4":"jamal","jude-daily.MP4":"jude",
+  "jude-edit.MP4":"jude","jude-foot.MP4":"jude","jude-funny.MP4":"jude",
+  "jude-goat.MP4":"jude","jude-handsome.MP4":"jude","jude-honey.MP4":"jude",
+  "jude-interview.MP4":"jude","jude-video.MP4":"jude","jude-walk.MP4":"jude",
+  "olise-walk.MP4":"olise","rice-basket.MP4":"rice","rice-daily.MP4":"rice",
+  "rice-highlights.MP4":"rice","rice-jude.MP4":"rice","rice-lifestyle.MP4":"rice",
+  "rice-rings.MP4":"rice","rice-teammate.MP4":"rice","ricky-arsenal.MP4":"calafiori"
+ };
+ function creatorForClip(clip){
+  if(!clip)return people[0];
+  const filename=String(clip.url||"").split("/").pop();
+  const key=clip.creator||videoCreatorMap[filename]||(/jude/i.test(clip.name||"")?"jude":/saka/i.test(clip.name||"")?"saka":/calafiori|ricky/i.test(clip.name||"")?"calafiori":/jamal|musiala/i.test(clip.name||"")?"jamal":/olise/i.test(clip.name||"")?"olise":/rice|arsenal/i.test(clip.name||"")?"rice":"rice");
+  return people.find(person=>person.key===key)||people[0];
+ }
  const clips=()=>[...REPO_TIKTOK_VIDEOS,...uploaded];
  function nav(){return '<div class="tt-nav"><button data-tt-tab="For You">⌂<small>For You</small></button><button data-tt-tab="Friends">♧<small>Friends</small></button><button data-tt-tab="Upload">＋<small>Upload</small></button><button data-tt-tab="Inbox">✉<small>Inbox</small></button><button data-tt-tab="Profile">●<small>Profile</small></button></div>'}
  function setTab(t){activeTab=t;render()}
@@ -1098,7 +1121,7 @@ function renderTikTok(){
    c.innerHTML='<div class="tiktok-screen"><header style="padding:10px 0 18px"><b style="font-size:21px">Upload videos</b></header><p style="color:#bbb;font-size:13px;line-height:1.5">Choose video files to add them to this simulated feed. For a published website, you can also upload clips to the GitHub repository and provide their relative paths in the code.</p><label style="display:block;background:#fe2c55;color:white;text-align:center;padding:14px;border-radius:9px;font-weight:bold">Choose videos<input id="ttVideoUpload" type="file" accept="video/*" multiple style="display:none"></label><div id="ttUploadList" style="margin-top:15px;color:#aaa;font-size:13px">'+(uploaded.length?uploaded.map(v=>'<p>✓ '+escapeHtml(v.name||"Video")+'</p>').join(""):'No videos added yet')+'</div></div>'+nav();
   }else{
    const allClips=clips();const v=allClips.length?allClips[clipIndex%allClips.length]:null;
-   const p=people[clipIndex%people.length];
+   const p=v?creatorForClip(v):people[clipIndex%people.length];
    const demoClips=[
     ["England Training Day","Quick passing, sharp movement and a lot of work. ⚽","linear-gradient(145deg,#132d43,#647f8b)"],
     ["Matchday Arrival","The focus before kick-off. 🏟️","linear-gradient(145deg,#3b1d2a,#a84d54)"],
@@ -2436,4 +2459,27 @@ button.ios-setting-row{cursor:pointer}
  else fixXProfile();
 })();
 </script>
+
+
+
+<style id="tiktok-fullscreen-mapping-v1">
+#decorApp #decorContent .tiktok-screen{position:relative!important;height:100%!important;min-height:100%!important;box-sizing:border-box!important;overflow:hidden!important;padding:0!important;background:#080808!important;color:#fff!important}
+#decorApp #decorContent .tiktok-screen>header:first-child{position:absolute!important;left:0!important;right:0!important;top:0!important;z-index:8!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;height:52px!important;padding:0 12px!important;background:linear-gradient(180deg,rgba(0,0,0,.55),transparent)!important}
+#decorApp #decorContent .tt-tabs{display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(9px,2.8vw,22px)!important;max-width:100%!important;white-space:nowrap!important;overflow:hidden!important;padding:0!important;margin:0!important;color:#ddd!important;font-size:clamp(12px,3.3vw,16px)!important}
+#decorApp #decorContent .tt-tabs button{padding:8px 0!important;background:transparent!important;border:0!important;color:#ddd!important;white-space:nowrap!important;font-size:inherit!important}
+#decorApp #decorContent .tt-tabs button.selected{color:#fff!important;font-weight:800!important;border-bottom:3px solid #fff!important}
+#decorApp #decorContent .tt-video{position:absolute!important;inset:0 0 68px 0!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;border-radius:0!important;background:#111!important;display:block!important;overflow:hidden!important}
+#decorApp #decorContent .tt-video>video{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;background:#111!important}
+#decorApp #decorContent .tt-video-placeholder{position:absolute!important;inset:0!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;width:100%!important;height:100%!important;padding:24px!important}
+#decorApp #decorContent .tt-overlay{left:14px!important;right:72px!important;bottom:22px!important;z-index:3!important;text-shadow:0 1px 6px #000!important;font-size:14px!important}
+#decorApp #decorContent .tt-overlay>b{font-size:15px!important;font-weight:800!important}
+#decorApp #decorContent .tt-actions{right:10px!important;bottom:24px!important;z-index:4!important;gap:18px!important}
+#decorApp #decorContent .tt-avatar{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;flex:0 0 44px!important;border-radius:50%!important;overflow:hidden!important;background:#343a44!important;display:grid!important;place-items:center!important;border:2px solid #fff!important}
+#decorApp #decorContent .tt-avatar img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;border-radius:50%!important}
+#decorApp #decorContent .tt-nav{position:absolute!important;left:0!important;right:0!important;bottom:0!important;height:68px!important;box-sizing:border-box!important;padding:8px 3px calc(8px + env(safe-area-inset-bottom))!important;display:flex!important;justify-content:space-around!important;align-items:center!important;background:#050505!important;border-top:1px solid #222!important;z-index:20!important}
+#decorApp #decorContent .tt-nav button{min-width:0!important;flex:1 1 20%!important;display:flex!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:4px!important;color:#fff!important;font-size:22px!important;padding:0!important}
+#decorApp #decorContent .tt-nav button[data-tt-tab="Upload"]{font-size:28px!important;color:#111!important;background:linear-gradient(90deg,#25f4ee 0 15%,#fff 15% 85%,#fe2c55 85%)!important;border-radius:8px!important;height:30px!important;max-width:48px!important;margin:0 auto!important}
+#decorApp #decorContent .tt-nav small{font-size:10px!important;color:#fff!important;white-space:nowrap!important}
+@media(max-width:390px){#decorApp #decorContent .tt-tabs{gap:10px!important;font-size:12px!important}#decorApp #decorContent .tt-overlay{right:66px!important;bottom:17px!important}#decorApp #decorContent .tt-actions{right:8px!important;gap:15px!important}}
+</style>
 
