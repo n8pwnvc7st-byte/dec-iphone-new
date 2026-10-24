@@ -1848,7 +1848,7 @@ button.ios-setting-row{cursor:pointer}
   <label>Delay after script starts (seconds)<input id="studioDelay" type="number" min="0" max="86400" value="5"></label>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button id="studioSave" class="msgStudioPrimary">Save message</button><button id="studioRun" class="msgStudioSecondary">Run script</button><button id="studioStop" class="msgStudioSecondary">Stop script</button></div>
   <div style="margin-top:16px;font-weight:700">Saved scripts</div><div id="studioSavedList"></div>
-  <p style="font-size:12px;color:#a9b2c0;line-height:1.5">Demo only: messages appear inside this simulated phone. Timers run only while this page remains open. Saved rules are stored in this browser, not synced to other visitors.</p>
+  <p style="font-size:12px;color:#a9b2c0;line-height:1.5">Demo only: Jude random messages can appear as cross-app notifications and are saved in both iMessage and WhatsApp on this device. Timers run only while this page remains open; saved rules are stored in this browser, not synced to other visitors.</p>
  </div>
 </div>
 <script>
@@ -1905,14 +1905,15 @@ button.ios-setting-row{cursor:pointer}
   function randomText(){const keys=Object.keys(pools);const key=pick(keys);return pick(pools[key]);}
   function history(){try{const old=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");return Array.isArray(old)?old:[ ["them","You still awake? 😂"],["mine","Yeah, what’s up?"],["them","Training tomorrow. Don’t be late."],["them","Dinner after training? I’ll send you the place."] ];}catch(e){return [];}}
   function updateButtons(){document.querySelectorAll("[data-jude-pause]").forEach(b=>{b.textContent=paused?"▶ Resume random":"⏸ Pause Jude messages";});}
-  function toast(text){let t=document.getElementById("judeRandomToast");if(!t){t=document.createElement("div");t.id="judeRandomToast";t.style.cssText="position:fixed;z-index:100001;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);transform:translateX(-50%);width:min(350px,88vw);padding:12px 15px;border-radius:16px;background:#20242c;color:#fff;box-shadow:0 8px 30px #0006;font:13px/1.4 -apple-system,BlinkMacSystemFont,sans-serif;display:none";document.body.appendChild(t);}t.innerHTML='<b>Jude 🐷 · iMessage</b><div style="margin-top:4px">'+esc(text)+'</div>';t.style.display="block";clearTimeout(t._hideTimer);t._hideTimer=setTimeout(()=>t.style.display="none",4500);}
+  function toast(text,source){let t=document.getElementById("judeRandomToast");if(!t){t=document.createElement("div");t.id="judeRandomToast";t.style.cssText="position:fixed;z-index:100001;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);transform:translateX(-50%);width:min(350px,88vw);padding:12px 15px;border-radius:16px;background:#20242c;color:#fff;box-shadow:0 8px 30px #0006;font:13px/1.4 -apple-system,BlinkMacSystemFont,sans-serif;display:none;cursor:pointer";document.body.appendChild(t);t.addEventListener("click",()=>{t.style.display="none";if(typeof window.openApp==="function")window.openApp(t.dataset.app||"messagesApp","Messages");});}t.dataset.app=source==="whatsapp"?"whatsapp":"messagesApp";t.innerHTML='<b>Jude 🐷 · '+(source==="whatsapp"?"WhatsApp":"iMessage")+'</b><div style="margin-top:4px">'+esc(text)+'</div><div style="font-size:11px;opacity:.7;margin-top:5px">Tap to open conversation</div>';t.style.display="block";clearTimeout(t._hideTimer);t._hideTimer=setTimeout(()=>t.style.display="none",6000);}
   function sendRandom(manual){
     const text=randomText();
     const h=history();h.push(["them",text]);if(h.length>250)h.splice(0,h.length-250);
     localStorage.setItem(STORAGE_KEY,JSON.stringify(h));
-    // Refresh an open Jude conversation immediately; otherwise leave an unread-style toast.
+    if(typeof window.waAddIncomingMessage==="function")window.waAddIncomingMessage(text);
     if(typeof window.__judeReloadHistory==="function")window.__judeReloadHistory();
-    toast(text);
+    const waPage=document.getElementById("chatPage");
+    toast(text,waPage&&waPage.classList.contains("active")?"whatsapp":"imessage");
     document.querySelectorAll("[data-jude-unread]").forEach(el=>{el.textContent="New message";});
     return text;
   }
