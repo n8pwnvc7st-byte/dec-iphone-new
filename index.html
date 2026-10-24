@@ -2521,3 +2521,61 @@ button.ios-setting-row{cursor:pointer}
 })();
 </script>
 
+
+
+<style id="spotify-youtube-exit-fix-v1">
+/* Keep the expanded music player inside the phone viewport. */
+#spotifyDetail.spotify-detail{
+ box-sizing:border-box!important;
+ overflow-y:auto!important;
+ overflow-x:hidden!important;
+ overscroll-behavior:contain!important;
+ padding:calc(var(--safe-top) + 12px) 20px calc(var(--safe-bottom) + 30px)!important;
+}
+#spotifyDetail .spotify-detail-top{min-height:38px!important;position:relative!important;z-index:2!important}
+#spotifyDetail .spotify-big-cover{
+ box-sizing:border-box!important;
+ width:min(68vw, 32vh, 280px)!important;
+ height:min(68vw, 32vh, 280px)!important;
+ max-width:100%!important;
+ margin:clamp(14px,3.5vh,28px) auto clamp(18px,4vh,30px)!important;
+ overflow:hidden!important;
+ flex-shrink:0!important;
+}
+#spotifyDetail .spotify-big-cover img{
+ display:block!important;
+ width:100%!important;
+ height:100%!important;
+ max-width:100%!important;
+ max-height:100%!important;
+ object-fit:cover!important;
+ object-position:center!important;
+}
+#spotifyDetail .spotify-song-title{font-size:clamp(20px,5.5vw,24px)!important;line-height:1.25!important}
+#spotifyDetail .progress-wrap{margin-top:clamp(18px,3vh,28px)!important}
+#spotifyDetail .player-controls{margin-top:clamp(16px,3vh,25px)!important}
+#spotifyDetail .homebar{position:sticky!important;display:block!important;bottom:0!important;margin:20px auto 0!important;left:auto!important;transform:none!important;flex-shrink:0!important}
+#ytPlayer.yt-player{z-index:1000!important;box-sizing:border-box!important;overflow-y:auto!important;overscroll-behavior:contain!important;padding-bottom:calc(var(--safe-bottom) + 20px)!important}
+#ytPlayer .yt-player-top{position:sticky!important;top:0!important;z-index:5!important;min-height:56px!important;background:#080808f2!important;backdrop-filter:blur(12px)!important;padding:calc(var(--safe-top) + 8px) 16px 10px!important}
+#ytPlayer .yt-player-top button{min-width:44px!important;min-height:42px!important;border-radius:22px!important;background:#252525!important;color:#fff!important;font-size:27px!important;display:grid!important;place-items:center!important}
+#ytPlayer .yt-player-video{display:block!important;width:100%!important;max-height:42vh!important;aspect-ratio:16/9!important;object-fit:contain!important;flex-shrink:0!important}
+#ytPlayer .yt-player-info{padding:16px 18px 30px!important}
+#ytPlayer .yt-player-title{overflow-wrap:anywhere!important}
+#ytPlayerClose{font-size:30px!important}
+#decorApp.youtube-mode>.homebar{z-index:1100!important;pointer-events:auto!important}
+</style>
+<script id="spotify-youtube-exit-fix-init-v1">
+(function(){
+ function closeMusic(){var d=document.getElementById("spotifyDetail");if(d)d.classList.remove("active");}
+ function closeYoutube(){var p=document.getElementById("ytPlayer");var v=document.getElementById("ytPlayerVideo");if(v){try{v.pause();}catch(e){}try{v.webkitExitFullscreen&&v.webkitExitFullscreen();}catch(e){}}if(p)p.classList.remove("active");}
+ document.addEventListener("keydown",function(e){if(e.key==="Escape"||e.key==="Backspace"){var p=document.getElementById("ytPlayer");if(p&&p.classList.contains("active")){e.preventDefault();closeYoutube();return;}var d=document.getElementById("spotifyDetail");if(d&&d.classList.contains("active")){e.preventDefault();closeMusic();}}});
+ document.addEventListener("click",function(e){
+  var ytClose=e.target.closest("#ytPlayerBack,#ytPlayerClose,[data-yt-exit]");
+  if(ytClose){e.preventDefault();e.stopPropagation();closeYoutube();return;}
+  var home=e.target.closest("#decorApp.youtube-mode>.homebar");
+  if(home){closeYoutube();}
+ });
+ window.addEventListener("popstate",function(){closeYoutube();closeMusic();});
+})();
+</script>
+
