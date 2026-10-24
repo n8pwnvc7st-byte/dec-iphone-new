@@ -1176,6 +1176,7 @@ function renderTikTok(){
  const c=$("decorContent");if(!c)return;
  $("decorTitle").textContent="TikTok";
  $("decorApp").classList.remove("skysports-mode","youtube-mode","notes-mode","maps-mode");
+ $("decorApp").classList.add("tiktok-mode");
  const savedKey="riceTikTokVideos";
  let uploaded=[];try{uploaded=JSON.parse(localStorage.getItem(savedKey)||"[]")}catch(e){}
  let activeTab="For You",activeChat=null,clipIndex=0;
