@@ -220,6 +220,24 @@
 .yt-home-bottom{position:fixed;z-index:1000;left:0;right:0;bottom:calc(var(--safe-bottom) + 0px);height:66px;background:#181818f7;border-top:1px solid #3b3b3b;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;padding:3px 3px 5px;backdrop-filter:blur(14px)}.yt-home-bottom button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;background:transparent;color:#f1f1f1;height:100%}.yt-home-bottom button>span{font-size:27px;line-height:28px}.yt-home-bottom button small{font-size:10px;white-space:nowrap}.yt-home-bottom button.active{color:#fff}.yt-home-bottom .yt-create{font-size:28px;background:#333;border-radius:50%;width:48px;height:48px;justify-self:center;align-self:center}.yt-home-bottom .yt-you-avatar{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#6841b6;color:#fff;font-size:15px;font-weight:700}
 @media(min-width:600px){.yt-home-page{max-width:720px;margin:auto}.yt-home-bottom{left:50%;right:auto;width:min(100%,720px);transform:translateX(-50%)}}
 </style>
+<style id="home-second-page-v1">
+.desktop{gap:12px!important}
+.home-pages-viewport{flex:1;min-height:0;width:100%;overflow:hidden;position:relative;touch-action:pan-y}
+.home-pages-track{display:flex;width:200%;height:100%;min-height:0;transition:transform .28s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.home-page{width:50%;min-width:50%;height:100%;min-height:0;display:flex;flex-direction:column;gap:22px;box-sizing:border-box}
+.home-page .widgets{flex-shrink:0}
+.home-page .apps{flex:1;align-content:start}
+.home-page-two{padding-top:10px}
+.second-page-apps{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px 10px;align-content:start}
+.home-page-indicator{height:12px;display:flex;align-items:center;justify-content:center;gap:7px;flex-shrink:0}
+.home-page-indicator button{width:6px;height:6px;padding:0;border:0;border-radius:50%;background:#ffffff65}
+.home-page-indicator button.active{width:7px;height:7px;background:#fff}
+.icon-fc27{background:linear-gradient(145deg,#151515,#2e4535);color:#d8ff63;font-size:24px;font-weight:900;letter-spacing:-2px;border:1px solid #a7d84866}
+.icon-facebook{background:#1877f2;color:white;font-family:Arial,sans-serif;font-size:43px;font-weight:800;align-items:end;line-height:1.02}
+.icon-uber{background:#fff;color:#111;font-size:32px;font-weight:800}
+.icon-amazon{background:#fff;color:#111;font-size:38px;font-weight:800;position:relative}
+.icon-amazon:after{content:"";position:absolute;width:27px;height:8px;border-bottom:3px solid #ff9900;border-radius:50%;bottom:12px;left:18px;transform:rotate(7deg)}
+</style>
 </head>
 <body>
 <div class="phone" id="phone">
@@ -468,11 +486,39 @@ function updateClock(){const d=new Date();const t=d.toLocaleTimeString(currentLa
 function appIcon(id,name,emoji,cls){const mark=emoji;return `<div class="app-icon-wrap" data-app="${id}" data-label="${name}"><button class="app-icon ${cls}" aria-label="${name}">${mark}</button><div class="app-name">${name}</div></div>`}
 function renderDesktop(){
  const apps=[["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["whatsApp","WhatsApp","◉","icon-wa"],["decorApp","YouTube","▶","icon-youtube"],["spotifyApp","Spotify","≋","icon-spotify"],["xApp","X","𝕏","icon-x"],["instagramApp","Instagram","◎","icon-instagram"],["photosApp","Photos","✿","icon-photos"],["decorApp","Notes","▤","icon-notes"],["decorApp","Maps","⌖","icon-maps"],["decorApp","Settings","⚙","icon-settings"]];
+ const page2=[["FC 27","FC","icon-fc27"],["Facebook","f","icon-facebook"],["Uber","U","icon-uber"],["Amazon","a","icon-amazon"]];
  $("appsGrid").innerHTML=apps.map(a=>appIcon(a[0],a[1],a[2],a[3])).join("");
  $("dock").innerHTML=[["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["decorApp","TikTok","♪","icon-tiktok"]].map(a=>`<div class="app-icon-wrap" data-app="${a[0]}" data-label="${a[1]}"><button class="app-icon ${a[3]}" aria-label="${a[1]}">${a[2]}</button></div>`).join("");
  $("events").innerHTML=(CONFIG.events||[]).slice(0,3).map(e=>`<div class="event"><span class="event-time">${safeText(e.time)}</span><span>${safeText(e.title)}</span></div>`).join("");
  $("weatherPlace").textContent=titleCase(CONFIG.weather?.place||"London");$("weatherTemp").textContent=CONFIG.weather?.temp||"";$("weatherDesc").textContent=titleCase(CONFIG.weather?.desc||"");$("weatherHL").textContent=`High ${CONFIG.weather?.high||""} · Low ${CONFIG.weather?.low||""}`;
- document.querySelectorAll("[data-app]").forEach(el=>el.addEventListener("click",()=>openApp(el.dataset.app,el.dataset.label||el.querySelector(".app-name")?.textContent||"")));
+ const desktop=$("desktop"),widgets=desktop.querySelector(".widgets"),appsGrid=$("appsGrid"),dock=$("dock");
+ let viewport=$("homePagesViewport");
+ if(!viewport){
+  viewport=document.createElement("div");viewport.id="homePagesViewport";viewport.className="home-pages-viewport";
+  const track=document.createElement("div");track.id="homePagesTrack";track.className="home-pages-track";
+  const first=document.createElement("div");first.id="homePageOne";first.className="home-page home-page-one";
+  const second=document.createElement("div");second.id="homePageTwo";second.className="home-page home-page-two";
+  first.appendChild(widgets);first.appendChild(appsGrid);
+  const grid=document.createElement("div");grid.id="secondPageApps";grid.className="apps second-page-apps";
+  grid.innerHTML=page2.map(a=>`<div class="app-icon-wrap" data-coming-soon="${a[0]}"><button class="app-icon ${a[2]}" aria-label="${a[0]}">${a[1]}</button><div class="app-name">${a[0]}</div></div>`).join("");
+  second.appendChild(grid);track.appendChild(first);track.appendChild(second);viewport.appendChild(track);
+  desktop.insertBefore(viewport,dock);
+  const indicator=document.createElement("div");indicator.id="homePageIndicator";indicator.className="home-page-indicator";indicator.innerHTML='<button class="active" aria-label="Page 1"></button><button aria-label="Page 2"></button>';desktop.insertBefore(indicator,dock);
+ }
+ const track=$("homePagesTrack"),indicator=$("homePageIndicator");
+ let page=0;
+ function setPage(next){page=next?1:0;track.style.transform=page?"translateX(-50%)":"translateX(0)";indicator.querySelectorAll("button").forEach((b,i)=>b.classList.toggle("active",i===page));}
+ indicator.querySelectorAll("button").forEach((b,i)=>b.onclick=()=>setPage(i));
+ if(!viewport.dataset.swipeBound){
+  viewport.dataset.swipeBound="1";let sx=0,sy=0;
+  viewport.addEventListener("touchstart",e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+  viewport.addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.25)setPage(dx<0?1:0);},{passive:true});
+  viewport.addEventListener("pointerdown",e=>{if(e.pointerType==="mouse"){sx=e.clientX;sy=e.clientY;}},{passive:true});
+  viewport.addEventListener("pointerup",e=>{if(e.pointerType==="mouse"){const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.25)setPage(dx<0?1:0);}},{passive:true});
+ }
+ setPage(0);
+ document.querySelectorAll("[data-app]").forEach(el=>{if(el.dataset.appBound)return;el.dataset.appBound="1";el.addEventListener("click",()=>openApp(el.dataset.app,el.dataset.label||el.querySelector(".app-name")?.textContent||""));});
+ document.querySelectorAll("[data-coming-soon]").forEach(el=>{if(el.dataset.bound)return;el.dataset.bound="1";el.addEventListener("click",()=>{const name=el.dataset.comingSoon;const note=document.getElementById("comingSoonToast");if(note)note.remove();const toast=document.createElement("div");toast.id="comingSoonToast";toast.textContent=name+" · Coming soon";toast.style.cssText="position:absolute;z-index:9999;left:50%;bottom:calc(var(--safe-bottom) + 100px);transform:translateX(-50%);background:#292929;color:white;padding:12px 18px;border:1px solid #ffffff33;border-radius:22px;font-size:13px;white-space:nowrap;box-shadow:0 5px 20px #0005";desktop.appendChild(toast);setTimeout(()=>toast.remove(),1800);});});
 }
 function titleCase(s){return String(s).replace(/\b\w/g,c=>c.toUpperCase())}
 const PHONE_CONTACTS=[
