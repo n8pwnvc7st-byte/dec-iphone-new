@@ -409,10 +409,10 @@ const CONFIG = {
     playlistName: "Late Night Drives",
     creator: "declanrice",
     songs: [
-      { title: "float 2.0", artist: "Unknown Artist", audio: "./music/float.wav", cover: "./covers/float.JPG", duration: 30 },
-      { title: "Together", artist: "Unknown Artist", audio: "./music/together.wav", cover: "./covers/together.JPG", duration: 30 },
-      { title: "One Sided", artist: "Unknown Artist", audio: "./music/one-sided.wav", cover: "./covers/one-sided.JPG", duration: 30 },
-      { title: "Run It Back #JerseyClub (Slowed)", artist: "Unknown Artist", audio: "./music/run-it-back.wav", cover: "./covers/run-it-back.JPG", duration: 30 }
+      { title: "float 2.0", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/float.wav", cover: "./covers/float.JPG", duration: 30 },
+      { title: "Together", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/together.wav", cover: "./covers/together.JPG", duration: 30 },
+      { title: "One Sided", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/one-sided.wav", cover: "./covers/one-sided.JPG", duration: 30 },
+      { title: "Run It Back #JerseyClub (Slowed)", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/run-it-back.wav", cover: "./covers/run-it-back.JPG", duration: 30 }
     ]
   }
 };
@@ -2723,3 +2723,31 @@ document.addEventListener("click",function(e){if(e.target.closest("#ytPlayerBack
 })();
 </script>
 
+
+<!-- music-audio-playback-recovery-v1 -->
+<script id="music-audio-playback-recovery-v1">
+(function(){
+  function fixAudioPaths(){
+    try{
+      if(typeof CONFIG!=="undefined"&&CONFIG.spotify&&Array.isArray(CONFIG.spotify.songs)){
+        CONFIG.spotify.songs.forEach(function(song){
+          if(!song||!song.audio)return;
+          var m=String(song.audio).match(/(?:^|\/)music\/(float|together|one-sided|run-it-back)\.wav(?:\?.*)?$/i);
+          if(m)song.audio="https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/"+m[1]+".wav";
+        });
+      }
+    }catch(e){}
+  }
+  fixAudioPaths();
+  document.addEventListener("click",function(e){
+    var button=e.target.closest("#bigToggle,#miniToggle,#playAll,[data-track]");
+    if(!button)return;
+    setTimeout(function(){
+      var note=document.getElementById("audioNote");
+      if(note&&/audio could not be loaded|音频加载失败/i.test(note.textContent||"")){
+        note.textContent="正在尝试从素材仓库重新加载音频…";
+      }
+    },100);
+  },true);
+})();
+</script>
