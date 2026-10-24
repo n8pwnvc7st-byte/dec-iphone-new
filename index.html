@@ -809,7 +809,7 @@ function renderXFeed(){
   {name:"Martin Ødegaard",handle:"@MartinOdegaard",text:"Small details make the difference. Back to work tomorrow.",avatar:"./avatars/odegaard.JPG",meta:"1d",likes:"7,321",reposts:"512"},
   {name:"Kai Havertz",handle:"@kaihavertz29",text:"Good work today with the team. 🔴⚪",avatar:"./avatars/havertz.JPG",meta:"2d",likes:"6,704",reposts:"401"},
   {name:"Harry Kane",handle:"@HKane",text:"Always proud to represent England. Onto the next challenge. 🦁",avatar:"./avatars/harrykane.JPG",meta:"2d",likes:"24K",reposts:"2.1K"},
-  {name:"Mason Mount",handle:"@masonmount_10",text:"A lot of work goes into the moments you see on matchday. 💪",avatar:"./avatars/rice.JPG",meta:"3d",likes:"8,201",reposts:"612"},
+
   {name:"Riccardo Calafiori",handle:"@Calafiori",text:"London life. Training first, everything else after. 🔴⚪",avatar:"./avatars/calafiori.JPG",meta:"3d",likes:"7,004",reposts:"388"},
   {name:"Jude Bellingham",handle:"@BellinghamJude",text:"Big nights are why you work every day. 🤍",avatar:"./avatars/jude-ig.JPG",meta:"4d",likes:"31K",reposts:"3.4K"},
   {name:"Declan Rice",handle:"@DR.Ceee",text:"The Emirates under the lights. Special every time. ❤️",avatar:localStorage.getItem("x-profile-avatar")||"./avatars/rice-ig.JPG",meta:"4d",likes:"19K",reposts:"1.8K"},
@@ -817,7 +817,7 @@ function renderXFeed(){
   {name:"Martin Ødegaard",handle:"@MartinOdegaard",text:"Standards every day. That's the job. 👊",avatar:"./avatars/odegaard.JPG",meta:"5d",likes:"6,882",reposts:"504"},
   {name:"Kai Havertz",handle:"@kaihavertz29",text:"Three points with the team. Enjoy tonight, recover tomorrow.",avatar:"./avatars/havertz.JPG",meta:"6d",likes:"10K",reposts:"721"},
   {name:"Harry Kane",handle:"@HKane",text:"Proud of the group and the effort everyone put in. 🏴",avatar:"./avatars/harrykane.JPG",meta:"1w",likes:"26K",reposts:"2.8K"},
-  {name:"Mason Mount",handle:"@masonmount_10",text:"Good to be back out there. One step at a time. ❤️",avatar:"./avatars/rice.JPG",meta:"1w",likes:"9,104",reposts:"612"},
+
   {name:"Jude Bellingham",handle:"@BellinghamJude",text:"A win is a win. Time to recover and go again. ⚽",avatar:"./avatars/jude-ig.JPG",meta:"1w",likes:"29K",reposts:"2.2K"},
   {name:"Declan Rice",handle:"@DR.Ceee",text:"A special group. We keep pushing together. 🔴⚪",avatar:localStorage.getItem("x-profile-avatar")||"./avatars/rice-ig.JPG",meta:"1w",likes:"16K",reposts:"1.3K"},
   {name:"Bukayo Saka",handle:"@BukayoSaka87",text:"Back on the grass and enjoying the work.",avatar:"./avatars/saka.JPG",meta:"1w",likes:"8,601",reposts:"505"},
@@ -826,7 +826,7 @@ function renderXFeed(){
   {name:"Kai Havertz",handle:"@kaihavertz29",text:"Team first. Always. 🔴⚪",avatar:"./avatars/havertz.JPG",meta:"2w",likes:"8,991",reposts:"611"},
   {name:"Harry Kane",handle:"@HKane",text:"Another step together. Thank you for backing us. 🦁",avatar:"./avatars/harrykane.JPG",meta:"2w",likes:"21K",reposts:"1.9K"},
   {name:"Jude Bellingham",handle:"@BellinghamJude",text:"Work quietly. Let the football do the talking.",avatar:"./avatars/jude-ig.JPG",meta:"2w",likes:"35K",reposts:"4.1K"},
-  {name:"Mason Mount",handle:"@masonmount_10",text:"Enjoyed being back with the lads. More to come.",avatar:"./avatars/rice.JPG",meta:"2w",likes:"7,501",reposts:"402"},
+
   {name:"Declan Rice",handle:"@DR.Ceee",text:"Thank you for the noise today. North London ❤️",avatar:localStorage.getItem("x-profile-avatar")||"./avatars/rice-ig.JPG",meta:"2w",likes:"17K",reposts:"1.5K"}
  ];
  host.innerHTML=`<div style="padding:10px 14px;color:#8b8b8b;font-size:11px;border-bottom:1px solid #242424">SIMULATED FOOTBALL FEED · fictionalized/paraphrased posts inspired by public football themes</div>`+teamPosts.map((t,i)=>`<div class="x-feed-post" data-feed-index="${i}"><img src="${t.avatar}" alt=""><div class="x-feed-post-body"><div class="x-feed-post-head">${t.name} <span class="x-feed-handle">${t.handle} · ${t.meta}</span></div><div class="x-feed-text">${safeText(t.text)}</div><div class="x-actions x-feed-actions"><span>♡ ${t.likes}</span><span>↻ ${t.reposts}</span><span>▢ Reply</span><span>↗</span></div></div></div>`).join("");
