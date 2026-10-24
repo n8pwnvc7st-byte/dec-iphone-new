@@ -2348,3 +2348,48 @@ button.ios-setting-row{cursor:pointer}
 })();
 </script>
 
+
+
+<!-- desktop-recovery-rescue-v1: recover home-screen icons if an earlier init step fails -->
+<script id="desktop-recovery-rescue-v1">
+(function () {
+  function recoverDesktop() {
+    var grid = document.getElementById("appsGrid");
+    var dock = document.getElementById("dock");
+    if (!grid || !dock) return;
+    if (!grid.children.length || !dock.children.length) {
+      try { if (typeof renderDesktop === "function") renderDesktop(); } catch (e) {}
+    }
+    if (!grid.children.length) {
+      var apps = [
+        ["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],
+        ["emailApp","Mail","✉","icon-mail"],["whatsApp","WhatsApp","◉","icon-wa"],
+        ["decorApp","YouTube","▶","icon-youtube"],["spotifyApp","Spotify","≋","icon-spotify"],
+        ["xApp","X","𝕏","icon-x"],["instagramApp","Instagram","◎","icon-instagram"],
+        ["photosApp","Photos","✿","icon-photos"],["decorApp","Notes","▤","icon-notes"],
+        ["decorApp","Maps","⌖","icon-maps"],["decorApp","Settings","⚙","icon-settings"]
+      ];
+      grid.innerHTML = apps.map(function(a){return '<div class="app-icon-wrap" data-app="'+a[0]+'" data-label="'+a[1]+'"><button type="button" class="app-icon '+a[3]+'" aria-label="'+a[1]+'">'+a[2]+'</button><div class="app-name">'+a[1]+'</div></div>';}).join("");
+    }
+    if (!dock.children.length) {
+      var dockApps = [["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["decorApp","TikTok","♪","icon-tiktok"]];
+      dock.innerHTML = dockApps.map(function(a){return '<div class="app-icon-wrap" data-app="'+a[0]+'" data-label="'+a[1]+'"><button type="button" class="app-icon '+a[3]+'" aria-label="'+a[1]+'">'+a[2]+'</button></div>';}).join("");
+    }
+    var events = document.getElementById("events");
+    if (events && !events.children.length) {
+      events.innerHTML = '<div class="event"><span class="event-time">09:00</span><span>Training</span></div><div class="event"><span class="event-time">14:30</span><span>Team Meeting</span></div><div class="event"><span class="event-time">19:00</span><span>Match Day</span></div>';
+    }
+    document.querySelectorAll("#appsGrid [data-app], #dock [data-app]").forEach(function(el){
+      if (el.dataset.recoveryBound) return;
+      el.dataset.recoveryBound = "1";
+      el.addEventListener("click", function(){
+        try { if (typeof openApp === "function") openApp(el.dataset.app, el.dataset.label || ""); } catch(e) {}
+      });
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", recoverDesktop);
+  else recoverDesktop();
+  window.addEventListener("pageshow", recoverDesktop);
+})();
+</script>
+
