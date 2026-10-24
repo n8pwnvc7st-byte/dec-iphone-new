@@ -262,7 +262,7 @@
     <div class="homebar" data-home="home"></div>
   </section>
   <section class="screen x-screen" id="xApp">
-    <div class="app-content" style="padding:0 0 50px"><div class="x-feed-view" id="xFeedView"><div class="x-feed-top"><div class="x-feed-logo">𝕏</div><button class="x-feed-profile-btn" id="xOpenProfile">declanrice · Profile</button></div><div class="x-feed-tabs"><button class="active">For you</button><button>Following</button></div><div id="xFeedPosts"></div></div><div class="x-profile-view" id="xProfileView"><div class="app-header" style="display:flex;align-items:center;gap:14px"><button id="xBackToFeed" style="background:transparent;color:#fff;font-size:22px">‹</button><span>X · Profile</span><span style="margin-left:auto">⌕</span></div><div class="x-profile"><div class="x-banner"></div><div class="x-user"><button class="x-avatar x-avatar-edit" id="xAvatarButton" aria-label="Change X profile photo"><img id="xAvatarImage" src="./avatars/rice-x.JPG" alt="Declan Rice" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"></button><div style="padding-top:24px;min-width:0"><div style="font-weight:800;font-size:18px" id="xName">declanrice　🔒</div><div class="x-handle" id="xHandle">@DR.Ceee</div></div></div><p style="font-size:13px;color:#ddd">Private account</p><div class="x-handle">0 following　·　0 followers</div><div class="x-profile-actions"><button id="xEditProfile">Edit profile</button><button id="xChangeBanner">Edit banner</button></div><input type="file" id="xAvatarFile" accept="image/*" hidden><input type="file" id="xBannerFile" accept="image/*" hidden></div><div id="tweetsList"></div></div></div><div class="homebar" data-home="home"></div>
+    <div class="app-content" style="padding:0 0 50px"><div class="x-feed-view" id="xFeedView"><div class="x-feed-top"><div class="x-feed-logo">𝕏</div><button class="x-feed-profile-btn" id="xOpenProfile">declanrice · Profile</button></div><div class="x-feed-tabs"><button class="active">For you</button><button>Following</button></div><div id="xFeedPosts"></div></div><div class="x-profile-view" id="xProfileView"><div class="app-header" style="display:flex;align-items:center;gap:14px"><button id="xBackToFeed" style="background:transparent;color:#fff;font-size:22px">‹</button><span>X · Profile</span><span style="margin-left:auto">⌕</span></div><div class="x-profile"><div class="x-banner"></div><div class="x-user"><button class="x-avatar x-avatar-edit" id="xAvatarButton" aria-label="Change X profile photo"><img id="xAvatarImage" src="./avatars/rice-ig.JPG" alt="Declan Rice" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"></button><div style="padding-top:24px;min-width:0"><div style="font-weight:800;font-size:18px" id="xName">declanrice　🔒</div><div class="x-handle" id="xHandle">@DR.Ceee</div></div></div><p style="font-size:13px;color:#ddd">Private account</p><div class="x-handle">1,248 following　·　1.2M followers</div><div class="x-profile-actions"><button id="xEditProfile">Edit profile</button><button id="xChangeBanner">Edit banner</button></div><input type="file" id="xAvatarFile" accept="image/*" hidden><input type="file" id="xBannerFile" accept="image/*" hidden></div><div id="tweetsList"></div></div></div><div class="homebar" data-home="home"></div>
   </section>
   <section class="screen instagram-screen" id="instagramApp">
     <div class="ig-home-page ig-subpage active" id="igHomePage">
@@ -803,31 +803,31 @@ function setupXProfileEditor(){
 function renderXFeed(){
  const host=$("xFeedPosts");if(!host)return;
  const teamPosts=[
-  {name:"Jude Bellingham",handle:"@BellinghamJude",text:"Good session with the lads. Focus on the next one. 🏴",avatar:"./avatars/jude.JPG",meta:"2h",likes:"18.4K",reposts:"1.2K"},
-  {name:"Bukayo Saka",handle:"@BukayoSaka87",text:"Always a good feeling being back with the England group. Ready to work.",avatar:"./avatars/rice.JPG",meta:"5h",likes:"9,842",reposts:"684"},
-  {name:"Declan Rice",handle:"@DR.Ceee",text:"Training done. Recovery now. See you soon, Gunners. ❤️",avatar:localStorage.getItem("x-profile-avatar")||"./avatars/rice.JPG",meta:"1d",likes:"12K",reposts:"903"},
-  {name:"Martin Ødegaard",handle:"@MartinOdegaard",text:"Small details make the difference. Back to work tomorrow.",avatar:"./avatars/rice.JPG",meta:"1d",likes:"7,321",reposts:"512"},
-  {name:"Kai Havertz",handle:"@kaihavertz29",text:"Good work today with the team. 🔴⚪",avatar:"./avatars/rice.JPG",meta:"2d",likes:"6,704",reposts:"401"},
-  {name:"Harry Kane",handle:"@HKane",text:"Always proud to represent England. Onto the next challenge. 🦁",avatar:"./avatars/jude.JPG",meta:"2d",likes:"24K",reposts:"2.1K"},
+  {name:"Jude Bellingham",handle:"@BellinghamJude",text:"Good session with the lads. Focus on the next one. 🏴",avatar:"./avatars/jude-ig.JPG",meta:"2h",likes:"18.4K",reposts:"1.2K"},
+  {name:"Bukayo Saka",handle:"@BukayoSaka87",text:"Always a good feeling being back with the England group. Ready to work.",avatar:"./avatars/saka.JPG",meta:"5h",likes:"9,842",reposts:"684"},
+  {name:"Declan Rice",handle:"@DR.Ceee",text:"Training done. Recovery now. See you soon, Gunners. ❤️",avatar:localStorage.getItem("x-profile-avatar")||"./avatars/rice-ig.JPG",meta:"1d",likes:"12K",reposts:"903"},
+  {name:"Martin Ødegaard",handle:"@MartinOdegaard",text:"Small details make the difference. Back to work tomorrow.",avatar:"./avatars/odegaard.JPG",meta:"1d",likes:"7,321",reposts:"512"},
+  {name:"Kai Havertz",handle:"@kaihavertz29",text:"Good work today with the team. 🔴⚪",avatar:"./avatars/havertz.JPG",meta:"2d",likes:"6,704",reposts:"401"},
+  {name:"Harry Kane",handle:"@HKane",text:"Always proud to represent England. Onto the next challenge. 🦁",avatar:"./avatars/harrykane.JPG",meta:"2d",likes:"24K",reposts:"2.1K"},
   {name:"Mason Mount",handle:"@masonmount_10",text:"A lot of work goes into the moments you see on matchday. 💪",avatar:"./avatars/rice.JPG",meta:"3d",likes:"8,201",reposts:"612"},
-  {name:"Riccardo Calafiori",handle:"@Calafiori",text:"London life. Training first, everything else after. 🔴⚪",avatar:"./avatars/rice.JPG",meta:"3d",likes:"7,004",reposts:"388"},
-  {name:"Jude Bellingham",handle:"@BellinghamJude",text:"Big nights are why you work every day. 🤍",avatar:"./avatars/jude.JPG",meta:"4d",likes:"31K",reposts:"3.4K"},
-  {name:"Declan Rice",handle:"@DR.Ceee",text:"The Emirates under the lights. Special every time. ❤️",avatar:"./avatars/rice.JPG",meta:"4d",likes:"19K",reposts:"1.8K"},
-  {name:"Bukayo Saka",handle:"@BukayoSaka87",text:"Thank you for the support, always. We keep going. 🙏",avatar:"./avatars/rice.JPG",meta:"5d",likes:"11K",reposts:"790"},
-  {name:"Martin Ødegaard",handle:"@MartinOdegaard",text:"Standards every day. That's the job. 👊",avatar:"./avatars/rice.JPG",meta:"5d",likes:"6,882",reposts:"504"},
-  {name:"Kai Havertz",handle:"@kaihavertz29",text:"Three points with the team. Enjoy tonight, recover tomorrow.",avatar:"./avatars/rice.JPG",meta:"6d",likes:"10K",reposts:"721"},
-  {name:"Harry Kane",handle:"@HKane",text:"Proud of the group and the effort everyone put in. 🏴",avatar:"./avatars/jude.JPG",meta:"1w",likes:"26K",reposts:"2.8K"},
+  {name:"Riccardo Calafiori",handle:"@Calafiori",text:"London life. Training first, everything else after. 🔴⚪",avatar:"./avatars/calafiori.JPG",meta:"3d",likes:"7,004",reposts:"388"},
+  {name:"Jude Bellingham",handle:"@BellinghamJude",text:"Big nights are why you work every day. 🤍",avatar:"./avatars/jude-ig.JPG",meta:"4d",likes:"31K",reposts:"3.4K"},
+  {name:"Declan Rice",handle:"@DR.Ceee",text:"The Emirates under the lights. Special every time. ❤️",avatar:localStorage.getItem("x-profile-avatar")||"./avatars/rice-ig.JPG",meta:"4d",likes:"19K",reposts:"1.8K"},
+  {name:"Bukayo Saka",handle:"@BukayoSaka87",text:"Thank you for the support, always. We keep going. 🙏",avatar:"./avatars/saka.JPG",meta:"5d",likes:"11K",reposts:"790"},
+  {name:"Martin Ødegaard",handle:"@MartinOdegaard",text:"Standards every day. That's the job. 👊",avatar:"./avatars/odegaard.JPG",meta:"5d",likes:"6,882",reposts:"504"},
+  {name:"Kai Havertz",handle:"@kaihavertz29",text:"Three points with the team. Enjoy tonight, recover tomorrow.",avatar:"./avatars/havertz.JPG",meta:"6d",likes:"10K",reposts:"721"},
+  {name:"Harry Kane",handle:"@HKane",text:"Proud of the group and the effort everyone put in. 🏴",avatar:"./avatars/harrykane.JPG",meta:"1w",likes:"26K",reposts:"2.8K"},
   {name:"Mason Mount",handle:"@masonmount_10",text:"Good to be back out there. One step at a time. ❤️",avatar:"./avatars/rice.JPG",meta:"1w",likes:"9,104",reposts:"612"},
-  {name:"Jude Bellingham",handle:"@BellinghamJude",text:"A win is a win. Time to recover and go again. ⚽",avatar:"./avatars/jude.JPG",meta:"1w",likes:"29K",reposts:"2.2K"},
-  {name:"Declan Rice",handle:"@DR.Ceee",text:"A special group. We keep pushing together. 🔴⚪",avatar:"./avatars/rice.JPG",meta:"1w",likes:"16K",reposts:"1.3K"},
-  {name:"Bukayo Saka",handle:"@BukayoSaka87",text:"Back on the grass and enjoying the work.",avatar:"./avatars/rice.JPG",meta:"1w",likes:"8,601",reposts:"505"},
-  {name:"Riccardo Calafiori",handle:"@Calafiori",text:"Every session is another chance to improve.",avatar:"./avatars/rice.JPG",meta:"1w",likes:"5,904",reposts:"301"},
-  {name:"Martin Ødegaard",handle:"@MartinOdegaard",text:"Thank you to everyone who made the trip. We felt you. ❤️",avatar:"./avatars/rice.JPG",meta:"1w",likes:"7,720",reposts:"688"},
-  {name:"Kai Havertz",handle:"@kaihavertz29",text:"Team first. Always. 🔴⚪",avatar:"./avatars/rice.JPG",meta:"2w",likes:"8,991",reposts:"611"},
-  {name:"Harry Kane",handle:"@HKane",text:"Another step together. Thank you for backing us. 🦁",avatar:"./avatars/jude.JPG",meta:"2w",likes:"21K",reposts:"1.9K"},
-  {name:"Jude Bellingham",handle:"@BellinghamJude",text:"Work quietly. Let the football do the talking.",avatar:"./avatars/jude.JPG",meta:"2w",likes:"35K",reposts:"4.1K"},
+  {name:"Jude Bellingham",handle:"@BellinghamJude",text:"A win is a win. Time to recover and go again. ⚽",avatar:"./avatars/jude-ig.JPG",meta:"1w",likes:"29K",reposts:"2.2K"},
+  {name:"Declan Rice",handle:"@DR.Ceee",text:"A special group. We keep pushing together. 🔴⚪",avatar:localStorage.getItem("x-profile-avatar")||"./avatars/rice-ig.JPG",meta:"1w",likes:"16K",reposts:"1.3K"},
+  {name:"Bukayo Saka",handle:"@BukayoSaka87",text:"Back on the grass and enjoying the work.",avatar:"./avatars/saka.JPG",meta:"1w",likes:"8,601",reposts:"505"},
+  {name:"Riccardo Calafiori",handle:"@Calafiori",text:"Every session is another chance to improve.",avatar:"./avatars/calafiori.JPG",meta:"1w",likes:"5,904",reposts:"301"},
+  {name:"Martin Ødegaard",handle:"@MartinOdegaard",text:"Thank you to everyone who made the trip. We felt you. ❤️",avatar:"./avatars/odegaard.JPG",meta:"1w",likes:"7,720",reposts:"688"},
+  {name:"Kai Havertz",handle:"@kaihavertz29",text:"Team first. Always. 🔴⚪",avatar:"./avatars/havertz.JPG",meta:"2w",likes:"8,991",reposts:"611"},
+  {name:"Harry Kane",handle:"@HKane",text:"Another step together. Thank you for backing us. 🦁",avatar:"./avatars/harrykane.JPG",meta:"2w",likes:"21K",reposts:"1.9K"},
+  {name:"Jude Bellingham",handle:"@BellinghamJude",text:"Work quietly. Let the football do the talking.",avatar:"./avatars/jude-ig.JPG",meta:"2w",likes:"35K",reposts:"4.1K"},
   {name:"Mason Mount",handle:"@masonmount_10",text:"Enjoyed being back with the lads. More to come.",avatar:"./avatars/rice.JPG",meta:"2w",likes:"7,501",reposts:"402"},
-  {name:"Declan Rice",handle:"@DR.Ceee",text:"Thank you for the noise today. North London ❤️",avatar:"./avatars/rice.JPG",meta:"2w",likes:"17K",reposts:"1.5K"}
+  {name:"Declan Rice",handle:"@DR.Ceee",text:"Thank you for the noise today. North London ❤️",avatar:localStorage.getItem("x-profile-avatar")||"./avatars/rice-ig.JPG",meta:"2w",likes:"17K",reposts:"1.5K"}
  ];
  host.innerHTML=`<div style="padding:10px 14px;color:#8b8b8b;font-size:11px;border-bottom:1px solid #242424">SIMULATED FOOTBALL FEED · fictionalized/paraphrased posts inspired by public football themes</div>`+teamPosts.map((t,i)=>`<div class="x-feed-post" data-feed-index="${i}"><img src="${t.avatar}" alt=""><div class="x-feed-post-body"><div class="x-feed-post-head">${t.name} <span class="x-feed-handle">${t.handle} · ${t.meta}</span></div><div class="x-feed-text">${safeText(t.text)}</div><div class="x-actions x-feed-actions"><span>♡ ${t.likes}</span><span>↻ ${t.reposts}</span><span>▢ Reply</span><span>↗</span></div></div></div>`).join("");
  host.querySelectorAll(".x-feed-post").forEach(el=>el.addEventListener("click",()=>showXProfile()));
@@ -2394,6 +2394,46 @@ button.ios-setting-row{cursor:pointer}
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",setWhatsAppAvatars);
   else setWhatsAppAvatars();
+})();
+</script>
+
+
+
+<style id="x-profile-avatar-layout-fix-v2">
+#xApp #xProfileView .x-profile{position:relative!important;box-sizing:border-box!important;overflow:hidden!important;padding:0 18px 16px!important}
+#xApp #xProfileView .x-profile .x-banner{display:block!important;width:100%!important;height:clamp(112px,25vw,160px)!important;min-height:112px!important;border-radius:18px!important;margin:0!important;background-color:#353535!important;background-size:cover!important;background-position:center!important}
+#xApp #xProfileView .x-profile .x-user{position:relative!important;display:flex!important;align-items:flex-end!important;gap:12px!important;margin-top:-42px!important;min-width:0!important;padding:0!important}
+#xApp #xProfileView .x-profile .x-user .x-avatar-edit{display:block!important;position:relative!important;box-sizing:border-box!important;flex:0 0 84px!important;width:84px!important;height:84px!important;min-width:84px!important;min-height:84px!important;max-width:84px!important;max-height:84px!important;padding:0!important;margin:0!important;overflow:hidden!important;aspect-ratio:1/1!important;border:3px solid #000!important;border-radius:50%!important;background:#333!important;line-height:0!important}
+#xApp #xProfileView .x-profile .x-user .x-avatar-edit img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-width:100%!important;min-height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:center!important;aspect-ratio:1/1!important;border-radius:50%!important}
+#xApp #xProfileView .x-profile .x-user>div{flex:1 1 auto!important;min-width:0!important;padding-top:0!important;padding-bottom:3px!important}
+#xApp #xProfileView .x-profile>p{margin:10px 0 8px!important;line-height:1.4!important}
+#xApp #xProfileView .x-profile .x-profile-stats{display:flex!important;gap:16px!important;flex-wrap:wrap!important;margin:8px 0 12px!important;font-size:13px!important;color:#8b8b8b!important}
+#xApp #xProfileView .x-profile .x-handle{line-height:1.45!important}
+#xApp #xProfileView .x-profile-actions{display:flex!important;gap:8px!important;flex-wrap:wrap!important;margin:14px 0 0!important}
+#xApp #xProfileView .x-profile-actions button{min-height:38px!important;padding:8px 14px!important;border-radius:22px!important}
+#xApp #tweetsList .x-post-avatar{width:44px!important;height:44px!important;min-width:44px!important;min-height:44px!important;flex:0 0 44px!important;aspect-ratio:1/1!important;border-radius:50%!important;overflow:hidden!important}
+#xApp #tweetsList .x-post-avatar img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;border-radius:50%!important}
+#xApp .x-feed-post>img{display:block!important;width:46px!important;height:46px!important;min-width:46px!important;min-height:46px!important;flex:0 0 46px!important;aspect-ratio:1/1!important;object-fit:cover!important;object-position:center!important;border-radius:50%!important;overflow:hidden!important}
+#xApp .x-feed-post>img[src=""]{display:none!important}
+@media(max-width:390px){
+ #xApp #xProfileView .x-profile{padding-left:14px!important;padding-right:14px!important}
+ #xApp #xProfileView .x-profile .x-user .x-avatar-edit{flex-basis:76px!important;width:76px!important;height:76px!important;min-width:76px!important;min-height:76px!important;max-width:76px!important;max-height:76px!important}
+}
+</style>
+<script id="x-profile-avatar-layout-init-v2">
+(function(){
+ function fixXProfile(){
+  const avatar=document.getElementById("xAvatarImage");
+  if(avatar&&!localStorage.getItem("x-profile-avatar"))avatar.src="./avatars/rice-ig.JPG";
+  const stats=document.querySelector("#xApp #xProfileView .x-profile .x-handle");
+  if(stats&&/0 following/.test(stats.textContent))stats.textContent="1,248 following　·　1.2M followers";
+  document.querySelectorAll("#xApp .x-feed-post>img").forEach(img=>{
+   if(!img.getAttribute("src")){img.style.display="none";return;}
+   img.addEventListener("error",function(){this.style.display="none"},{once:true});
+  });
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",fixXProfile);
+ else fixXProfile();
 })();
 </script>
 
