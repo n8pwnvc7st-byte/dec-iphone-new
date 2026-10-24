@@ -2660,3 +2660,66 @@ document.addEventListener("click",function(e){if(e.target.closest("#ytPlayerBack
 </script>
 
 <!-- asset-library-sync-20261025: synced newly uploaded TikTok videos and app avatar mappings -->
+
+
+<style id="virtual-search-tiktok-ig-style-v1">
+.virtual-search-overlay{position:absolute;inset:0;z-index:80;background:#080808;color:#fff;overflow-y:auto;padding:calc(var(--safe-top) + 12px) 14px calc(var(--safe-bottom) + 24px);box-sizing:border-box}
+.vs-top{display:flex;align-items:center;gap:10px;margin-bottom:16px}.vs-back{background:#242424;color:white;border:0;border-radius:50%;width:38px;height:38px;font-size:24px}.vs-input{min-width:0;flex:1;background:#242424;border:1px solid #444;border-radius:10px;color:white;padding:12px;font-size:14px}.vs-tags{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}.vs-tag{background:#252525;border:1px solid #414141;color:white;border-radius:18px;padding:8px 11px;font-size:12px}.vs-label{font-size:12px;color:#999;margin:12px 0}.vs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.vs-card{min-width:0;overflow:hidden;text-align:left;background:#1c1c1e;border:1px solid #303030;border-radius:10px;color:white;padding:0}.vs-card video{display:block;width:100%;height:145px;object-fit:cover;background:#333}.vs-card b{display:block;font-size:12px;padding:8px 8px 10px;line-height:1.3}.vs-empty{color:#999;font-size:13px;padding:20px 0}
+#igVirtualSearchTags{scrollbar-width:none}#igVirtualSearchResults{padding-bottom:95px}
+</style>
+<script id="virtual-search-tiktok-ig-v1">
+(function(){
+ const repoVideos=[
+  ["arsenal-RM.MP4","Arsenal vs Real Madrid","rice","rice-ig.JPG"],
+  ["calafiori-daily.MP4","Riccardo Calafiori · Daily","calafiori","calafiori.JPG"],
+  ["calafiori-party.MP4","Riccardo Calafiori · Party","calafiori","calafiori.JPG"],
+  ["calafiori-singer.MP4","Riccardo Calafiori · Singer","calafiori","calafiori.JPG"],
+  ["decccc.MP4","Declan Rice · Edit","rice","rice-ig.JPG"],
+  ["england-training.MP4","England Training","rice","rice-ig.JPG"],
+  ["harry-funny.MP4","Harry Kane · Funny","kane","harrykane.JPG"],
+  ["jamal-funny.MP4","Jamal Musiala · Funny","jamal","jamal.JPG"],
+  ["jude-cute.MP4","Jude Bellingham · Cute","jude","jude-ig.JPG"],
+  ["jude-daily.MP4","Jude Bellingham · Daily","jude","jude-ig.JPG"],
+  ["jude-edit.MP4","Jude Bellingham · Edit","jude","jude-ig.JPG"],
+  ["jude-foot.MP4","Jude Bellingham · Football","jude","jude-ig.JPG"],
+  ["jude-funny.MP4","Jude Bellingham · Funny","jude","jude-ig.JPG"],
+  ["jude-gentle.MP4","Jude Bellingham · Gentle","jude","jude-ig.JPG"],
+  ["jude-goat.MP4","Jude Bellingham · GOAT","jude","jude-ig.JPG"],
+  ["jude-handsome.MP4","Jude Bellingham · Handsome","jude","jude-ig.JPG"],
+  ["jude-honey.MP4","Jude Bellingham · Honey","jude","jude-ig.JPG"],
+  ["jude-interview.MP4","Jude Bellingham · Interview","jude","jude-ig.JPG"],
+  ["jude-rice.MP4","Jude & Declan Rice","jude","jude-ig.JPG"],
+  ["jude-video.MP4","Jude Bellingham · Video","jude","jude-ig.JPG"],
+  ["jude-walk.MP4","Jude Bellingham · Walk","jude","jude-ig.JPG"],
+  ["jude-young.MP4","Jude Bellingham · Young","jude","jude-ig.JPG"],
+  ["kai-cute.MP4","Kai Havertz · Cute","havertz","havertz.JPG"],
+  ["kai-funny.MP4","Kai Havertz · Funny","havertz","havertz.JPG"],
+  ["olise-funny.MP4","Michael Olise · Funny","olise","olise.JPG"],
+  ["olise-walk.MP4","Michael Olise · Walk","olise","olise.JPG"],
+  ["rice-baby.MP4","Declan Rice · Baby","rice","rice-ig.JPG"],
+  ["rice-basket.MP4","Declan Rice · Basket","rice","rice-ig.JPG"],
+  ["rice-champion.MP4","Declan Rice · Champion","rice","rice-ig.JPG"],
+  ["rice-daily.MP4","Declan Rice · Daily","rice","rice-ig.JPG"],
+  ["rice-funny.MP4","Declan Rice · Funny","rice","rice-ig.JPG"],
+  ["rice-gemini.MP4","Declan Rice · Gemini","rice","rice-ig.JPG"],
+  ["rice-highlights.MP4","Declan Rice · Highlights","rice","rice-ig.JPG"],
+  ["rice-jude.MP4","Rice & Jude","rice","rice-ig.JPG"],
+  ["rice-lifestyle.MP4","Declan Rice · Lifestyle","rice","rice-ig.JPG"],
+  ["rice-rice.MP4","Declan Rice · Rice","rice","rice-ig.JPG"],
+  ["rice-rings.MP4","Declan Rice · Rings","rice","rice-ig.JPG"],
+  ["rice-teammate.MP4","Rice with teammates","rice","rice-ig.JPG"],
+  ["ricky-arsenal.MP4","Ricky · Arsenal","calafiori","calafiori.JPG"]
+ ].map(x=>({file:x[0],name:x[1],key:x[2],avatar:x[3],url:"./tiktok-videos/"+x[0]}));
+ const names=[["rice","Declan Rice"],["jude","Jude Bellingham"],["havertz","Kai Havertz"],["calafiori","Riccardo Calafiori"],["saka","Bukayo Saka"],["olise","Michael Olise"],["jamal","Jamal Musiala"],["odegaard","Martin Ødegaard"],["kane","Harry Kane"]];
+ function esc(s){return String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+ function overlayResults(host,q,mode){const query=(q||"").trim().toLowerCase();const found=repoVideos.filter(v=>!query||v.key===query||v.name.toLowerCase().includes(query)||v.file.toLowerCase().includes(query));host.innerHTML='<div class="vs-label">'+(query?'Search results':'Videos in your library')+' · '+found.length+'</div>'+(found.length?'<div class="vs-grid">'+found.map(v=>'<button class="vs-card" data-vs-play="'+v.file+'"><video src="'+v.url+'" muted playsinline preload="metadata"></video><b>'+esc(v.name)+'</b></button>').join('')+'</div>':'<div class="vs-empty">No matching videos yet.</div>');host.querySelectorAll("[data-vs-play]").forEach(card=>card.addEventListener("click",()=>{const vid=card.querySelector("video");host.querySelectorAll("video").forEach(v=>{if(v!==vid)v.pause()});vid.controls=true;vid.muted=false;vid.play().catch(()=>{vid.controls=true})}));}
+ function openTikTokSearch(){const c=document.getElementById("decorContent");if(!c||document.getElementById("virtualTikTokSearch"))return;const box=document.createElement("section");box.id="virtualTikTokSearch";box.className="virtual-search-overlay";box.innerHTML='<div class="vs-top"><button class="vs-back" aria-label="Back">‹</button><input class="vs-input" id="vsTikTokInput" placeholder="Search videos or names"><button id="vsTikTokGo" style="background:none;color:white;font-weight:700">Search</button></div><div class="vs-label">Popular names · tap to search</div><div class="vs-tags">'+names.map(n=>'<button class="vs-tag" data-vs-name="'+n[0]+'">'+n[1]+'</button>').join('')+'</div><div id="vsTikTokResults"></div>';c.appendChild(box);const input=box.querySelector("#vsTikTokInput"),results=box.querySelector("#vsTikTokResults");const run=q=>overlayResults(results,q,"tt");input.addEventListener("input",()=>run(input.value));box.querySelector("#vsTikTokGo").onclick=()=>run(input.value);box.querySelectorAll("[data-vs-name]").forEach(b=>b.onclick=()=>{input.value=b.dataset.vsName;run(input.value)});box.querySelector(".vs-back").onclick=()=>box.remove();run("");}
+ document.addEventListener("click",function(e){const t=e.target.closest('[data-tt-tab="Search"]');if(t){setTimeout(openTikTokSearch,0);}});
+ function renderIgSearch(){const page=document.getElementById("igExplorePage");if(!page)return;const input=document.getElementById("igExploreSearch");let tags=document.getElementById("igVirtualSearchTags"),results=document.getElementById("igVirtualSearchResults");const grid=document.getElementById("igExploreGrid");if(!tags){tags=document.createElement("div");tags.id="igVirtualSearchTags";tags.className="vs-tags";tags.style.cssText="padding:0 12px;overflow-x:auto;flex-wrap:nowrap";input.parentNode.parentNode.insertBefore(tags,grid);}if(!results){results=document.createElement("div");results.id="igVirtualSearchResults";grid.parentNode.insertBefore(results,grid.nextSibling);}grid.style.display="none";tags.innerHTML=names.map(n=>'<button class="vs-tag" data-ig-vs-name="'+n[0]+'">'+n[1]+'</button>').join("");const run=q=>overlayResults(results,q,"ig");if(!input.dataset.vsBound){input.dataset.vsBound="1";input.addEventListener("input",()=>run(input.value));}tags.querySelectorAll("[data-ig-vs-name]").forEach(b=>b.onclick=()=>{input.value=b.dataset.igVsName;run(input.value)});run(input.value);}
+ document.addEventListener("click",function(e){if(e.target.closest('[data-ig-nav="Search"]'))setTimeout(renderIgSearch,0);});
+ const oldShow=window.showInstagramExplore;
+ document.addEventListener("click",function(e){if(e.target.closest('[data-ig-nav="Search"]'))setTimeout(renderIgSearch,100);});
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",function(){setTimeout(renderIgSearch,400)});else setTimeout(renderIgSearch,400);
+})();
+</script>
+
