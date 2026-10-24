@@ -203,6 +203,23 @@
 #instagramApp .ig-reels-page{z-index:4;background:#000;overflow:hidden;padding-bottom:0}.ig-reels-top{position:absolute;top:calc(env(safe-area-inset-top,0px) + 8px);left:12px;right:12px;z-index:3;display:flex;justify-content:space-between;align-items:center;text-shadow:0 1px 4px #000}.ig-reels-top button{background:none;color:#fff;border:0;font-size:25px}.ig-reels-list{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;padding-bottom:calc(54px + env(safe-area-inset-bottom,0px))}.ig-reel-card{height:calc(100% - 54px);min-height:520px;position:relative;scroll-snap-align:start;background:#161616;overflow:hidden}.ig-reel-card video{width:100%;height:100%;object-fit:cover}.ig-reel-overlay{position:absolute;left:14px;right:14px;bottom:18px;display:flex;align-items:flex-end;justify-content:space-between;text-shadow:0 1px 5px #000}.ig-reel-overlay p{font-size:13px}.ig-reel-overlay img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:2px solid white}
 </style>
 
+<style id="youtube-home-feed-redesign-v1">
+#decorApp.youtube-mode #decorContent{height:100%;padding:0 0 calc(var(--safe-bottom) + 20px)!important;overflow:auto!important;background:#0f0f0f!important}
+#decorApp.youtube-mode>.homebar{z-index:1200!important;pointer-events:auto!important}
+.yt-home-page{min-height:100%;background:#0f0f0f;color:#f1f1f1;font-family:Roboto,-apple-system,BlinkMacSystemFont,Arial,sans-serif;padding-bottom:78px}
+.yt-home-topbar{height:calc(var(--safe-top) + 58px);padding:calc(var(--safe-top) + 6px) 18px 8px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#0f0f0ff5;backdrop-filter:blur(14px);z-index:8}
+.yt-home-brand{display:flex;align-items:center;gap:7px;font-size:25px;letter-spacing:-1.4px;color:#fff}.yt-home-brand b{font-weight:800}.yt-home-logo{width:50px;height:31px;border-radius:9px;background:#ff0033;display:grid;place-items:center}.yt-home-logo span{font-size:22px;color:white}
+.yt-home-actions{display:flex;gap:22px;align-items:center}.yt-home-actions button{background:transparent;color:#f1f1f1;font-size:32px;line-height:1;padding:2px}
+.yt-home-searchbox{display:flex;gap:8px;padding:10px 14px;background:#0f0f0f;position:sticky;top:calc(var(--safe-top) + 56px);z-index:7}.yt-home-searchbox[hidden]{display:none}.yt-home-searchbox input{min-width:0;flex:1;background:#242424;border:1px solid #444;border-radius:22px;padding:12px 15px;color:white}.yt-home-searchbox button{border-radius:20px;background:#303030;color:white;padding:0 15px}
+.yt-home-chips{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;padding:8px 12px 12px;scrollbar-width:none}.yt-home-chips button{background:#272727;color:#f1f1f1;border-radius:8px;padding:9px 13px;font-size:13px;flex-shrink:0}.yt-home-chips button.selected{background:#f1f1f1;color:#111}
+.yt-ad-card{margin-bottom:18px;background:#111}.yt-ad-art{height:clamp(270px,55vw,380px);position:relative;overflow:hidden;background:#020202;padding:36px 22px}.yt-ad-small{position:absolute;top:18%;left:21%;font-size:12px;color:#eee}.yt-ad-headline{position:absolute;left:6%;top:34%;font-size:clamp(30px,7vw,48px);line-height:1.04;letter-spacing:-1.8px;font-weight:650;z-index:2}.yt-ad-subtitle{position:absolute;left:10%;bottom:17%;font-size:11px;color:#ddd}.yt-ad-gem{position:absolute;right:19%;top:27%;font-size:clamp(100px,29vw,175px);line-height:1;color:transparent;background:linear-gradient(135deg,#53d7ff,#bb66ff 28%,#ff5e9d 48%,#ffe84d 68%,#51f1bf);background-clip:text;-webkit-background-clip:text;filter:drop-shadow(0 0 14px #7d56ff55);transform:rotate(5deg)}.yt-ad-orbit{position:absolute;color:#8bd9ff;font-size:25px;font-weight:900}.yt-ad-orbit.o1{right:24%;top:9%;color:#b3a1ff}.yt-ad-orbit.o2{right:8%;top:23%;border-radius:9px;background:linear-gradient(90deg,#4e9dff,#e25dcb);padding:5px 12px;color:#111}.yt-ad-orbit.o3{right:9%;top:50%;color:#7dffae}.yt-ad-arrow{position:absolute;right:7%;bottom:7%;font-size:28px}
+.yt-ad-details{display:flex;gap:12px;align-items:flex-start;padding:14px 16px 10px;position:relative}.yt-ad-icon{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#9b71ff,#5de4c0,#ffe95d);font-size:28px;flex-shrink:0}.yt-ad-copy{min-width:0;flex:1}.yt-ad-copy b{display:block;font-size:16px;line-height:1.35;padding-right:8px}.yt-ad-copy p{font-size:13px;color:#aaa;line-height:1.45;margin:8px 0}.yt-ad-copy span{font-size:12px;color:#aaa}.yt-ad-more{background:transparent;color:white;font-size:20px;padding:0 3px}
+.yt-ad-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 22px 18px}.yt-ad-buttons button{border-radius:30px;padding:14px 10px;background:#303030;color:white;font-size:15px;font-weight:700}.yt-ad-buttons button+button{background:#f1f1f1;color:#111}
+.yt-home-video{padding:0 0 18px;cursor:pointer}.yt-home-thumb{height:clamp(190px,56vw,320px);position:relative;overflow:hidden;background:#202020}.yt-home-thumb>img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}.yt-home-thumb-placeholder{width:100%;height:100%;display:grid;place-items:center;font-size:68px;background:linear-gradient(135deg,#18352c,#80a6a4,#1d2938)}.yt-home-thumb-placeholder.match{background:linear-gradient(135deg,#142642,#6c8298,#111)}.yt-home-thumb-placeholder.rice{background:linear-gradient(135deg,#172535,#40576a,#080d13)}.yt-home-duration{position:absolute;right:8px;bottom:8px;background:#000c;border-radius:4px;padding:3px 5px;font-size:12px}
+.yt-home-video-info{display:flex;gap:11px;padding:12px 12px 0;align-items:flex-start}.yt-home-avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#333;flex-shrink:0}.yt-home-video-copy{min-width:0;flex:1}.yt-home-video-copy b{font-size:15px;font-weight:650;line-height:1.35;display:block}.yt-home-video-copy p{font-size:12px;line-height:1.45;color:#aaa;margin:6px 0 0}.yt-home-more{background:transparent;color:#eee;font-size:21px;padding:0 3px}.yt-home-no-results{padding:30px 18px;color:#aaa;text-align:center}
+.yt-home-bottom{position:fixed;z-index:1000;left:0;right:0;bottom:calc(var(--safe-bottom) + 0px);height:66px;background:#181818f7;border-top:1px solid #3b3b3b;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;padding:3px 3px 5px;backdrop-filter:blur(14px)}.yt-home-bottom button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;background:transparent;color:#f1f1f1;height:100%}.yt-home-bottom button>span{font-size:27px;line-height:28px}.yt-home-bottom button small{font-size:10px;white-space:nowrap}.yt-home-bottom button.active{color:#fff}.yt-home-bottom .yt-create{font-size:28px;background:#333;border-radius:50%;width:48px;height:48px;justify-self:center;align-self:center}.yt-home-bottom .yt-you-avatar{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#6841b6;color:#fff;font-size:15px;font-weight:700}
+@media(min-width:600px){.yt-home-page{max-width:720px;margin:auto}.yt-home-bottom{left:50%;right:auto;width:min(100%,720px);transform:translateX(-50%)}}
+</style>
 </head>
 <body>
 <div class="phone" id="phone">
@@ -1233,28 +1250,44 @@ function renderRiceMaps(){
 }
 
 function renderRiceYouTube(){
- const c=$("decorContent"); if(!c)return;
+ const c=$("decorContent");if(!c)return;
  $("decorTitle").textContent="YouTube";
+ $("decorApp").classList.remove("notes-mode","maps-mode","skysports-mode");
  $("decorApp").classList.add("youtube-mode");
  const videos=ytGetVideos();
- c.innerHTML=`<div class="yt-page">
-  <div class="yt-topbar"><div class="yt-brand"><span class="yt-logo">▶</span>YouTube</div><div class="yt-top-actions"><span>⌕</span><span>♧</span><span>⋮</span></div></div>
-  <div class="yt-channel-banner"><div class="yt-banner-label">DECLAN RICE · FOOTBALL</div></div>
-  <div class="yt-channel-head"><img class="yt-channel-avatar" src="${avatarSrc("rice","youtube")}" alt="Declan Rice" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"><div><div class="yt-channel-name">Declan Rice</div><div class="yt-channel-handle">@DeclanRice · 1.2M subscribers</div><div class="yt-channel-handle">Football · England · Arsenal</div></div></div>
-  <div class="yt-channel-bio">Training days, England camp moments and life on the pitch. ⚽</div>
-  <div class="yt-channel-actions"><button class="yt-subscribe" id="ytSubscribe">Subscribe</button><button class="yt-customize" id="ytUploadButton">＋ Add video</button></div>
-  <div class="yt-tabs"><span class="active">Home</span><span>Videos</span><span>Shorts</span><span>Playlists</span><span>Community</span></div>
-  <div class="yt-section-title">Latest videos · simulated video cards</div>
-  <div id="ytVideoList">${videos.map((v,i)=>`<div class="yt-video-card" data-yt-index="${i}">
-    <div class="yt-thumb ${v.kind||'training'}">${(v.thumbData||v.thumb)?`<img src="${v.thumbData||v.thumb}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0" alt="" onerror="this.setAttribute('controls','controls');this.style.background='#222'">`:`<div class="yt-thumb-art">${v.icon||"⚽"}</div>`}<div class="yt-thumb-title">${escapeHtml(v.title)}</div><span class="yt-duration">${v.duration||"Video"}</span></div>
-    <div class="yt-video-meta"><img class="yt-meta-avatar" src="${avatarSrc("rice","youtube")}" alt="" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"><div class="yt-meta-copy"><div class="yt-video-title">${escapeHtml(v.title)}</div><div class="yt-video-sub">Declan Rice · ${v.views||"New video"} · ${v.age||"Just now"}</div></div><button class="yt-more" data-yt-more="${i}">⋮</button></div>
-  </div>`).join("")}</div>
-  <div class="yt-empty-note">Demo channel interface. Added videos stay in this browser on this device.</div>
+ c.innerHTML=`<div class="yt-home-page">
+  <div class="yt-home-topbar">
+   <div class="yt-home-brand"><span class="yt-home-logo"><span>▶</span></span><b>YouTube</b></div>
+   <div class="yt-home-actions"><button type="button" aria-label="Notifications" id="ytHomeBell">♧</button><button type="button" aria-label="Search" id="ytHomeSearch">⌕</button></div>
+  </div>
+  <div class="yt-home-searchbox" id="ytHomeSearchbox" hidden><input id="ytHomeSearchInput" placeholder="Search YouTube" autocomplete="off"><button id="ytHomeSearchGo">Search</button></div>
+  <div class="yt-home-chips"><button class="selected">All</button><button>Music</button><button>Football</button><button>Arsenal</button><button>Recently uploaded</button></div>
+  <section class="yt-ad-card">
+   <div class="yt-ad-art"><div class="yt-ad-small">Google AI Plans</div><div class="yt-ad-headline">More magic<br>in one plan</div><div class="yt-ad-subtitle">More power, more perks, more possibilities</div><div class="yt-ad-gem">✦</div><span class="yt-ad-orbit o1">M</span><span class="yt-ad-orbit o2">▶</span><span class="yt-ad-orbit o3">◉</span><span class="yt-ad-arrow">↗</span></div>
+   <div class="yt-ad-details"><div class="yt-ad-icon">✦</div><div class="yt-ad-copy"><b>Create high-quality videos in Gemini - no tech skills needed!</b><p>Unleash your creativity with custom videos in Gemini. Create characters, scenes, and more</p><span>赞助商广告 · Google AI Plus</span></div><button class="yt-ad-more" aria-label="Ad options">•••</button></div>
+   <div class="yt-ad-buttons"><button id="ytAdWatch">觀看</button><button id="ytAdSignup">註冊</button></div>
+  </section>
+  <div class="yt-home-feed" id="ytHomeFeed">
+   ${videos.map((v,i)=>`<article class="yt-home-video" data-yt-index="${i}">
+    <div class="yt-home-thumb">${(v.thumbData||v.thumb)?`<img src="${v.thumbData||v.thumb}" alt="" onerror="this.style.display='none'">`:`<div class="yt-home-thumb-placeholder ${v.kind||''}">${v.icon||"⚽"}</div>`}<span class="yt-home-duration">${v.duration||"Video"}</span></div>
+    <div class="yt-home-video-info"><img class="yt-home-avatar" src="${avatarSrc("rice","youtube")}" alt="" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"><div class="yt-home-video-copy"><b>${escapeHtml(v.title)}</b><p>Declan Rice · ${v.views||"New video"} · ${v.age||"Just now"}</p></div><button class="yt-home-more" data-yt-more="${i}" aria-label="More options">⋮</button></div>
+   </article>`).join("")}
+  </div>
+  <nav class="yt-home-bottom"><button class="active" data-yt-tab="Home"><span>⌂</span><small>首頁</small></button><button data-yt-tab="Shorts"><span class="yt-shorts-icon">ϟ</span><small>Shorts</small></button><button class="yt-create" id="ytHomeCreate" aria-label="Add video">＋</button><button data-yt-tab="Subscriptions"><span>▣</span><small>訂閱內容</small></button><button data-yt-tab="You"><span class="yt-you-avatar">Y</span><small>個人中心</small></button></nav>
  </div>`;
- $("ytSubscribe").onclick=()=>{$("ytSubscribe").textContent=$("ytSubscribe").textContent==="Subscribe"?"Subscribed ✓":"Subscribe";};
- $("ytUploadButton").onclick=()=>$("ytUploadInput").click();
- c.querySelectorAll("[data-yt-index]").forEach(el=>el.addEventListener("click",()=>ytPlayVideo(Number(el.dataset.ytIndex))));
- c.querySelectorAll("[data-yt-more]").forEach(el=>el.addEventListener("click",e=>{e.stopPropagation();const v=ytGetVideos()[Number(el.dataset.ytMore)];alert(v.title);}));
+ const searchbox=$("ytHomeSearchbox");
+ $("ytHomeSearch").onclick=()=>{searchbox.hidden=!searchbox.hidden;if(!searchbox.hidden)$("ytHomeSearchInput").focus();};
+ const runSearch=()=>{const q=$("ytHomeSearchInput").value.trim().toLowerCase();const list=ytGetVideos().map((v,i)=>({...v,_i:i})).filter(v=>!q||(v.title+" "+(v.desc||"")).toLowerCase().includes(q));$("ytHomeFeed").innerHTML=list.map(v=>`<article class="yt-home-video" data-yt-index="${v._i}"><div class="yt-home-thumb">${(v.thumbData||v.thumb)?`<img src="${v.thumbData||v.thumb}" alt="" onerror="this.style.display='none'">`:`<div class="yt-home-thumb-placeholder ${v.kind||''}">${v.icon||"⚽"}</div>`}<span class="yt-home-duration">${v.duration||"Video"}</span></div><div class="yt-home-video-info"><img class="yt-home-avatar" src="${avatarSrc("rice","youtube")}" alt=""><div class="yt-home-video-copy"><b>${escapeHtml(v.title)}</b><p>Declan Rice · ${v.views||"New video"} · ${v.age||"Just now"}</p></div></div></article>`).join("")||'<div class="yt-home-no-results">No videos found</div>';bindVideoCards();};
+ $("ytHomeSearchGo").onclick=runSearch;
+ $("ytHomeSearchInput").addEventListener("keydown",e=>{if(e.key==="Enter")runSearch();});
+ $("ytHomeBell").onclick=()=>alert("No new notifications");
+ $("ytAdWatch").onclick=()=>alert("Sponsored preview");
+ $("ytAdSignup").onclick=()=>alert("This is a simulated YouTube interface.");
+ $("ytHomeCreate").onclick=()=>$("ytUploadInput").click();
+ c.querySelectorAll(".yt-home-chips button").forEach(b=>b.onclick=()=>{c.querySelectorAll(".yt-home-chips button").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");const q=b.textContent==="All"?"":b.textContent.toLowerCase();$("ytHomeSearchInput").value=q;runSearch();});
+ c.querySelectorAll("[data-yt-tab]").forEach(b=>b.onclick=()=>{c.querySelectorAll("[data-yt-tab]").forEach(x=>x.classList.remove("active"));b.classList.add("active");const tab=b.dataset.ytTab;if(tab==="Home"){renderRiceYouTube();return;}if(tab==="You"){alert("Your profile · Y");return;}if(tab==="Subscriptions"){$("ytHomeFeed").scrollIntoView({behavior:"smooth",block:"start"});return;}alert("Shorts · simulated feed");});
+ function bindVideoCards(){c.querySelectorAll("[data-yt-index]").forEach(el=>el.addEventListener("click",()=>ytPlayVideo(Number(el.dataset.ytIndex))));c.querySelectorAll("[data-yt-more]").forEach(el=>el.addEventListener("click",e=>{e.stopPropagation();const v=ytGetVideos()[Number(el.dataset.ytMore)];if(v)alert(v.title);}));}
+ bindVideoCards();
 }
 function ytPlayVideo(index){
  const v=ytGetVideos()[index];if(!v)return;
