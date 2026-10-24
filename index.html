@@ -244,6 +244,23 @@
 <style id="settings-detail-pages-style-v1">
 .ios-detail-page{padding:16px 16px 38px;max-width:620px;margin:0 auto;color:#f5f5f7}.ios-detail-back{display:flex;align-items:center;gap:6px;background:transparent;color:#65aaff;font-size:28px;margin:0 0 16px;padding:2px 0}.ios-detail-back span{font-size:15px}.ios-detail-page h1{font-size:30px;line-height:1.15;margin:0 0 9px;font-weight:760;letter-spacing:-.5px}.ios-detail-desc{font-size:13px;line-height:1.55;color:#a5a5ad;margin:0 0 20px}.ios-detail-group{background:#252528;border-radius:14px;overflow:hidden}.ios-detail-row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:51px;padding:12px 15px;border-bottom:1px solid #414145;font-size:14px}.ios-detail-row:last-child{border-bottom:0}.ios-detail-value{color:#a7a7ad;text-align:right;font-size:13px;white-space:pre-line}.ios-detail-footnote{font-size:12px;line-height:1.5;color:#8d8d94;margin:12px 3px}
 </style>
+
+<style id="youtube-declan-profile-and-home-recovery-v1">
+#decorApp.youtube-mode>.homebar{display:block!important;position:fixed!important;left:50%!important;transform:translateX(-50%)!important;bottom:calc(var(--safe-bottom) + 70px)!important;z-index:1205!important;width:108px!important;height:5px!important;background:#fff!important;box-shadow:0 1px 7px #0009!important;pointer-events:auto!important}
+.yt-profile-page{padding-bottom:145px!important;min-height:100%;background:#0f0f0f;color:#f1f1f1}
+.yt-profile-header{height:calc(var(--safe-top) + 52px);padding:calc(var(--safe-top) + 6px) 15px 8px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:9;background:#0f0f0ff5;backdrop-filter:blur(14px)}
+.yt-profile-header button{width:36px;height:36px;border-radius:50%;background:#242424;color:white;font-size:28px;display:grid;place-items:center}.yt-profile-header strong{font-size:17px;flex:1}
+.yt-profile-banner{height:110px;background:linear-gradient(120deg,#18251f,#4a554a 45%,#151515);border-bottom:1px solid #ffffff18}
+.yt-profile-summary{padding:0 18px 18px;border-bottom:1px solid #333}
+.yt-profile-avatar{width:88px;height:88px;border:4px solid #0f0f0f;border-radius:50%;object-fit:cover;background:#333;margin-top:-44px;position:relative}
+.yt-profile-summary h1{font-size:24px;margin:10px 0 4px;font-weight:800}.yt-profile-handle{font-size:13px;color:#aaa;margin:0 0 14px}.yt-profile-bio{font-size:14px;line-height:1.5;color:#e5e5e5;margin:0 0 16px}
+.yt-profile-stats{display:flex;gap:22px;margin:10px 0 16px}.yt-profile-stats span{display:flex;flex-direction:column;gap:4px}.yt-profile-stats b{font-size:13px}.yt-profile-stats small{font-size:11px;color:#aaa}
+.yt-profile-manage{width:100%;border-radius:24px;background:#f1f1f1;color:#111;padding:11px;font-weight:700}
+.yt-profile-tabs{display:flex;gap:24px;padding:15px 18px;border-bottom:1px solid #333;color:#aaa;font-size:14px}.yt-profile-tabs .selected{color:#fff;border-bottom:2px solid white;padding-bottom:7px;margin-bottom:-17px}
+.yt-profile-videos{padding:10px 0 30px}.yt-profile-video{display:flex;gap:12px;padding:10px 12px;align-items:flex-start;cursor:pointer}.yt-profile-thumb{position:relative;width:138px;aspect-ratio:16/9;flex-shrink:0;background:#242424;border-radius:8px;overflow:hidden;display:grid;place-items:center}.yt-profile-thumb img{width:100%;height:100%;object-fit:cover}.yt-profile-thumb span{font-size:28px}.yt-profile-thumb small{position:absolute;right:4px;bottom:4px;background:#000c;color:white;padding:2px 4px;border-radius:3px;font-size:10px}.yt-profile-video>div:last-child{min-width:0}.yt-profile-video b{font-size:13px;line-height:1.4;display:block}.yt-profile-video p,.yt-profile-empty{font-size:11px;color:#aaa;margin-top:7px}.yt-profile-empty{padding:20px}
+.yt-profile-nav-avatar{width:30px;height:30px;border-radius:50%;object-fit:cover}
+</style>
+
 </head>
 <body>
 <div class="phone" id="phone">
@@ -1337,9 +1354,36 @@ function renderRiceYouTube(){
  $("ytAdSignup").onclick=()=>alert("This is a simulated YouTube interface.");
  $("ytHomeCreate").onclick=()=>$("ytUploadInput").click();
  c.querySelectorAll(".yt-home-chips button").forEach(b=>b.onclick=()=>{c.querySelectorAll(".yt-home-chips button").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");const q=b.textContent==="All"?"":b.textContent.toLowerCase();$("ytHomeSearchInput").value=q;runSearch();});
- c.querySelectorAll("[data-yt-tab]").forEach(b=>b.onclick=()=>{c.querySelectorAll("[data-yt-tab]").forEach(x=>x.classList.remove("active"));b.classList.add("active");const tab=b.dataset.ytTab;if(tab==="Home"){renderRiceYouTube();return;}if(tab==="You"){alert("Your profile · Y");return;}if(tab==="Subscriptions"){$("ytHomeFeed").scrollIntoView({behavior:"smooth",block:"start"});return;}alert("Shorts · simulated feed");});
+ c.querySelectorAll("[data-yt-tab]").forEach(b=>b.onclick=()=>{const tab=b.dataset.ytTab;if(tab==="Home"){renderRiceYouTube();return;}if(tab==="You"){renderDeclanYouProfile();return;}c.querySelectorAll("[data-yt-tab]").forEach(x=>x.classList.remove("active"));b.classList.add("active");if(tab==="Subscriptions"){$("ytHomeFeed").scrollIntoView({behavior:"smooth",block:"start"});return;}alert("Shorts · simulated feed");});
  function bindVideoCards(){c.querySelectorAll("[data-yt-index]").forEach(el=>el.addEventListener("click",()=>ytPlayVideo(Number(el.dataset.ytIndex))));c.querySelectorAll("[data-yt-more]").forEach(el=>el.addEventListener("click",e=>{e.stopPropagation();const v=ytGetVideos()[Number(el.dataset.ytMore)];if(v)alert(v.title);}));}
  bindVideoCards();
+}
+function renderDeclanYouProfile(){
+ const c=$("decorContent");if(!c)return;
+ $("decorTitle").textContent="YouTube";
+ $("decorApp").classList.add("youtube-mode");
+ const allVideos=ytGetVideos();
+ const videos=allVideos.filter(v=>/rice|declan|england|arsenal/i.test((v.title||"")+" "+(v.desc||"")));
+ c.innerHTML=`<div class="yt-home-page yt-profile-page">
+  <header class="yt-profile-header"><button type="button" id="ytProfileBack" aria-label="Back to YouTube home">‹</button><strong>個人中心</strong><button type="button" id="ytProfileMore" aria-label="More">⋮</button></header>
+  <div class="yt-profile-banner"></div>
+  <section class="yt-profile-summary">
+   <img class="yt-profile-avatar" src="${avatarSrc("rice","youtube")}" alt="Declan Rice" onerror="this.onerror=null;this.src='./avatars/rice.JPG'">
+   <h1>Declan Rice</h1><p class="yt-profile-handle">@declanrice · YouTube</p>
+   <p class="yt-profile-bio">Arsenal & England midfielder ⚽<br>Football, training and moments on and off the pitch.</p>
+   <div class="yt-profile-stats"><span><b>Arsenal</b><small>Club</small></span><span><b>England</b><small>National team</small></span><span><b>Football</b><small>Videos</small></span></div>
+   <button type="button" class="yt-profile-manage" id="ytProfileManage">管理影片</button>
+  </section>
+  <div class="yt-profile-tabs"><button class="selected">影片</button><button>Shorts</button><button>播放清單</button></div>
+  <div class="yt-profile-videos">${videos.length?videos.map(v=>`<article class="yt-profile-video" data-yt-profile-index="${allVideos.indexOf(v)}"><div class="yt-profile-thumb">${(v.thumbData||v.thumb)?`<img src="${v.thumbData||v.thumb}" alt="" onerror="this.style.display='none'">`:`<span>${v.icon||"⚽"}</span>`}<small>${v.duration||"Video"}</small></div><div><b>${escapeHtml(v.title||"Declan Rice · Football")}</b><p>${v.views||"Football"} · ${v.age||"Recently uploaded"}</p></div></article>`).join(""):'<p class="yt-profile-empty">Declan Rice 的影片会显示在这里</p>'}</div>
+  <nav class="yt-home-bottom"><button type="button" data-yt-tab="Home"><span>⌂</span><small>首頁</small></button><button type="button" data-yt-tab="Shorts"><span class="yt-shorts-icon">ϟ</span><small>Shorts</small></button><button type="button" class="yt-create" id="ytHomeCreate" aria-label="Add video">＋</button><button type="button" data-yt-tab="Subscriptions"><span>▣</span><small>訂閱內容</small></button><button type="button" class="active" data-yt-tab="You"><img class="yt-profile-nav-avatar" src="${avatarSrc("rice","youtube")}" alt="Declan Rice" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"><small>個人中心</small></button></nav>
+ </div>`;
+ $("ytProfileBack").onclick=renderRiceYouTube;
+ $("ytProfileManage").onclick=()=>alert("這是 YouTube 个人主页模拟页面，管理功能暂不启用。");
+ $("ytProfileMore").onclick=()=>alert("Declan Rice · YouTube 个人主页");
+ $("ytHomeCreate").onclick=()=>$("ytUploadInput").click();
+ c.querySelectorAll("[data-yt-tab]").forEach(b=>b.onclick=()=>{const tab=b.dataset.ytTab;if(tab==="Home"){renderRiceYouTube();return;}if(tab==="You"){renderDeclanYouProfile();return;}if(tab==="Subscriptions"){renderRiceYouTube();setTimeout(()=>{const f=$("ytHomeFeed");if(f)f.scrollIntoView({behavior:"smooth",block:"start"});},0);return;}alert("Shorts · simulated feed");});
+ c.querySelectorAll("[data-yt-profile-index]").forEach(el=>el.onclick=()=>ytPlayVideo(Number(el.dataset.ytProfileIndex)));
 }
 function ytPlayVideo(index){
  const v=ytGetVideos()[index];if(!v)return;
