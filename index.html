@@ -405,6 +405,26 @@
             <img src="./avatars/harrykane.JPG" alt="Harry Kane">
             <span class="ig-inbox-person"><strong>Harry Kane</strong><small>Good luck for the next one ⚽</small></span>
           </button>
+          <button class="ig-inbox-row" data-ig-contact="Bukayo Saka">
+            <img src="./avatars/saka-ig.JPG" alt="Bukayo Saka" onerror="this.onerror=null;this.src='./avatars/saka.JPG'">
+            <span class="ig-inbox-person"><strong>Bukayo Saka</strong><small>Ready for the next match? 🔴⚪</small></span>
+          </button>
+          <button class="ig-inbox-row" data-ig-contact="Martin Ødegaard">
+            <img src="./avatars/odegaard-ig.JPG" alt="Martin Ødegaard" onerror="this.onerror=null;this.src='./avatars/odegaard.JPG'">
+            <span class="ig-inbox-person"><strong>Martin Ødegaard</strong><small>See you at training, captain 👊</small></span>
+          </button>
+          <button class="ig-inbox-row" data-ig-contact="Ben White">
+            <img src="./avatars/benwhite-ig.JPG" alt="Ben White" onerror="this.onerror=null;this.src='./avatars/rice.JPG'">
+            <span class="ig-inbox-person"><strong>Ben White</strong><small>Keep it between us 😂</small></span>
+          </button>
+          <button class="ig-inbox-row" data-ig-contact="Mason Mount">
+            <img src="./avatars/masonmount-ig.JPG" alt="Mason Mount" onerror="this.onerror=null;this.src='./avatars/rice.JPG'">
+            <span class="ig-inbox-person"><strong>Mason Mount</strong><small>How's everything going?</small></span>
+          </button>
+          <button class="ig-inbox-row" data-ig-contact="Marcus Rashford">
+            <img src="./avatars/rashford-ig.JPG" alt="Marcus Rashford" onerror="this.onerror=null;this.src='./avatars/rice.JPG'">
+            <span class="ig-inbox-person"><strong>Marcus Rashford</strong><small>Catch up soon 🤝</small></span>
+          </button>
         </div>
       </div>
       <div class="ig-dm-page" id="igDmPage">
@@ -894,7 +914,7 @@ document.querySelectorAll(".ig-inbox-row").forEach(row=>row.addEventListener("cl
     const avatar=header.querySelector("img");
     if(title)title.textContent=name;
     if(handle)handle.textContent=name==="Jude Bellingham"?"@judebellingham":"@"+name.toLowerCase().replace(/[^a-z0-9]+/g,"");
-    if(avatar){const map={"Jude Bellingham":"./avatars/jude-ig.JPG","Bukayo Saka":"./avatars/saka.JPG","Martin Ødegaard":"./avatars/odegaard.JPG","Kai Havertz":"./avatars/havertz.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Harry Kane":"./avatars/harrykane.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Djed Spence":"./avatars/djed-ig.JPG"};avatar.src=map[name]||"./avatars/rice.JPG";avatar.onerror=()=>{avatar.onerror=null;avatar.src="./avatars/rice.JPG";};avatar.alt=name;}
+    if(avatar){const map={"Jude Bellingham":"./avatars/jude-ig.JPG","Bukayo Saka":"./avatars/saka-ig.JPG","Martin Ødegaard":"./avatars/odegaard-ig.JPG","Ben White":"./avatars/benwhite-ig.JPG","Mason Mount":"./avatars/masonmount-ig.JPG","Marcus Rashford":"./avatars/rashford-ig.JPG","Kai Havertz":"./avatars/havertz.JPG","Riccardo Calafiori":"./avatars/calafiori.JPG","Harry Kane":"./avatars/harrykane.JPG","Djed Spence":"./avatars/djed-ig.JPG"};avatar.src=map[name]||"./avatars/rice.JPG";avatar.onerror=()=>{avatar.onerror=null;avatar.src="./avatars/rice.JPG";};avatar.alt=name;}
   }
   openInstagramDM();
 }));
