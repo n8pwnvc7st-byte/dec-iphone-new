@@ -229,7 +229,37 @@
     <div class="app-header">Recents <button id="phoneEditButton" style="font-size:14px;color:#1685ee;background:transparent">Edit</button></div><div class="app-content" id="callsContent"></div><div class="tabbar"><span data-phone-tab="Favorites"><b>★</b>Favorites</span><span data-phone-tab="Recents"><b>◷</b>Recents</span><span data-phone-tab="Contacts"><b>◉</b>Contacts</span><span data-phone-tab="Keypad"><b>⌨</b>Keypad</span></div><div class="homebar" data-home="home"></div>
   </section>
   <section class="screen app-screen" id="whatsApp">
-    <div class="app-header">WhatsApp <button id="waOpenStudio" style="font-size:14px;color:#1685ee;background:transparent">Edit</button></div><div class="app-content"><div class="profile-card" id="myProfile"><div class="profile-avatar"><img src="./avatars/rice-whatsapp.JPG" alt="Declan Rice" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"></div><b id="myName">declanrice</b><div style="font-size:12px;color:#888;margin-top:5px">My Profile</div></div><div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;margin:12px 3px"><span>Chats</span><button id="waOpenStudio2" style="background:#1685ee;color:white;border-radius:16px;padding:6px 10px;font-size:12px">Message Studio</button></div><div class="friend-row" id="openFriend"><div class="friend-avatar">J</div><div class="friend-text"><div class="friend-name" id="friendName">juju</div><div class="friend-status">Tap to send a message</div></div><span style="color:#aaa">›</span></div></div><div class="homebar" data-home="home"></div>
+    <div class="app-content wa-app-content">
+      <div class="wa-appbar">
+        <h1>WhatsApp</h1>
+        <div class="wa-appbar-actions">
+          <button type="button" id="waOpenStudio" aria-label="Edit WhatsApp profile">⚙</button>
+          <button type="button" id="waOpenStudio2" aria-label="Message settings">＋</button>
+        </div>
+      </div>
+      <div class="wa-me-card" id="myProfile">
+        <div class="profile-avatar"><img src="./avatars/rice-whatsapp.JPG" alt="Your profile" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"></div>
+        <div class="wa-me-copy"><b id="myName">declanrice</b><span>你的个人资料 · 点击编辑</span></div>
+        <span class="wa-chevron">›</span>
+      </div>
+      <div class="wa-section-heading"><h2>Chats</h2><span>已置顶 · 1</span></div>
+      <label class="wa-search"><span>⌕</span><input id="waSearchInput" type="search" placeholder="搜索聊天" autocomplete="off"></label>
+      <div class="wa-chat-list" id="waChatList">
+        <button type="button" class="wa-chat-row" id="openFriend">
+          <span class="friend-avatar wa-contact-avatar"><img src="./avatars/jude-ig.JPG" alt="Jude Bellingham" onerror="this.onerror=null;this.src='./avatars/jude.JPG'"></span>
+          <span class="wa-chat-copy"><span class="friend-name" id="friendName">Jude Bellingham</span><span class="wa-chat-preview" id="waLastPreview">点此开始聊天</span></span>
+          <span class="wa-chat-meta"><time id="waLastTime">现在</time><span class="wa-chat-check">›</span></span>
+        </button>
+      </div>
+      <nav class="wa-bottom-nav" aria-label="WhatsApp navigation">
+        <button type="button"><span>◉</span><small>动态</small></button>
+        <button type="button"><span>⌕</span><small>通话</small></button>
+        <button type="button"><span>♧</span><small>社群</small></button>
+        <button type="button" class="selected"><span>●</span><small>聊天</small></button>
+        <button type="button" id="waMyTab"><span>●</span><small>你</small></button>
+      </nav>
+    </div>
+    <div class="homebar" data-home="home"></div>
   </section>
   <section class="screen x-screen" id="xApp">
     <div class="app-content" style="padding:0 0 50px"><div class="x-feed-view" id="xFeedView"><div class="x-feed-top"><div class="x-feed-logo">𝕏</div><button class="x-feed-profile-btn" id="xOpenProfile">declanrice · Profile</button></div><div class="x-feed-tabs"><button class="active">For you</button><button>Following</button></div><div id="xFeedPosts"></div></div><div class="x-profile-view" id="xProfileView"><div class="app-header" style="display:flex;align-items:center;gap:14px"><button id="xBackToFeed" style="background:transparent;color:#fff;font-size:22px">‹</button><span>X · Profile</span><span style="margin-left:auto">⌕</span></div><div class="x-profile"><div class="x-banner"></div><div class="x-user"><button class="x-avatar x-avatar-edit" id="xAvatarButton" aria-label="Change X profile photo"><img id="xAvatarImage" src="./avatars/rice-x.JPG" alt="Declan Rice" onerror="this.onerror=null;this.src='./avatars/rice.JPG'"></button><div style="padding-top:24px;min-width:0"><div style="font-weight:800;font-size:18px" id="xName">declanrice　🔒</div><div class="x-handle" id="xHandle">@DR.Ceee</div></div></div><p style="font-size:13px;color:#ddd">Private account</p><div class="x-handle">0 following　·　0 followers</div><div class="x-profile-actions"><button id="xEditProfile">Edit profile</button><button id="xChangeBanner">Edit banner</button></div><input type="file" id="xAvatarFile" accept="image/*" hidden><input type="file" id="xBannerFile" accept="image/*" hidden></div><div id="tweetsList"></div></div></div><div class="homebar" data-home="home"></div>
@@ -2203,3 +2233,107 @@ button.ios-setting-row{cursor:pointer}
   padding-bottom: calc(55px + var(--safe-bottom)) !important;
 }
 </style>
+
+
+<style id="whatsapp-mobile-chat-fix-v2">
+#whatsApp{background:#fff!important;color:#111!important;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+#whatsApp>.app-header{display:none!important}
+#whatsApp>.wa-app-content,#whatsApp>.app-content.wa-app-content{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-height:100%!important;box-sizing:border-box!important;overflow:hidden!important;padding:calc(var(--safe-top) + 8px) 0 calc(var(--safe-bottom) + 80px)!important;background:#fff!important;color:#111!important;display:flex!important;flex-direction:column!important}
+#whatsApp .wa-appbar{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 14px;flex:0 0 auto}
+#whatsApp .wa-appbar h1{font-size:32px;line-height:1.1;font-weight:800;letter-spacing:-.8px;margin:0}
+#whatsApp .wa-appbar-actions{display:flex;gap:10px}
+#whatsApp .wa-appbar-actions button{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#f1f2f4;color:#151515;font-size:24px;border:0}
+#whatsApp .wa-me-card{display:flex;align-items:center;gap:12px;margin:0 16px 24px;padding:12px;background:#f5f5f7;border-radius:18px;flex:0 0 auto;text-align:left;cursor:pointer}
+#whatsApp .wa-me-card .profile-avatar{width:48px;height:48px;min-width:48px;border-radius:50%;overflow:hidden;margin:0;background:#dce1e8}
+#whatsApp .wa-me-card .profile-avatar img{width:100%;height:100%;object-fit:cover}
+#whatsApp .wa-me-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:4px}
+#whatsApp .wa-me-copy b{font-size:15px;font-weight:700}
+#whatsApp .wa-me-copy span{font-size:12px;color:#777}
+#whatsApp .wa-chevron{font-size:25px;color:#999}
+#whatsApp .wa-section-heading{display:flex;align-items:center;justify-content:space-between;padding:0 18px 12px;flex:0 0 auto}
+#whatsApp .wa-section-heading h2{font-size:22px;font-weight:750;margin:0}
+#whatsApp .wa-section-heading span{font-size:12px;color:#85858a}
+#whatsApp .wa-search{height:46px;margin:0 16px 12px;border-radius:14px;background:#f1f2f4;display:flex;align-items:center;gap:10px;padding:0 14px;color:#737780;box-sizing:border-box;flex:0 0 auto}
+#whatsApp .wa-search>span{font-size:24px;line-height:1}
+#whatsApp .wa-search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#171717;font-size:16px}
+#whatsApp .wa-search input::placeholder{color:#8c8d93;opacity:1}
+#whatsApp .wa-chat-list{flex:1 1 auto;min-height:0;overflow:auto;padding:0 16px}
+#whatsApp .wa-chat-row{width:100%;display:flex;align-items:center;gap:12px;min-height:84px;padding:12px 0;border:0;border-bottom:1px solid #ececef;background:#fff;color:#171717;text-align:left}
+#whatsApp .wa-chat-row .friend-avatar{width:58px;height:58px;min-width:58px;border-radius:50%;overflow:hidden;background:#e7e9ed;display:grid;place-items:center}
+#whatsApp .wa-chat-row .friend-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+#whatsApp .wa-chat-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+#whatsApp .wa-chat-copy .friend-name{font-size:16px;font-weight:700;line-height:1.25;color:#151515}
+#whatsApp .wa-chat-preview{font-size:13px;color:#777b83;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#whatsApp .wa-chat-meta{align-self:stretch;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:7px;color:#8a8c92;min-width:38px}
+#whatsApp .wa-chat-meta time{font-size:11px}
+#whatsApp .wa-chat-check{font-size:22px;color:#9b9da3}
+#whatsApp .wa-bottom-nav{position:absolute;left:12px;right:12px;bottom:calc(var(--safe-bottom) + 8px);height:66px;padding:5px 4px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:center;border:1px solid #e5e5e9;border-radius:24px;background:rgba(248,248,250,.97);box-shadow:0 5px 20px rgba(0,0,0,.06);z-index:30}
+#whatsApp .wa-bottom-nav button{min-width:0;height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:transparent;color:#777982;border-radius:17px;padding:2px}
+#whatsApp .wa-bottom-nav button.selected{background:#e4f7e8;color:#168b43}
+#whatsApp .wa-bottom-nav button>span{font-size:21px;line-height:1}
+#whatsApp .wa-bottom-nav small{font-size:10px;white-space:nowrap}
+#chatPage{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-height:100%!important;box-sizing:border-box!important;background:#f7f8fa!important;color:#151515!important;display:none;flex-direction:column;overflow:hidden!important;z-index:500!important}
+#chatPage.active{display:flex!important}
+#chatPage .chat-top{flex:0 0 auto;padding:calc(var(--safe-top) + 8px) 14px 12px!important;min-height:68px;box-sizing:border-box;background:#fff!important;border-bottom:1px solid #e8e8eb!important;color:#171717!important;gap:10px}
+#chatPage .chat-top button{font-size:30px!important;color:#178b49!important;padding:0 5px!important}
+#chatPage .chat-top .friend-avatar{width:42px!important;height:42px!important;min-width:42px!important;border-radius:50%;overflow:hidden;background:#e1e6e9!important}
+#chatPage .chat-top .friend-avatar img{width:100%;height:100%;object-fit:cover}
+#chatPage .chat-title{font-size:16px;font-weight:750;color:#171717}
+#chatPage>div:nth-child(2){flex:0 0 auto;display:flex!important;gap:7px;padding:7px 10px!important;background:#fff!important;border-bottom:1px solid #eee;overflow-x:auto}
+#chatPage>div:nth-child(2) button{background:#f1f2f4!important;color:#565a62!important;border-color:#e1e3e7!important}
+#chatPage .chat-messages{flex:1 1 auto;min-height:0;overflow:auto;overscroll-behavior:contain;padding:16px 13px!important;gap:10px;background:#f7f8fa!important}
+#chatPage .wa-msg-row{display:flex;max-width:100%}
+#chatPage .wa-msg-row.in{justify-content:flex-start}
+#chatPage .wa-msg-row.out{justify-content:flex-end}
+#chatPage .wa-msg-bubble{max-width:min(82%,320px);overflow-wrap:anywhere;padding:10px 13px;border-radius:18px;background:#fff;color:#171717;box-shadow:0 1px 2px rgba(0,0,0,.06);font-size:15px;line-height:1.4}
+#chatPage .wa-msg-row.out .wa-msg-bubble{background:#d9fdd3;border-radius:18px 18px 5px 18px}
+#chatPage .wa-msg-row.in .wa-msg-bubble{border-radius:18px 18px 18px 5px}
+#chatPage .wa-small{font-size:10px;color:#858991}
+#chatPage .chat-compose{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:10px 12px calc(var(--safe-bottom) + 12px)!important;background:#fff!important;border-top:1px solid #e7e8eb}
+#chatPage .chat-compose input{flex:1;min-width:0;min-height:44px;box-sizing:border-box;border:1px solid #e0e2e5!important;border-radius:24px!important;padding:10px 15px!important;background:#f5f6f7!important;color:#161616!important;font-size:16px!important}
+#chatPage .chat-compose input::placeholder{color:#858891}
+#chatPage .chat-compose button{flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:#1da45b!important;color:#fff!important;font-size:22px}
+#chatPage .homebar{display:none!important}
+@media(max-width:390px){
+ #whatsApp .wa-appbar{padding-left:16px;padding-right:16px}
+ #whatsApp .wa-me-card{margin-bottom:20px}
+ #whatsApp .wa-chat-row{min-height:78px}
+ #whatsApp .wa-chat-row .friend-avatar{width:52px;height:52px;min-width:52px}
+ #whatsApp .wa-bottom-nav{left:8px;right:8px}
+}
+</style>
+<script id="whatsapp-chat-functionality-v2">
+(function(){
+ const $=id=>document.getElementById(id);
+ const STORAGE="iphone-wa-studio-v1";
+ function readData(){try{return JSON.parse(localStorage.getItem(STORAGE)||"null")}catch(e){return null}}
+ function saveData(d){try{localStorage.setItem(STORAGE,JSON.stringify(d))}catch(e){}}
+ function initWhatsAppFix(){
+   const data=readData();
+   if(data&&data.profile){
+     if(data.profile.contactName==="juju"||data.profile.contactName==="Judy"||!data.profile.contactName) data.profile.contactName="Jude Bellingham";
+     if(!data.profile.contactAvatar||data.profile.contactAvatar==="./avatars/jude.JPG") data.profile.contactAvatar="./avatars/jude-ig.JPG";
+     saveData(data);
+   }
+   const profile=$("myProfile");
+   if(profile) profile.addEventListener("click",function(){if(typeof window.openWaStudio==="function")window.openWaStudio("profile")});
+   const search=$("waSearchInput"),row=$("openFriend");
+   if(search&&row) search.addEventListener("input",function(){const name=($("friendName")?.textContent||"Jude Bellingham").toLowerCase();row.style.display=name.includes(search.value.trim().toLowerCase())?"flex":"none"});
+   const me=$("waMyTab");
+   if(me)me.addEventListener("click",function(){if(typeof window.openWaStudio==="function")window.openWaStudio("profile")});
+   const preview=$("waLastPreview");
+   if(preview)preview.textContent="点此开始聊天";
+   const original=window.waRenderChat;
+   if(typeof original==="function"){
+     window.waRenderChat=function(){
+       original();
+       const box=$("chatMessages");
+       if(box)box.scrollTop=box.scrollHeight;
+     };
+   }
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",initWhatsAppFix);
+ else initWhatsAppFix();
+})();
+</script>
+
