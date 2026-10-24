@@ -2579,3 +2579,46 @@ button.ios-setting-row{cursor:pointer}
 })();
 </script>
 
+
+<style id="music-youtube-home-random-call-v2">
+#spotifyDetail.spotify-detail{box-sizing:border-box!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;padding:calc(var(--safe-top) + 10px) 20px calc(var(--safe-bottom) + 18px)!important;}
+#spotifyDetail .spotify-detail-top{min-height:44px!important;position:sticky!important;top:0!important;z-index:5!important;background:#18221cf0!important;backdrop-filter:blur(12px)!important;margin:0 -4px!important;padding:4px!important;border-radius:12px!important;}
+#spotifyDetail .spotify-big-cover{box-sizing:border-box!important;width:min(56vw,30vh,230px)!important;height:min(56vw,30vh,230px)!important;max-width:100%!important;margin:clamp(12px,2.5vh,22px) auto!important;overflow:hidden!important;flex-shrink:0!important;}
+#spotifyDetail .spotify-big-cover img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:cover!important;object-position:center!important;}
+#spotifyDetail .spotify-song-title{font-size:clamp(19px,5vw,23px)!important;line-height:1.25!important;}
+#spotifyDetail .progress-wrap{margin-top:clamp(14px,2.5vh,24px)!important;}#spotifyDetail .player-controls{margin-top:clamp(12px,2.5vh,20px)!important;}
+#spotifyDetail .homebar{position:sticky!important;display:block!important;bottom:0!important;left:auto!important;transform:none!important;margin:14px auto 4px!important;flex-shrink:0!important;z-index:8!important;}
+#spotifyHomeButton{display:block;width:100%;max-width:280px;min-height:46px;margin:14px auto 0;border-radius:24px;background:#ffffff18;border:1px solid #ffffff55;color:#fff;font-size:15px;font-weight:700;letter-spacing:.2px;}
+#ytPlayer.yt-player{z-index:1000!important;box-sizing:border-box!important;overflow-y:auto!important;overscroll-behavior:contain!important;padding-bottom:calc(var(--safe-bottom) + 84px)!important;}
+#ytPlayer .yt-player-top{position:sticky!important;top:0!important;z-index:5!important;background:#080808f5!important;backdrop-filter:blur(12px)!important;padding:calc(var(--safe-top) + 8px) 12px 10px!important;gap:8px!important;}
+#ytPlayer .yt-player-top button{min-width:44px!important;min-height:44px!important;border-radius:22px!important;background:#252525!important;color:#fff!important;font-size:25px!important;display:grid!important;place-items:center!important;}
+#ytPlayer .yt-player-video{display:block!important;width:100%!important;max-height:36vh!important;aspect-ratio:16/9!important;object-fit:contain!important;flex-shrink:0!important;}
+#ytPlayer .yt-player-info{padding:14px 18px 30px!important;}#ytPlayerHomeButton{position:sticky;bottom:calc(var(--safe-bottom) + 12px);z-index:20;display:block;width:calc(100% - 32px);min-height:52px;margin:12px 16px 8px;border:1px solid #ffffff55;border-radius:28px;background:#f1f1f1;color:#111;font-size:16px;font-weight:800;box-shadow:0 5px 22px #0009;}
+#decorApp.youtube-mode>.homebar{z-index:1100!important;pointer-events:auto!important;}
+</style>
+<script id="music-youtube-home-random-call-init-v2">
+(function(){
+function closeMusic(){var d=document.getElementById("spotifyDetail");if(d)d.classList.remove("active");}
+function closeYoutube(toHome){var p=document.getElementById("ytPlayer"),v=document.getElementById("ytPlayerVideo");if(v){try{v.pause();}catch(e){}try{v.removeAttribute("src");v.load();}catch(e){}}if(p)p.classList.remove("active");if(toHome&&typeof showScreen==="function")showScreen("desktop");}
+function addMusicHome(){var d=document.getElementById("spotifyDetail");if(!d||document.getElementById("spotifyHomeButton"))return;var b=document.createElement("button");b.id="spotifyHomeButton";b.type="button";b.textContent="⌂  Home · 返回主屏幕";b.addEventListener("click",function(){closeMusic();if(typeof showScreen==="function")showScreen("desktop");});var note=document.getElementById("audioNote");if(note&&note.parentNode)note.parentNode.insertBefore(b,note.nextSibling);else d.appendChild(b);}
+function addYoutubeHome(){var p=document.getElementById("ytPlayer");if(!p||document.getElementById("ytPlayerHomeButton"))return;var b=document.createElement("button");b.id="ytPlayerHomeButton";b.type="button";b.textContent="⌂  Home · 返回手机主屏幕";b.addEventListener("click",function(){closeYoutube(true);});p.appendChild(b);var top=p.querySelector(".yt-player-top");if(top&&!document.getElementById("ytPlayerListButton")){var back=document.createElement("button");back.id="ytPlayerListButton";back.type="button";back.textContent="‹";back.setAttribute("aria-label","返回视频列表");back.addEventListener("click",function(){closeYoutube(false);});top.insertBefore(back,top.firstChild);}}
+function randomizeCallVideoBank(){
+ var api="https://api.github.com/repos/n8pwnvc7st-byte/dec-iphone-new/contents/call-videos?ref=main";
+ fetch(api,{headers:{Accept:"application/vnd.github+json"}}).then(function(r){if(!r.ok)throw new Error("video list unavailable");return r.json();}).then(function(items){
+  var files=items.filter(function(x){return x.type==="file"&&/\.(mp4|mov|m4v|webm)$/i.test(x.name);}).map(function(x){return "./call-videos/"+encodeURIComponent(x.name).replace(/%2F/gi,"/");});
+  window.__callVideoFiles=files;
+  window.__callVideoFilesByPerson={};
+  files.forEach(function(path){var file=decodeURIComponent(path.split("/").pop());var prefix=file.split(/[-_.]/)[0].toLowerCase();var map={jude:"Jude Bellingham",rice:"Declan Rice",havertz:"Kai Havertz",harrykane:"Harry Kane",kane:"Harry Kane",calafiori:"Riccardo Calafiori",saka:"Bukayo Saka",odegaard:"Martin Ødegaard",olise:"Michael Olise",jamal:"Jamal Musiala",musiala:"Jamal Musiala",mount:"Mason Mount",bellingham:"Jude Bellingham"};var name=map[prefix];if(name){(window.__callVideoFilesByPerson[name]||(window.__callVideoFilesByPerson[name]=[])).push(path);}});
+  window.chooseCallVideo=function(name,fallback){var choices=window.__callVideoFilesByPerson&&window.__callVideoFilesByPerson[name];if(!choices||!choices.length)return fallback;return choices[Math.floor(Math.random()*choices.length)];};
+ }).catch(function(){window.__callVideoFiles=[];});
+}
+function init(){addMusicHome();addYoutubeHome();randomizeCallVideoBank();
+ var close=document.getElementById("closePlayer");if(close){close.setAttribute("aria-label","收起播放器");close.title="收起播放器";}
+ var play=document.getElementById("playAll");if(play&&!play.dataset.recoveryBound){play.dataset.recoveryBound="1";play.addEventListener("click",function(){if(typeof selectTrack==="function"&&(!window.audioEl)&&Array.isArray(window.CONFIG&&CONFIG.spotify&&CONFIG.spotify.songs)&&CONFIG.spotify.songs.length){if(typeof trackIndex!=="undefined")selectTrack(trackIndex,true);}});}
+ var player=document.getElementById("ytPlayer");if(player&&!player.dataset.homeWatch){player.dataset.homeWatch="1";new MutationObserver(function(){if(player.classList.contains("active"))addYoutubeHome();}).observe(player,{attributes:true,attributeFilter:["class"]});}
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+document.addEventListener("click",function(e){if(e.target.closest("#ytPlayerBack,#ytPlayerClose,#ytPlayerListButton")){e.preventDefault();e.stopPropagation();closeYoutube(false);}if(e.target.closest("#ytPlayerHomeButton")){e.preventDefault();e.stopPropagation();closeYoutube(true);}if(e.target.closest("#decorApp.youtube-mode>.homebar"))closeYoutube(true);});
+ document.addEventListener("keydown",function(e){if(e.key==="Escape"){var p=document.getElementById("ytPlayer");if(p&&p.classList.contains("active"))closeYoutube(false);else closeMusic();}});
+})();
+</script>
