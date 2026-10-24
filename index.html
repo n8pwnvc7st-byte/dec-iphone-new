@@ -238,6 +238,9 @@
 .icon-amazon{background:#fff;color:#111;font-size:38px;font-weight:800;position:relative}
 .icon-amazon:after{content:"";position:absolute;width:27px;height:8px;border-bottom:3px solid #ff9900;border-radius:50%;bottom:12px;left:18px;transform:rotate(7deg)}
 </style>
+<style id="online-wallpaper-settings-style-v1">
+.online-wallpaper-settings{padding:18px 16px 35px;color:#f5f5f7;max-width:620px;margin:auto}.ow-back{display:flex;align-items:center;gap:7px;background:transparent;color:#65aaff;font-size:19px;margin:0 0 18px}.ow-back span{font-size:15px}.online-wallpaper-settings h1{font-size:30px;margin:0 0 8px;font-weight:750}.ow-desc{font-size:13px;line-height:1.55;color:#a6a6ad;margin:0 0 18px}.ow-preview{height:290px;max-width:190px;margin:0 auto 22px;border-radius:26px;overflow:hidden;background:linear-gradient(145deg,#233c35,#bdb4a7 50%,#3d5550);border:1px solid #ffffff30;display:flex;align-items:center;justify-content:center;color:#bbb;font-size:12px;text-align:center}.ow-preview img{width:100%;height:100%;object-fit:cover}.ow-label{display:block;font-size:13px;color:#aaa;margin-bottom:8px}.ow-url,#owUrl{display:block;width:100%;box-sizing:border-box;border:1px solid #444;background:#222226;color:#fff;border-radius:12px;padding:13px;font-size:13px;outline:none}.ow-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.ow-actions button{border-radius:12px;padding:13px 7px;background:#333;color:white;font-size:14px;font-weight:650}.ow-actions button+button{background:#0a84ff}.ow-reset{width:100%;margin-top:12px;padding:13px;border-radius:12px;background:#28282b;color:#ff7777}.ow-status{font-size:12px;color:#a8a8ad;line-height:1.5;margin-top:13px;min-height:18px}
+</style>
 </head>
 <body>
 <div class="phone" id="phone">
@@ -481,7 +484,7 @@ let customPlaylists = JSON.parse(localStorage.getItem("iphone-music-playlists")|
 let visibleTrackIndices = null;
 function safeText(v){return String(v ?? "");}
 function showScreen(id){screens.forEach(s=>$(s).classList.toggle("active",s===id));currentScreen=id;$("chatPage").classList.remove("active");$("profileModal").classList.remove("active");}
-function setWallpaper(){const w=CONFIG.wallpaper||"";if(/^https?:\/\//i.test(w)&&!w.includes("pin.it/")){$("wallpaper").style.backgroundImage=`url("${w}")`;}else{$("wallpaper").style.backgroundImage="linear-gradient(145deg,#233c35,#bdb4a7 50%,#3d5550)";}}
+function setWallpaper(){const online=localStorage.getItem("iphone-online-wallpaper-url");const w=online||CONFIG.wallpaper||"";if(/^https?:\/\//i.test(w)&&!w.includes("pin.it/")){$("wallpaper").style.backgroundImage=`url("${w}")`;}else{$("wallpaper").style.backgroundImage="linear-gradient(145deg,#233c35,#bdb4a7 50%,#3d5550)";}}
 function updateClock(){const d=new Date();const t=d.toLocaleTimeString(currentLanguage==="zh"?"zh-CN":"en-US",{hour:"2-digit",minute:"2-digit",hour12:false});$("lockTime").textContent=t;$("lockStatusTime").textContent=t;$("deskTime").textContent=t;$("incomingTime").textContent=t;$("lockDate").textContent=d.toLocaleDateString(currentLanguage==="zh"?"zh-CN":"en-US",{weekday:"long",month:"long",day:"numeric"});}
 function appIcon(id,name,emoji,cls){const mark=emoji;return `<div class="app-icon-wrap" data-app="${id}" data-label="${name}"><button class="app-icon ${cls}" aria-label="${name}">${mark}</button><div class="app-name">${name}</div></div>`}
 function renderDesktop(){
@@ -1503,7 +1506,7 @@ function openSettings(){
   showScreen("decorApp");
   $("decorContent").querySelectorAll("[data-ios-detail]").forEach(btn=>btn.addEventListener("click",()=>{
     const name=btn.dataset.iosDetail;
-    if(name==="Wallpaper"||name==="Photos"){showScreen("photosApp");renderPhotos();return;}
+    if(name==="Wallpaper"){openOnlineWallpaperSettings();return;}if(name==="Photos"){showScreen("photosApp");renderPhotos();return;}
     if(name==="WhatsApp"){openWaStudio("profile");return;}
     if(name==="Language"){
       const existing=$("iosLanguageSheet");if(existing)existing.remove();
@@ -1524,12 +1527,40 @@ function openSettings(){
     }
   }));
 }
+
+function openOnlineWallpaperSettings(){
+ const c=$("decorContent");if(!c)return;
+ $("decorTitle").textContent="Wallpaper";
+ showScreen("decorApp");
+ const saved=localStorage.getItem("iphone-online-wallpaper-url")||"";
+ c.innerHTML=`<div class="online-wallpaper-settings" id="online-wallpaper-settings-v1">
+  <button class="ow-back" id="owBack">‹ <span>Settings</span></button>
+  <h1>Wallpaper</h1>
+  <p class="ow-desc">Choose an image from the internet and apply it to your Lock Screen and Home Screen. Use a direct image link (JPG, PNG, or WebP).</p>
+  <div class="ow-preview" id="owPreview"><span>Wallpaper preview</span></div>
+  <label class="ow-label" for="owUrl">Image URL</label>
+  <input id="owUrl" type="url" placeholder="https://example.com/wallpaper.jpg" value="${escapeHtml(saved)}" autocomplete="url">
+  <div class="ow-actions"><button id="owPreviewBtn">Preview</button><button id="owApplyBtn">Set Wallpaper</button></div>
+  <button class="ow-reset" id="owReset">Restore default wallpaper</button>
+  <p class="ow-status" id="owStatus">Your selection is saved on this device.</p>
+ </div>`;
+ const input=$("owUrl"),preview=$("owPreview"),status=$("owStatus");
+ function previewUrl(url){if(!/^https?:\/\//i.test(url)){status.textContent="Please enter a valid image URL beginning with https:// or http://.";return false;}preview.innerHTML='<img alt="Wallpaper preview" src="'+url.replace(/&/g,"&amp;").replace(/"/g,"&quot;")+'">';const img=preview.querySelector("img");img.onerror=()=>{preview.innerHTML="<span>Could not load this image. Try a direct image URL.</span>";status.textContent="Image could not be loaded. Some websites block direct image access.";};img.onload=()=>{status.textContent="Preview loaded. Tap Set Wallpaper to apply it.";};return true;}
+ if(saved)previewUrl(saved);
+ $("owPreviewBtn").onclick=()=>previewUrl(input.value.trim());
+ $("owApplyBtn").onclick=()=>{const url=input.value.trim();if(!previewUrl(url))return;const img=new Image();img.onload=()=>{localStorage.setItem("iphone-online-wallpaper-url",url);localStorage.removeItem("iphone-lock-wallpaper-id");localStorage.removeItem("iphone-home-wallpaper-id");$("wallpaper").style.backgroundImage='url("'+url.replace(/"/g,"%22")+'")';$("homeWallpaper").style.backgroundImage='url("'+url.replace(/"/g,"%22")+'")';$("homeWallpaper").style.opacity="1";status.textContent="Wallpaper applied to Lock Screen and Home Screen.";};img.onerror=()=>{status.textContent="Could not load this image. Check the direct image URL.";};img.src=url;};
+ $("owReset").onclick=()=>{localStorage.removeItem("iphone-online-wallpaper-url");localStorage.removeItem("iphone-lock-wallpaper-id");localStorage.removeItem("iphone-home-wallpaper-id");setWallpaper();$("homeWallpaper").style.backgroundImage="linear-gradient(145deg,#172b26,#b2a99a 48%,#364b48)";$("homeWallpaper").style.opacity="0";input.value="";preview.innerHTML="<span>Wallpaper preview</span>";status.textContent="Default wallpaper restored.";};
+ $("owBack").onclick=()=>openSettings();
+}
+
 function setWallpaperForScreen(screen,id){
   const item=photoItems.find(p=>p.id===id);if(!item)return;
   localStorage.setItem(screen==="lock"?"iphone-lock-wallpaper-id":"iphone-home-wallpaper-id",id);
   applySavedWallpapers();alert(tr("Saved"));
 }
 function applySavedWallpapers(){
+  const onlineUrl=localStorage.getItem("iphone-online-wallpaper-url");
+  if(onlineUrl){$("wallpaper").style.backgroundImage=`url("${onlineUrl}")`;$("homeWallpaper").style.backgroundImage=`url("${onlineUrl}")`;$("homeWallpaper").style.opacity="1";return;}
   const lockId=localStorage.getItem("iphone-lock-wallpaper-id"),homeId=localStorage.getItem("iphone-home-wallpaper-id");
   const lockItem=photoItems.find(p=>p.id===lockId),homeItem=photoItems.find(p=>p.id===homeId);
   if(lockItem&&photoUrls.get(lockItem.id))$("wallpaper").style.backgroundImage=`url("${photoUrls.get(lockItem.id)}")`;
