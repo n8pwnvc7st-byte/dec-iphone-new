@@ -589,7 +589,7 @@ function avatarFallback(person) { return person === "jude" ? "./avatars/jude.JPG
 function avatarImgTag(person, app, alt="") { const src=avatarSrc(person,app), fallback=avatarFallback(person); return `<img src="${src}" alt="${safeText(alt)}" onerror="this.onerror=null;this.src='${fallback}'" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block">`; }
 
 const $ = id => document.getElementById(id);
-const screens = ["lockScreen","desktop","phoneApp","whatsApp","xApp","instagramApp","spotifyApp","photosApp","decorApp","netflixApp","snapchatApp","hboApp"];
+const screens = ["lockScreen","desktop","phoneApp","whatsApp","xApp","instagramApp","spotifyApp","photosApp","decorApp","arsenalApp","netflixApp","snapchatApp","hboApp"];
 let currentScreen = "lockScreen", callStart = 0, callTicker = null, msgTimers = [], presetIndex = 0, audioEl = null;
 let trackIndex = Number(localStorage.getItem("iphone-music-track")||0), playing = false, simulatedTime = Number(localStorage.getItem("iphone-music-time")||0), playerTicker = null, shuffle = false, repeatMode = Number(localStorage.getItem("iphone-music-repeat")||0);
 let favorites = new Set(JSON.parse(localStorage.getItem("iphone-music-favorites")||"[]"));
