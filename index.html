@@ -353,6 +353,11 @@
 #appsGrid .icon-clock::before{content:""!important;position:absolute!important;width:54%!important;height:54%!important;border:3px solid #111!important;border-radius:50%!important}
 #appsGrid .icon-clock::after{content:""!important;position:absolute!important;width:3px!important;height:20%!important;background:#111!important;left:50%!important;top:24%!important;transform:translateX(-50%)!important;box-shadow:6px 13px 0 -0.5px #111!important}
 </style>
+<style id="static-second-page-app-icons">
+#secondPageApps [data-coming-soon] .app-icon{width:min(17vw,64px)!important;height:min(17vw,64px)!important;border-radius:14px!important;overflow:hidden!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;color:transparent!important;font-size:0!important}
+#secondPageApps [data-coming-soon] .app-icon svg{display:block!important;width:100%!important;height:100%!important;min-width:100%!important;min-height:100%!important}
+#secondPageApps [data-coming-soon] .app-name{display:block!important;visibility:visible!important;opacity:1!important;color:#fff!important;font-size:11px!important;line-height:1.2!important;text-shadow:0 1px 5px #0008!important}
+</style>
 </head>
 <body>
 <div class="phone" id="phone">
@@ -674,19 +679,13 @@ function renderDesktop(){
   grid.innerHTML=page2.map(a=>{
   if(["netflixApp","snapchatApp","hboApp","alarmApp"].includes(a[0])) return appIcon(a[0],a[1],a[2],a[3]);
   const marks={
-   "FC 27":'<span style="font:900 30px/1 Arial,sans-serif;letter-spacing:-3px;color:#d8ff63">FC</span>',
-   "Facebook":'<span style="font:900 52px/1 Arial,sans-serif;color:#fff;transform:translateY(7px)">f</span>',
-   "Uber":'<span style="font:600 22px/1 Arial,sans-serif;color:#111;letter-spacing:-1px">Uber</span>',
-   "Amazon":'<span style="position:relative;font:800 42px/1 Arial,sans-serif;color:#111">a<span style="position:absolute;left:2px;right:-5px;bottom:-2px;height:8px;border-bottom:3px solid #ff9900;border-radius:50%;transform:rotate(7deg)"></span></span>'
+   "FC 27":'<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#08110b"/><path d="M10 16H34V23H18V29H31V36H18V49H10Z" fill="#d8ff63"/><path d="M37 16H54V23H44V29H53V36H44V49H37Z" fill="#d8ff63"/><path d="M7 7H57V57H7Z" fill="none" stroke="#c8ff38" stroke-width="2"/></svg>',
+   "Facebook":'<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1877f2"/><path d="M37 58V35H45L46 26H37V21C37 18 38 17 41 17H46V8H38C29 8 25 13 25 21V26H19V35H25V58Z" fill="#fff"/></svg>',
+   "Uber":'<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#fff"/><text x="32" y="38" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="600" fill="#111">Uber</text></svg>',
+   "Amazon":'<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#fff"/><text x="31" y="42" text-anchor="middle" font-family="Arial,sans-serif" font-size="42" font-weight="700" fill="#111">a</text><path d="M16 47 Q32 58 49 45" fill="none" stroke="#ff9900" stroke-width="3" stroke-linecap="round"/></svg>'
   };
-  const styles={
-   "FC 27":"background:linear-gradient(145deg,#18251b,#050806);border:2px solid #c8ff38;box-shadow:inset 0 0 0 1px #c8ff3855",
-   "Facebook":"background:#1877f2",
-   "Uber":"background:#fff",
-   "Amazon":"background:#fff"
-  };
-  return '<div class="app-icon-wrap" data-coming-soon="'+a[1]+'"><button type="button" class="app-icon '+a[3]+'" aria-label="'+a[1]+'" tabindex="-1" style="'+styles[a[1]]+';display:grid;place-items:center;font-size:0;pointer-events:none">'+marks[a[1]]+'</button><div class="app-name">'+a[1]+'</div></div>';
- }).join("");
+  return '<div class="app-icon-wrap" data-coming-soon="'+a[1]+'"><div class="app-icon '+a[3]+'" aria-label="'+a[1]+'" style="padding:0;display:grid;place-items:center;background:transparent!important;border:0;box-shadow:none;pointer-events:none">'+marks[a[1]]+'</div><div class="app-name">'+(a[1]==="FC"?"FC":a[1])+'</div></div>';
+ ).join("");
   second.appendChild(grid);track.appendChild(first);track.appendChild(second);viewport.appendChild(track);
   desktop.insertBefore(viewport,dock);
   const indicator=document.createElement("div");indicator.id="homePageIndicator";indicator.className="home-page-indicator";indicator.innerHTML='<button class="active" aria-label="Page 1"></button><button aria-label="Page 2"></button>';desktop.insertBefore(indicator,dock);
