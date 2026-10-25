@@ -309,6 +309,23 @@
     <div class="dock" id="dock"></div>
     <div class="homebar" data-home="home"></div>
   </section>
+  <section class="screen app-screen arsenal-app" id="arsenalApp">
+    <div class="arsenal-splash" id="arsenalSplash" aria-hidden="true">
+      <div class="arsenal-splash-crest">ARSENAL</div><div class="arsenal-sponsor">adidas</div><div class="arsenal-sponsor serif">Emirates</div><div class="arsenal-sponsor serif small">SOBHA REALTY</div><div class="arsenal-sponsor deel">deel.</div>
+      <button id="arsenalSkipIntro">Skip</button>
+    </div>
+    <div class="arsenal-main" id="arsenalMain">
+      <header class="arsenal-topbar"><button aria-label="Search">⌕</button><strong>THE <span>ϟ</span> ARSENAL</strong><button id="arsenalRefresh" aria-label="Refresh fixtures">⟳</button><button aria-label="Settings">☷</button></header>
+      <nav class="arsenal-audience"><button class="active" data-ars-audience="men">MEN</button><button data-ars-audience="women">WOMEN</button><button data-ars-audience="academy">ACADEMY</button></nav>
+      <nav class="arsenal-sections"><button class="active" data-ars-tab="fixtures">FIXTURES</button><button data-ars-tab="tables">TABLES</button><button data-ars-tab="players">PLAYERS</button><button class="arsenal-calendar">▦</button></nav>
+      <div class="arsenal-month-strip"><button id="arsenalPrevMonth">‹</button><div id="arsenalMonthCards"></div><button id="arsenalNextMonth">›</button></div>
+      <div class="arsenal-data-status" id="arsenalDataStatus">Fixture schedule · last checked just now</div>
+      <div class="arsenal-fixtures" id="arsenalFixtures"></div>
+      <div class="arsenal-placeholder hidden" id="arsenalOtherTab"></div>
+      <nav class="arsenal-bottom-nav"><button class="active" data-ars-nav="fixtures"><span>▦</span>Fixtures</button><button data-ars-nav="video"><span>▣</span>Video</button><button data-ars-nav="home"><span>ϟ</span>Home</button><button data-ars-nav="shop"><span>▱</span>Shop</button><button data-ars-nav="profile"><span>●</span>Profile</button></nav>
+    </div>
+    <div class="homebar" data-home="home"></div>
+  </section>
   <section class="screen app-screen" id="phoneApp">
     <div class="app-header">Recents <button id="phoneEditButton" style="font-size:14px;color:#1685ee;background:transparent">Edit</button></div><div class="app-content" id="callsContent"></div><div class="tabbar"><span data-phone-tab="Favorites"><b>★</b>Favorites</span><span data-phone-tab="Recents"><b>◷</b>Recents</span><span data-phone-tab="Contacts"><b>◉</b>Contacts</span><span data-phone-tab="Keypad"><b>⌨</b>Keypad</span></div><div class="homebar" data-home="home"></div>
   </section>
@@ -570,7 +587,7 @@ function setWallpaper(){const online=localStorage.getItem("iphone-online-wallpap
 function updateClock(){const d=new Date();const t=d.toLocaleTimeString(currentLanguage==="zh"?"zh-CN":"en-US",{hour:"2-digit",minute:"2-digit",hour12:false});$("lockTime").textContent=t;$("lockStatusTime").textContent=t;$("deskTime").textContent=t;$("incomingTime").textContent=t;$("lockDate").textContent=d.toLocaleDateString(currentLanguage==="zh"?"zh-CN":"en-US",{weekday:"long",month:"long",day:"numeric"});}
 function appIcon(id,name,emoji,cls){const mark=emoji;return `<div class="app-icon-wrap" data-app="${id}" data-label="${name}"><button class="app-icon ${cls}" aria-label="${name}">${mark}</button><div class="app-name">${name}</div></div>`}
 function renderDesktop(){
- const apps=[["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["whatsApp","WhatsApp","◉","icon-wa"],["decorApp","YouTube","▶","icon-youtube"],["spotifyApp","Spotify","≋","icon-spotify"],["xApp","X","𝕏","icon-x"],["instagramApp","Instagram","◎","icon-instagram"],["photosApp","Photos","✿","icon-photos"],["decorApp","Notes","▤","icon-notes"],["decorApp","Maps","⌖","icon-maps"],["decorApp","Weather","☀","icon-weather"],["decorApp","Calendar","25","icon-calendar"],["decorApp","Settings","⚙","icon-settings"]];
+ const apps=[["arsenalApp","The Arsenal","ϟ","icon-arsenal"],["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["whatsApp","WhatsApp","◉","icon-wa"],["decorApp","YouTube","▶","icon-youtube"],["spotifyApp","Spotify","≋","icon-spotify"],["xApp","X","𝕏","icon-x"],["instagramApp","Instagram","◎","icon-instagram"],["photosApp","Photos","✿","icon-photos"],["decorApp","Notes","▤","icon-notes"],["decorApp","Maps","⌖","icon-maps"],["decorApp","Weather","☀","icon-weather"],["decorApp","Calendar","25","icon-calendar"],["decorApp","Settings","⚙","icon-settings"]];
  const page2=[["FC 27","FC","icon-fc27"],["Facebook","f","icon-facebook"],["Uber","U","icon-uber"],["Amazon","a","icon-amazon"]];
  $("appsGrid").innerHTML=apps.map(a=>appIcon(a[0],a[1],a[2],a[3])).join("");
  $("dock").innerHTML=[["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["decorApp","TikTok","♪","icon-tiktok"]].map(a=>`<div class="app-icon-wrap" data-app="${a[0]}" data-label="${a[1]}"><button class="app-icon ${a[3]}" aria-label="${a[1]}">${a[2]}</button></div>`).join("");
@@ -1609,7 +1626,7 @@ function renderCalendarApp(){
  $("calendarPrev").onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()-1,1);paint()};$("calendarNext").onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()+1,1);paint()};$("calendarToday").onclick=()=>{month=new Date();paint()};paint();
 }
 
-function openApp(id,label){if(id==="decorApp"&&/weather/i.test(label||"")){showScreen(id);renderWeatherApp();return}if(id==="decorApp"&&/calendar/i.test(label||"")){showScreen(id);renderCalendarApp();return}if(id==="messagesApp"){showScreen("decorApp");$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");renderRiceMessages();return}if(id==="emailApp"){showScreen("decorApp");$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");renderRiceEmail();return}if(id==="xApp"){showScreen(id);showXFeed();renderTweets();renderXFeed();return}if(id==="photosApp"){showScreen(id);renderPhotos();return}if(id==="instagramApp"){showScreen(id);showInstagramHome();return}if(id==="spotifyApp"){showScreen(id);return}if(id==="decorApp"){if(/설정|Settings/i.test(label||"")){openSettings();return}if(/tiktok/i.test(label||"")){showScreen(id);renderTikTok();return}showScreen(id);if(/sky sports/i.test(label||"")){renderSkySports();return}if(/youtube/i.test(label||"")){renderRiceYouTube();return}if(/notes/i.test(label||"")){renderRiceNotes();return}if(/maps/i.test(label||"")){renderRiceMaps();return}$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");$("decorTitle").textContent=label||"App";return}showScreen(id)}
+function openApp(id,label){if(id==="arsenalApp"){showScreen(id);startArsenalApp();return;}if(id==="decorApp"&&/weather/i.test(label||"")){showScreen(id);renderWeatherApp();return}if(id==="decorApp"&&/calendar/i.test(label||"")){showScreen(id);renderCalendarApp();return}if(id==="messagesApp"){showScreen("decorApp");$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");renderRiceMessages();return}if(id==="emailApp"){showScreen("decorApp");$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");renderRiceEmail();return}if(id==="xApp"){showScreen(id);showXFeed();renderTweets();renderXFeed();return}if(id==="photosApp"){showScreen(id);renderPhotos();return}if(id==="instagramApp"){showScreen(id);showInstagramHome();return}if(id==="spotifyApp"){showScreen(id);return}if(id==="decorApp"){if(/설정|Settings/i.test(label||"")){openSettings();return}if(/tiktok/i.test(label||"")){showScreen(id);renderTikTok();return}showScreen(id);if(/sky sports/i.test(label||"")){renderSkySports();return}if(/youtube/i.test(label||"")){renderRiceYouTube();return}if(/notes/i.test(label||"")){renderRiceNotes();return}if(/maps/i.test(label||"")){renderRiceMaps();return}$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");$("decorTitle").textContent=label||"App";return}showScreen(id)}
 function unlock(){ $("passcodePanel").classList.add("active"); passcodeValue=""; renderPasscodeDots(); }
 let passcodeValue="";
 function renderPasscodeDots(){document.querySelectorAll("#passcodeDots .passcode-dot").forEach((d,i)=>d.classList.toggle("filled",i<passcodeValue.length));}
@@ -3623,5 +3640,130 @@ html,body{background:#09090b}
  const back=$s('closePlayer');if(back)back.addEventListener('click',()=>{setTab('library')});
  renderHome();setTab('home');
  window.addEventListener('pageshow',renderHome);
+})();
+</script>
+
+<style id="arsenal-app-style">
+#arsenalApp{background:#050505;color:#f7f7f7;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
+#arsenalApp .arsenal-main{position:absolute;inset:0;display:flex;flex-direction:column;background:#050505;opacity:0;transition:opacity .45s ease}
+#arsenalApp .arsenal-main.ready{opacity:1}
+#arsenalApp .arsenal-topbar{padding:calc(var(--safe-top) + 10px) 20px 14px;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:calc(var(--safe-top) + 62px)}
+#arsenalApp .arsenal-topbar button{font-size:28px;background:transparent;color:#fff;min-width:28px}
+#arsenalApp .arsenal-topbar strong{font-size:clamp(17px,4.3vw,24px);letter-spacing:2px;white-space:nowrap}
+#arsenalApp .arsenal-topbar strong span{font-size:30px}
+#arsenalApp .arsenal-audience{display:flex;justify-content:space-around;border-bottom:1px solid #292929}
+#arsenalApp .arsenal-audience button{width:33.33%;padding:19px 0 16px;background:transparent;color:#858585;font-size:14px;position:relative}
+#arsenalApp .arsenal-audience button.active{color:#fff;font-weight:700}
+#arsenalApp .arsenal-audience button.active:after{content:"";height:3px;background:#ef002b;position:absolute;bottom:0;left:4%;right:4%}
+#arsenalApp .arsenal-sections{display:flex;align-items:center;gap:3px;padding:14px 16px 10px}
+#arsenalApp .arsenal-sections button{background:#2a2a2d;color:#aaa;padding:13px 8px;flex:1;font-size:12px;font-weight:700}
+#arsenalApp .arsenal-sections button:first-child{border-radius:24px 0 0 24px}
+#arsenalApp .arsenal-sections button:nth-child(3){border-radius:0 24px 24px 0}
+#arsenalApp .arsenal-sections button.active{background:#ed002b;color:#fff}
+#arsenalApp .arsenal-sections .arsenal-calendar{border-radius:50%;flex:0 0 44px;height:44px;margin-left:7px;background:#252527;font-size:20px}
+#arsenalApp .arsenal-month-strip{display:flex;align-items:center;gap:4px;padding:4px 10px 13px;border-bottom:1px solid #292929}
+#arsenalApp .arsenal-month-strip>button{background:transparent;color:#aaa;font-size:24px;padding:6px}
+#arsenalApp #arsenalMonthCards{display:flex;align-items:stretch;gap:7px;flex:1;min-width:0;overflow:hidden}
+#arsenalApp .arsenal-month-card{flex:1;min-width:0;background:#242426;border-radius:6px;padding:10px 3px;text-align:center;color:#ddd;font-size:12px}
+#arsenalApp .arsenal-month-card b{display:block;font-size:16px;margin-bottom:4px}
+#arsenalApp .arsenal-month-card.active{background:#ed002b;color:#fff}
+#arsenalApp .arsenal-data-status{font-size:10px;color:#888;padding:9px 18px 3px}
+#arsenalApp .arsenal-fixtures{flex:1;min-height:0;overflow:auto;padding:10px 16px calc(var(--safe-bottom) + 90px);overscroll-behavior:contain}
+#arsenalApp .arsenal-match-card{background:#171516;border-radius:15px;padding:18px 15px;margin-bottom:16px}
+#arsenalApp .arsenal-match-date{text-align:center;font-size:13px;font-weight:700}
+#arsenalApp .arsenal-match-venue{text-align:center;color:#999;font-size:12px;margin-top:5px}
+#arsenalApp .arsenal-match-divider{height:1px;background:#484547;margin:15px 0}
+#arsenalApp .arsenal-match-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:7px;text-align:center}
+#arsenalApp .arsenal-team-badge{height:55px;display:grid;place-items:center;font-size:30px}
+#arsenalApp .arsenal-team-name{font-size:14px;font-weight:600;line-height:1.25;margin-top:6px}
+#arsenalApp .arsenal-match-time{font-size:23px;font-weight:700;background:#333034;border-radius:6px;padding:10px 8px;white-space:nowrap}
+#arsenalApp .arsenal-match-comp{color:#aaa;text-align:center;font-size:10px;margin-top:8px}
+#arsenalApp .arsenal-match-links{display:flex;gap:8px}
+#arsenalApp .arsenal-match-links button{flex:1;border-radius:22px;background:#555256;color:#fff;padding:11px 5px;font-size:11px;font-weight:700}
+#arsenalApp .arsenal-bottom-nav{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#050505;border-top:1px solid #282828;padding:13px 5px calc(var(--safe-bottom) + 18px);z-index:4}
+#arsenalApp .arsenal-bottom-nav button{background:transparent;color:#8d8d8d;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10px;flex:1}
+#arsenalApp .arsenal-bottom-nav button span{font-size:25px;line-height:1}
+#arsenalApp .arsenal-bottom-nav button.active{color:#ed002b}
+#arsenalApp .arsenal-placeholder{padding:30px 20px;color:#ddd}
+#arsenalApp .arsenal-placeholder.hidden{display:none}
+#arsenalApp .arsenal-splash{position:absolute;inset:0;z-index:10;background:linear-gradient(155deg,#e60018 0%,#b6000b 58%,#280000 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transition:opacity .5s ease}
+#arsenalApp .arsenal-splash:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 40%,#ffffff0b 41%,transparent 66%);pointer-events:none}
+#arsenalApp .arsenal-splash-crest{font-family:Georgia,serif;font-size:43px;font-weight:800;letter-spacing:-2px;color:#f7d5d4;border:4px solid #f7d5d4;border-radius:48% 48% 42% 42%;padding:28px 24px;margin-bottom:75px;transform:scale(.88);animation:arsenalCrest 1s ease both}
+#arsenalApp .arsenal-sponsor{font-size:48px;font-weight:800;color:#f6d7d6;margin:13px 0;opacity:0;animation:arsenalSponsor .65s ease forwards}
+#arsenalApp .arsenal-sponsor.serif{font-family:Georgia,serif;font-weight:700}
+#arsenalApp .arsenal-sponsor.small{font-size:26px;letter-spacing:4px}
+#arsenalApp .arsenal-sponsor.deel{font-size:52px;letter-spacing:-2px}
+#arsenalApp .arsenal-splash #arsenalSkipIntro{position:absolute;right:18px;top:calc(var(--safe-top) + 16px);padding:9px 13px;background:#ffffff20;border:1px solid #ffffff40;border-radius:20px;font-size:12px}
+#arsenalApp .arsenal-sponsor:nth-of-type(2){animation-delay:.7s}
+#arsenalApp .arsenal-sponsor:nth-of-type(3){animation-delay:1.25s}
+#arsenalApp .arsenal-sponsor:nth-of-type(4){animation-delay:1.8s}
+#arsenalApp .arsenal-sponsor:nth-of-type(5){animation-delay:2.3s}
+#arsenalApp .arsenal-splash.hide{opacity:0;pointer-events:none}
+@keyframes arsenalCrest{from{opacity:0;transform:scale(.7) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes arsenalSponsor{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+#appsGrid .icon-arsenal{background:linear-gradient(145deg,#e60019,#650008)!important;color:#f6d6d6!important;font-weight:800}
+</style>
+<script id="arsenal-app-behavior">
+(function(){
+ const $=id=>document.getElementById(id);
+ let introTimer=null,monthOffset=0,audience="men",tab="fixtures";
+ const baseFixtures=[
+  {date:"2026-10-28",time:"20:00",home:"Arsenal",away:"Fleetwood Town",comp:"Carabao Cup",venue:"Highbury Stadium",status:"Scheduled"},
+  {date:"2026-11-04",time:"20:00",home:"Slavia Prague",away:"Arsenal",comp:"UEFA Champions League",venue:"Fortuna Arena",status:"Scheduled"},
+  {date:"2026-11-07",time:"15:00",home:"Arsenal",away:"Hull City",comp:"Premier League",venue:"Emirates Stadium",status:"Time subject to change"},
+  {date:"2026-11-24",time:"20:00",home:"Arsenal",away:"Borussia Dortmund",comp:"UEFA Champions League",venue:"Emirates Stadium",status:"Scheduled"},
+  {date:"2026-11-29",time:"16:30",home:"Arsenal",away:"Manchester City",comp:"Premier League",venue:"Emirates Stadium",status:"Scheduled"},
+  {date:"2026-12-09",time:"20:00",home:"Arsenal",away:"Real Madrid",comp:"UEFA Champions League",venue:"Emirates Stadium",status:"Scheduled"},
+  {date:"2026-12-13",time:"14:00",home:"Arsenal",away:"Bournemouth",comp:"Premier League",venue:"Emirates Stadium",status:"Time subject to change"},
+  {date:"2026-12-20",time:"16:30",home:"Arsenal",away:"Manchester United",comp:"Premier League",venue:"Emirates Stadium",status:"Time subject to change"},
+  {date:"2027-01-05",time:"19:30",home:"Arsenal",away:"Brentford",comp:"Premier League",venue:"Emirates Stadium",status:"Scheduled"},
+  {date:"2027-01-20",time:"20:00",home:"Real Betis",away:"Arsenal",comp:"UEFA Champions League",venue:"Benito Villamarín Stadium",status:"Scheduled"},
+  {date:"2027-01-27",time:"20:00",home:"Arsenal",away:"Sabah FK",comp:"UEFA Champions League",venue:"Emirates Stadium",status:"Scheduled"}
+ ];
+ let fixtures=baseFixtures.slice();
+ function fmtDate(s){return new Date(s+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"2-digit",month:"short"}).toUpperCase()}
+ function monthKey(s){return s.slice(0,7)}
+ function monthLabel(s){const d=new Date(s+"-15T12:00:00");return d.toLocaleDateString("en-GB",{month:"short",year:"numeric"}).toUpperCase()}
+ function start(){
+  $("arsenalSplash").classList.remove("hide");$("arsenalMain").classList.remove("ready");
+  if(introTimer)clearTimeout(introTimer);
+  introTimer=setTimeout(()=>{$("arsenalSplash").classList.add("hide");$("arsenalMain").classList.add("ready")},3400);
+  $("arsenalSkipIntro").onclick=()=>{clearTimeout(introTimer);$("arsenalSplash").classList.add("hide");$("arsenalMain").classList.add("ready")};
+  render();
+ }
+ function render(){
+  const months=[...new Set(fixtures.map(f=>monthKey(f.date)))].sort();
+  const now=new Date();let current=monthOffset===0?monthKey(now.toISOString().slice(0,10)):months[Math.max(0,Math.min(months.length-1,monthOffset>0?months.indexOf(monthKey(now.toISOString().slice(0,10)))+monthOffset:months.indexOf(monthKey(now.toISOString().slice(0,10)))+monthOffset))];
+  if(!months.includes(current))current=months[0]||"2026-10";
+  $("arsenalMonthCards").innerHTML=months.map(m=>'<button class="arsenal-month-card '+(m===current?'active':'')+'" data-month="'+m+'"><b>'+monthLabel(m).split(" ")[0]+'</b>'+monthLabel(m).split(" ")[1]+'</button>').join("");
+  $("arsenalMonthCards").querySelectorAll("[data-month]").forEach(b=>b.onclick=()=>{monthOffset=months.indexOf(b.dataset.month)-Math.max(0,months.indexOf(monthKey(now.toISOString().slice(0,10))));render()});
+  const visible=fixtures.filter(f=>monthKey(f.date)===current);
+  $("arsenalFixtures").innerHTML=visible.map(f=>'<article class="arsenal-match-card"><div class="arsenal-match-date">'+fmtDate(f.date)+'</div><div class="arsenal-match-venue">'+f.venue+'</div><div class="arsenal-match-divider"></div><div class="arsenal-match-row"><div><div class="arsenal-team-badge">'+(f.home==="Arsenal"?"🔴":"⚽")+'</div><div class="arsenal-team-name">'+f.home+'</div></div><div class="arsenal-match-time">'+f.time+'</div><div><div class="arsenal-team-badge">'+(f.away==="Arsenal"?"🔴":"⚽")+'</div><div class="arsenal-team-name">'+f.away+'</div></div></div><div class="arsenal-match-comp">'+f.comp+' · '+f.status+'</div><div class="arsenal-match-divider"></div><div class="arsenal-match-links"><button data-official>OFFICIAL FIXTURE INFO</button><button data-source>REFRESH DATA</button></div></article>').join("")||'<div class="arsenal-placeholder">No fixtures shown for this month.</div>';
+  $("arsenalFixtures").querySelectorAll("[data-official]").forEach(b=>b.onclick=()=>window.open("https://www.arsenal.com/fixtures","_blank"));
+  $("arsenalFixtures").querySelectorAll("[data-source]").forEach(b=>b.onclick=refresh);
+  $("arsenalDataStatus").textContent="Fixture list based on official published schedule · "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})+" · kickoff times may change";
+ }
+ async function refresh(){
+  $("arsenalDataStatus").textContent="Checking current fixture data…";
+  // GitHub Pages is static; cross-origin access to the official Arsenal site may be blocked by CORS.
+  // Open the official fixture page as a dependable current source rather than pretending this static list is live.
+  window.open("https://www.arsenal.com/fixtures","_blank");
+  $("arsenalDataStatus").textContent="Opened Arsenal official fixtures. This static simulator needs a backend/API feed for automatic sync.";
+ }
+ function setTab(next){
+  tab=next;
+  document.querySelectorAll("#arsenalApp [data-ars-tab]").forEach(b=>b.classList.toggle("active",b.dataset.arsTab===tab));
+  const list=$("arsenalFixtures"),other=$("arsenalOtherTab");
+  if(tab==="fixtures"){list.classList.remove("hidden");other.classList.add("hidden");render();return}
+  list.classList.add("hidden");other.classList.remove("hidden");
+  other.innerHTML=tab==="tables"?"<h2>LEAGUE TABLES</h2><p>Standings can be connected when a live football data source is configured.</p>":"<h2>FIRST TEAM</h2><p>Player profiles and squad details can be added to this simulator.</p>";
+ }
+ document.querySelectorAll("#arsenalApp [data-ars-tab]").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.arsTab)));
+ document.querySelectorAll("#arsenalApp [data-ars-audience]").forEach(b=>b.addEventListener("click",()=>{audience=b.dataset.arsAudience;document.querySelectorAll("#arsenalApp [data-ars-audience]").forEach(x=>x.classList.toggle("active",x===b));if(audience!=="men"){$("arsenalFixtures").innerHTML='<div class="arsenal-placeholder"><h2>'+audience.toUpperCase()+'</h2><p>Fixtures for this section will appear once its schedule is added.</p></div>'}else render()}));
+ document.querySelectorAll("#arsenalApp [data-ars-nav]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#arsenalApp [data-ars-nav]").forEach(x=>x.classList.toggle("active",x===b));if(b.dataset.arsNav==="fixtures"){audience="men";setTab("fixtures");document.querySelectorAll("#arsenalApp [data-ars-audience]").forEach(x=>x.classList.toggle("active",x.dataset.arsAudience==="men"))}else{$("arsenalOtherTab").classList.remove("hidden");$("arsenalFixtures").classList.add("hidden");$("arsenalOtherTab").innerHTML="<h2>"+b.dataset.arsNav.toUpperCase()+"</h2><p>This section is a visual demo.</p>"}}));
+ $("arsenalRefresh").addEventListener("click",refresh);
+ $("arsenalPrevMonth").addEventListener("click",()=>{monthOffset--;render()});
+ $("arsenalNextMonth").addEventListener("click",()=>{monthOffset++;render()});
+ window.startArsenalApp=start;
 })();
 </script>
