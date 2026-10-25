@@ -2219,7 +2219,8 @@ init();
    ],
    script:[{text:"Hey, are you still awake?",delay:3},{text:"I wanted to talk to you.",delay:8}],
    keywords:[{keyword:"hi",reply:"Hey ❤️"},{keyword:"where are you",reply:"I'm on my way."}],
-   autoEnabled:true
+   autoEnabled:true,
+   smartReplies:true
  };
  let data;
  try{data=JSON.parse(localStorage.getItem(STORAGE)||"null")||defaultData;}catch(e){data=defaultData;}
@@ -2227,6 +2228,7 @@ init();
  data.messages=Array.isArray(data.messages)?data.messages:defaultData.messages;
  data.script=Array.isArray(data.script)?data.script:defaultData.script;
  data.keywords=Array.isArray(data.keywords)?data.keywords:defaultData.keywords;
+ if(typeof data.smartReplies!=="boolean")data.smartReplies=true;
  let currentTab="profile", scriptTimers=[], scriptStarted=false, scriptCursor=0, nextId=Date.now();
  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const timeNow=()=>new Date().toLocaleTimeString(currentLanguage==="zh"?"zh-CN":"en-US",{hour:"2-digit",minute:"2-digit",hour12:false});
@@ -2267,7 +2269,7 @@ init();
      $wa("waAvatarFile").addEventListener("change",e=>readImage(e.target.files[0],url=>{p.avatar=url; $wa("waAvatar").value=url; $wa("waAvatarPreview").innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover">`;persist();}));
      $wa("waContactAvatarFile").addEventListener("change",e=>readImage(e.target.files[0],url=>{p.contactAvatar=url;$wa("waContactAvatar").value=url;persist();}));
    }else if(currentTab==="script"){
-     root.innerHTML=`<div class="wa-card"><b>Automatic message script</b><p class="wa-small">When you open the conversation, incoming messages appear in order after each delay (seconds). This is simulated locally.</p><label class="wa-field"><span><input type="checkbox" id="waAutoEnabled" ${data.autoEnabled?"checked":""} style="width:auto"> Enable automatic script on chat open</span></label><div id="waScriptList">${data.script.map((m,i)=>`<div class="wa-list-item" data-script-index="${i}"><div class="wa-row"><b>Message ${i+1}</b><label class="wa-field">Delay (sec)<input type="number" min="0" max="3600" data-script-delay="${i}" value="${Number(m.delay)||0}"></label></div><textarea data-script-text="${i}">${esc(m.text)}</textarea><button class="wa-secondary wa-delete" data-script-delete="${i}">Remove</button></div>`).join("")}</div><button class="wa-primary" id="waAddScript">＋ Add message</button><button class="wa-secondary" id="waClearScript">Clear script</button></div>`;
+     root.innerHTML=`<div class="wa-card"><b>Automatic message script</b><p class="wa-small">When you open the conversation, incoming messages appear in order after each delay (seconds). This is simulated locally.</p><label class="wa-field"><span><input type="checkbox" id="waAutoEnabled" ${data.autoEnabled?"checked":""} style="width:auto"> Enable automatic script on chat open</span></label><label class="wa-field"><span><input type="checkbox" id="waSmartReplies" ${data.smartReplies?"checked":""} style="width:auto"> Enable simple content-based smart replies</span></label><p class="wa-small">When you send a message, WhatsApp will choose a short reply based on words such as greetings, questions, training, food, plans, or thanks. This is a local demo, not a live AI service.</p><div id="waScriptList">${data.script.map((m,i)=>`<div class="wa-list-item" data-script-index="${i}"><div class="wa-row"><b>Message ${i+1}</b><label class="wa-field">Delay (sec)<input type="number" min="0" max="3600" data-script-delay="${i}" value="${Number(m.delay)||0}"></label></div><textarea data-script-text="${i}">${esc(m.text)}</textarea><button class="wa-secondary wa-delete" data-script-delete="${i}">Remove</button></div>`).join("")}</div><button class="wa-primary" id="waAddScript">＋ Add message</button><button class="wa-secondary" id="waClearScript">Clear script</button></div>`;
      $wa("waAddScript").onclick=()=>{data.script.push({text:"New incoming message",delay:3});renderStudio();};
      $wa("waClearScript").onclick=()=>{data.script=[];renderStudio();};
      $wa("waScriptList").querySelectorAll("[data-script-delete]").forEach(b=>b.onclick=()=>{data.script.splice(+b.dataset.scriptDelete,1);renderStudio();});
@@ -2288,6 +2290,7 @@ init();
      p.name=$wa("waName").value.trim()||"User";p.about=$wa("waAbout").value.trim();p.status=$wa("waStatus").value.trim();p.avatar=$wa("waAvatar").value.trim();p.contactName=$wa("waContactName").value.trim()||"Contact";p.contactAvatar=$wa("waContactAvatar").value.trim();
    }else if(currentTab==="script"){
      data.autoEnabled=$wa("waAutoEnabled").checked;
+     data.smartReplies=$wa("waSmartReplies").checked;
      data.script=data.script.map((m,i)=>({text:$wa("waStudioContent").querySelector(`[data-script-text="${i}"]`)?.value??m.text,delay:Math.max(0,Number($wa("waStudioContent").querySelector(`[data-script-delay="${i}"]`)?.value??m.delay)||0)})); scriptCursor=0;
    }else if(currentTab==="keywords"){
      data.keywords=data.keywords.map((m,i)=>({keyword:$wa("waStudioContent").querySelector(`[data-keyword="${i}"]`)?.value??m.keyword,reply:$wa("waStudioContent").querySelector(`[data-reply="${i}"]`)?.value??m.reply}));
@@ -2319,11 +2322,24 @@ init();
    const batch=data.script.slice();
    batch.forEach((m,i)=>{elapsed+=Math.max(0,Number(m.delay)||0);const timer=setTimeout(()=>{addMessage("in",m.text);if(i===batch.length-1)scriptStarted=false;},elapsed*1000);scriptTimers.push(timer);});
  }
+ function waContentReply(text){
+   const t=String(text||"").toLowerCase();
+   if(/\b(hi|hey|hello|morning|evening|how are you)\b/.test(t))return ["Hey mate 👋 How are you?","Hey! All good here, you? 😊","Alright mate, good to hear from you 👊"][Math.floor(Math.random()*3)];
+   if(/\b(training|match|football|recovery|session|gym)\b/.test(t))return ["Training was good today ⚽ How about you?","All good, mate. Catch you at training 👊","Just finished up — time to recover now 😅"][Math.floor(Math.random()*3)];
+   if(/\b(food|eat|dinner|lunch|hungry|restaurant)\b/.test(t))return ["Yeah, sounds good. Where are you thinking? 🍽️","I’m up for that, mate 👍","Let’s sort something out later 😄"][Math.floor(Math.random()*3)];
+   if(/\b(where|when|what time|are you|can you|could you|will you|why|how)\b|\?/.test(t))return ["I’ll check and let you know in a bit 👍","Not 100% sure yet, mate — I’ll keep you posted.","Good question 😂 Let me get back to you."][Math.floor(Math.random()*3)];
+   if(/\b(thanks|thank you|cheers|appreciate)\b/.test(t))return ["No worries, mate 👊","Anytime! 😊","Of course, mate 👍"][Math.floor(Math.random()*3)];
+   if(/\b(love you|miss you)\b|❤️/.test(t))return ["❤️ right back at you, mate.","Miss you too ❤️","You know it ❤️"][Math.floor(Math.random()*3)];
+   if(/\b(yes|yeah|yep|sure|okay|ok|alright)\b/.test(t))return ["Sound, mate 👍","Perfect, see you then!","Nice one 👊"][Math.floor(Math.random()*3)];
+   if(/\b(no|nope|can't|cannot|sorry)\b/.test(t))return ["No worries, mate. We’ll sort it another time 👍","All good, don’t stress.","Fair enough — just let me know 👌"][Math.floor(Math.random()*3)];
+   return ["Sounds good, mate 👊","Got you — I’ll keep you posted 👍","Haha, fair enough 😂"][Math.floor(Math.random()*3)];
+ }
  function waSendUserMessage(text){
    addMessage("out",text);
    const lower=text.toLowerCase();
    const match=data.keywords.find(k=>k.keyword.trim()&&lower.includes(k.keyword.trim().toLowerCase()));
-   if(match){setTimeout(()=>addMessage("in",match.reply),900);}
+   if(match){setTimeout(()=>addMessage("in",match.reply),900);return;}
+   if(data.smartReplies){setTimeout(()=>addMessage("in",waContentReply(text)),900);}
  }
  document.querySelectorAll("[data-wa-tab]").forEach(b=>b.addEventListener("click",()=>{
    if(currentTab==="profile"||currentTab==="script"||currentTab==="keywords")collectTab();
