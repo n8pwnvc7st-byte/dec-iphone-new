@@ -544,13 +544,8 @@
       </div>
       <div class="wa-section-heading"><h2>Chats</h2><span>已置顶 · 1</span></div>
       <label class="wa-search"><span>⌕</span><input id="waSearchInput" type="search" placeholder="搜索聊天" autocomplete="off"></label>
-      <div class="wa-chat-list" id="waChatList">
-        <button type="button" class="wa-chat-row" id="openFriend">
-          <span class="friend-avatar wa-contact-avatar"><img src="./avatars/jude-what’s.JPG" alt="Jude Bellingham" onerror="this.onerror=null;this.src='./avatars/jude.JPG'"></span>
-          <span class="wa-chat-copy"><span class="friend-name" id="friendName">Jude Bellingham</span><span class="wa-chat-preview" id="waLastPreview">点此开始聊天</span></span>
-          <span class="wa-chat-meta"><time id="waLastTime">现在</time><span class="wa-chat-check">›</span></span>
-        </button>
-      </div>
+      <div class="wa-chat-list" id="waChatList"></div>
+      <button type="button" id="waAddContactQuick" class="wa-chat-row" style="width:100%;border:0;background:transparent;color:inherit;text-align:left;padding:12px 4px;font-weight:600"><span style="width:44px;height:44px;border-radius:50%;background:#d8f4e1;color:#167b43;display:grid;place-items:center;font-size:25px">＋</span><span style="padding-left:12px">Add contact / 添加联系人</span></button>
       <nav class="wa-bottom-nav" aria-label="WhatsApp navigation">
         <button type="button"><span>◉</span><small>动态</small></button>
         <button type="button"><span>⌕</span><small>通话</small></button>
@@ -1891,7 +1886,7 @@ lock.addEventListener("click",e=>{if(!e.target.closest(".lock-circle")&&!e.targe
 
 $("myName").textContent=CONFIG.userName;$("friendName").textContent=CONFIG.contactName;$("chatFriendTitle").textContent=CONFIG.contactName;$("xName").textContent=CONFIG.userName+"　🔒";$("xHandle").textContent="@"+CONFIG.twitterHandle;$("profileName").textContent=CONFIG.userName;
 $("myProfile").addEventListener("click",()=> openWaStudio("profile"));$("closeProfile").addEventListener("click",()=> $("profileModal").classList.remove("active"));$("openFriend").addEventListener("click",openChat);$("backMessages").addEventListener("click",()=>{$("chatPage").classList.remove("active");showScreen("whatsApp")});
-function openChat(){if(typeof waRenderChat==="function"){waRenderChat();} $("chatPage").classList.add("active"); if(typeof waStartAutoScript==="function")waStartAutoScript();}
+function openChat(){if(typeof window.openWaContact==="function")window.openWaContact(activeContactId);else if(typeof waRenderChat==="function"){waRenderChat();} $("chatPage").classList.add("active"); if(typeof waStartAutoScript==="function")waStartAutoScript();}
 $("chatCompose").addEventListener("submit",e=>{e.preventDefault();const v=$("chatInput").value.trim();if(!v)return; $("chatInput").value=""; if(typeof waSendUserMessage==="function")waSendUserMessage(v);});
 $("waManualIncoming")?.addEventListener("click",()=>{const pool=["Just finished training ⚽","Dinner after training?","See you tomorrow, mate 👊","Call me when you’re free.","How was your recovery session?"];if(typeof window.waAddIncomingMessage==="function")window.waAddIncomingMessage(pool[Math.floor(Math.random()*pool.length)]);});
 $("waRunScript")?.addEventListener("click",()=>{if(typeof window.waStartAutoScript==="function"){window.waStartAutoScript();alert("Message script started. It runs while this page stays open.");}});
@@ -2201,6 +2196,7 @@ init();
     <button data-wa-tab="profile" class="active">Profile</button>
     <button data-wa-tab="script">Auto Script</button>
     <button data-wa-tab="keywords">Keyword Replies</button>
+    <button data-wa-tab="contacts">Contacts</button>
     <button data-wa-tab="manual">Manual</button>
   </div>
   <div id="waStudioContent" class="wa-studio-content"></div>
@@ -2220,7 +2216,8 @@ init();
    script:[{text:"Hey, are you still awake?",delay:3},{text:"I wanted to talk to you.",delay:8}],
    keywords:[{keyword:"hi",reply:"Hey ❤️"},{keyword:"where are you",reply:"I'm on my way."}],
    autoEnabled:true,
-   smartReplies:true
+   smartReplies:true,
+   contacts:[{id:"jude",name:"Jude Bellingham",avatar:"./avatars/jude-what’s.JPG",smartReplies:true,messages:[{id:1,from:"in",text:"Good morning, mate 👋",time:"09:30"},{id:2,from:"in",text:"How are you?",time:"09:32"}]}]
  };
  let data;
  try{data=JSON.parse(localStorage.getItem(STORAGE)||"null")||defaultData;}catch(e){data=defaultData;}
@@ -2229,21 +2226,27 @@ init();
  data.script=Array.isArray(data.script)?data.script:defaultData.script;
  data.keywords=Array.isArray(data.keywords)?data.keywords:defaultData.keywords;
  if(typeof data.smartReplies!=="boolean")data.smartReplies=true;
+ data.contacts=Array.isArray(data.contacts)&&data.contacts.length?data.contacts:JSON.parse(JSON.stringify(defaultData.contacts));
+ data.contacts=data.contacts.map((c,i)=>({id:c.id||("contact-"+i),name:c.name||"Contact",avatar:c.avatar||"",smartReplies:typeof c.smartReplies==="boolean"?c.smartReplies:true,messages:Array.isArray(c.messages)?c.messages:[]}));
+ const legacyMessages=Array.isArray(data.messages)?data.messages:[];
+ if(!data.contacts.some(c=>c.id==="jude"))data.contacts.unshift(JSON.parse(JSON.stringify(defaultData.contacts[0])));
+ const judeContact=data.contacts.find(c=>c.id==="jude");
+ if(judeContact&&judeContact.messages.length===0)judeContact.messages=legacyMessages.map((m,i)=>({...m,id:m.id||i+1}));
+ let activeContactId=data.contacts[0].id;
  let currentTab="profile", scriptTimers=[], scriptStarted=false, scriptCursor=0, nextId=Date.now();
  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const timeNow=()=>new Date().toLocaleTimeString(currentLanguage==="zh"?"zh-CN":"en-US",{hour:"2-digit",minute:"2-digit",hour12:false});
  function persist(){localStorage.setItem(STORAGE,JSON.stringify(data));syncProfile();}
  function syncProfile(){
-   const p=data.profile;
+   const p=data.profile,contact=data.contacts.find(c=>c.id===activeContactId)||data.contacts[0];
    if($wa("myName"))$wa("myName").textContent=p.name;
-   if($wa("friendName"))$wa("friendName").textContent=p.contactName;
-   if($wa("chatFriendTitle"))$wa("chatFriendTitle").textContent=p.contactName;
+   if($wa("friendName"))$wa("friendName").textContent=contact?contact.name:p.contactName;
+   if($wa("chatFriendTitle"))$wa("chatFriendTitle").textContent=contact?contact.name:p.contactName;
    const row=$wa("myProfile");
    if(row){let img=row.querySelector("img");if(img){img.src=p.avatar||"";img.alt=p.name;} }
-   const friendAvatar=document.querySelector("#openFriend .friend-avatar");
-   if(friendAvatar){friendAvatar.innerHTML=p.contactAvatar?`<img src="${esc(p.contactAvatar)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:esc((p.contactName||"J").slice(0,1).toUpperCase());}
    const chatAvatar=document.querySelector("#chatPage .chat-top .friend-avatar");
-   if(chatAvatar){chatAvatar.innerHTML=p.contactAvatar?`<img src="${esc(p.contactAvatar)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:esc((p.contactName||"J").slice(0,1).toUpperCase());}
+   if(chatAvatar){chatAvatar.innerHTML=contact&&contact.avatar?`<img src="${esc(contact.avatar)}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:esc((contact?.name||"J").slice(0,1).toUpperCase());}
+   renderContactList();
  }
  window.openWaStudio=function(tab="profile"){
    currentTab=tab;
@@ -2286,7 +2289,15 @@ init();
  function readImage(file,cb){if(!file)return;const r=new FileReader();r.onload=()=>{cb(r.result);};r.readAsDataURL(file);}
  function collectTab(){
    const p=data.profile;
-   if(currentTab==="profile"){
+   if(currentTab==="contacts"){
+     root.innerHTML=`<div class="wa-card"><b>Manage contacts / 联系人管理</b><p class="wa-small">Each contact has a separate chat history and smart-reply switch.</p><div id="waContactsEditor">${data.contacts.map(c=>`<div class="wa-list-item"><label class="wa-field">Name<input data-contact-name="${esc(c.id)}" value="${esc(c.name)}"></label><label class="wa-field">Avatar path<input data-contact-avatar="${esc(c.id)}" value="${esc(c.avatar)}" placeholder="./avatars/jude.JPG"></label><label class="wa-field"><span><input type="checkbox" data-contact-smart="${esc(c.id)}" ${c.smartReplies?"checked":""} style="width:auto"> Smart replies enabled</span></label><div class="wa-row"><button type="button" class="wa-primary" data-contact-open="${esc(c.id)}">Open chat</button>${c.id==="jude"?"":`<button type="button" class="wa-secondary wa-delete" data-contact-delete="${esc(c.id)}">Remove</button>`}</div></div>`).join("")}</div><hr><b>Add a new contact</b><label class="wa-field">Name<input id="waNewContactName" placeholder="e.g. Harry Kane"></label><label class="wa-field">Avatar path (optional)<input id="waNewContactAvatar" placeholder="./avatars/harrykane.JPG"></label><button type="button" class="wa-primary" id="waCreateContact">＋ Add contact</button><p class="wa-small">Saved in this browser on this device.</p></div>`;
+     $wa("waContactsEditor").querySelectorAll("[data-contact-open]").forEach(b=>b.onclick=()=>{collectTab();persist();openContactChat(b.dataset.contactOpen);});
+     $wa("waContactsEditor").querySelectorAll("[data-contact-delete]").forEach(b=>b.onclick=()=>{data.contacts=data.contacts.filter(c=>c.id!==b.dataset.contactDelete);if(activeContactId===b.dataset.contactDelete)activeContactId="jude";persist();renderStudio();renderContactList();});
+     $wa("waCreateContact").onclick=()=>{const name=$wa("waNewContactName").value.trim();if(!name){alert("Please enter a contact name.");return;}const id="c-"+Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,6);data.contacts.push({id,name,avatar:$wa("waNewContactAvatar").value.trim(),smartReplies:true,messages:[]});activeContactId=id;persist();renderStudio();renderContactList();};
+     $wa("waContactsEditor").querySelectorAll("[data-contact-name]").forEach(el=>el.onchange=()=>{const c=data.contacts.find(x=>x.id===el.dataset.contactName);if(c){c.name=el.value.trim()||"Contact";persist();renderContactList();}});
+     $wa("waContactsEditor").querySelectorAll("[data-contact-avatar]").forEach(el=>el.onchange=()=>{const c=data.contacts.find(x=>x.id===el.dataset.contactAvatar);if(c){c.avatar=el.value.trim();persist();renderContactList();}});
+     $wa("waContactsEditor").querySelectorAll("[data-contact-smart]").forEach(el=>el.onchange=()=>{const c=data.contacts.find(x=>x.id===el.dataset.contactSmart);if(c){c.smartReplies=el.checked;persist();}});
+   }else if(currentTab==="profile"){
      p.name=$wa("waName").value.trim()||"User";p.about=$wa("waAbout").value.trim();p.status=$wa("waStatus").value.trim();p.avatar=$wa("waAvatar").value.trim();p.contactName=$wa("waContactName").value.trim()||"Contact";p.contactAvatar=$wa("waContactAvatar").value.trim();
    }else if(currentTab==="script"){
      data.autoEnabled=$wa("waAutoEnabled").checked;
@@ -2296,14 +2307,24 @@ init();
      data.keywords=data.keywords.map((m,i)=>({keyword:$wa("waStudioContent").querySelector(`[data-keyword="${i}"]`)?.value??m.keyword,reply:$wa("waStudioContent").querySelector(`[data-reply="${i}"]`)?.value??m.reply}));
    }
  }
+ function currentContact(){return data.contacts.find(c=>c.id===activeContactId)||data.contacts[0];}
+ function renderContactList(){
+   const list=$wa("waChatList");if(!list)return;
+   list.innerHTML=data.contacts.map(c=>{const last=c.messages[c.messages.length-1];const initial=esc((c.name||"C").slice(0,1).toUpperCase());const avatar=c.avatar?`<img src="${esc(c.avatar)}" alt="" onerror="this.parentElement.textContent='${initial}'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:initial;return `<button type="button" class="wa-chat-row" data-open-wa-contact="${esc(c.id)}" style="width:100%;text-align:left;border:0;background:transparent;color:inherit;display:flex;align-items:center;padding:10px 4px"><span class="friend-avatar wa-contact-avatar">${avatar}</span><span class="wa-chat-copy"><span class="friend-name">${esc(c.name)}</span><span class="wa-chat-preview">${esc(last?last.text:"点此开始聊天")}</span></span><span class="wa-chat-meta"><time>${esc(last?last.time:"现在")}</time><span class="wa-chat-check">›</span></span></button>`;}).join("");
+   list.querySelectorAll("[data-open-wa-contact]").forEach(b=>b.onclick=()=>openContactChat(b.dataset.openWaContact));
+ }
+ function openContactChat(id){if(!data.contacts.some(c=>c.id===id))return;activeContactId=id;syncProfile();waRenderChat();$wa("chatPage").classList.add("active");if(typeof window.waStartAutoScript==="function")window.waStartAutoScript();}
  function addMessage(from,text){
-   data.messages.push({id:nextId++,from,text,time:timeNow()});
+   const c=currentContact();if(!c)return;
+   c.messages.push({id:nextId++,from,text,time:timeNow()});
    persist();
    if($wa("chatPage").classList.contains("active"))waRenderChat();
+   renderContactList();
  }
  function waRenderChat(){
    syncProfile();
-   $wa("chatMessages").innerHTML=data.messages.map(m=>`<div class="wa-msg-row ${m.from==="out"?"out":"in"}"><div class="wa-msg-bubble">${esc(m.text)}<div class="wa-small" style="text-align:right;margin-top:4px">${esc(m.time)}${m.from==="out"?" ✓✓":""}</div></div></div>`).join("");
+   const c=currentContact();if(!c)return;
+   $wa("chatMessages").innerHTML=c.messages.map(m=>`<div class="wa-msg-row ${m.from==="out"?"out":"in"}"><div class="wa-msg-bubble">${esc(m.text)}<div class="wa-small" style="text-align:right;margin-top:4px">${esc(m.time)}${m.from==="out"?" ✓✓":""}</div></div></div>`).join("");
    $wa("chatMessages").scrollTop=$wa("chatMessages").scrollHeight;
  }
  function stopScriptTimers(){scriptTimers.forEach(clearTimeout);scriptTimers=[];}
@@ -2339,13 +2360,15 @@ init();
    const lower=text.toLowerCase();
    const match=data.keywords.find(k=>k.keyword.trim()&&lower.includes(k.keyword.trim().toLowerCase()));
    if(match){setTimeout(()=>addMessage("in",match.reply),900);return;}
-   if(data.smartReplies){setTimeout(()=>addMessage("in",waContentReply(text)),900);}
+   const contact=currentContact();
+   if(contact&&contact.smartReplies){setTimeout(()=>{if(data.contacts.some(c=>c.id===contact.id)){const previous=activeContactId;activeContactId=contact.id;addMessage("in",waContentReply(text));activeContactId=previous;waRenderChat();}},900);}
  }
  document.querySelectorAll("[data-wa-tab]").forEach(b=>b.addEventListener("click",()=>{
    if(currentTab==="profile"||currentTab==="script"||currentTab==="keywords")collectTab();
    currentTab=b.dataset.waTab;renderStudio();
  }));
  $wa("waOpenStudio").addEventListener("click",()=>openWaStudio("profile"));
+ $wa("waAddContactQuick")?.addEventListener("click",()=>openWaStudio("contacts"));
  $wa("waOpenStudio2").addEventListener("click",()=>openWaStudio("script"));
  $wa("waStudioClose").addEventListener("click",()=>{$wa("waStudio").classList.remove("active");});
  $wa("waStudioSave").addEventListener("click",()=>{collectTab();persist();renderStudio();alert("WhatsApp settings saved on this device.");});
@@ -2355,6 +2378,8 @@ init();
  if(originalOpenFriend)originalOpenFriend.addEventListener("dblclick",()=>openWaStudio("script"));
  syncProfile();
  window.waRenderChat=waRenderChat;
+ renderContactList();
+ window.openWaContact=openContactChat;
  window.waStartAutoScript=waStartAutoScript;
  window.waSendUserMessage=waSendUserMessage;
  window.waAddIncomingMessage=(text)=>addMessage("in",String(text||""));
