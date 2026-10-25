@@ -671,7 +671,22 @@ function renderDesktop(){
   const second=document.createElement("div");second.id="homePageTwo";second.className="home-page home-page-two";
   first.appendChild(widgets);first.appendChild(appsGrid);
   const grid=document.createElement("div");grid.id="secondPageApps";grid.className="apps second-page-apps";
-  grid.innerHTML=page2.map(a=>["arsenalApp","netflixApp","snapchatApp","hboApp","alarmApp"].includes(a[0])?appIcon(a[0],a[1],a[2],a[3]):`<div class="app-icon-wrap" data-coming-soon="${a[1]}"><button class="app-icon ${a[3]}" aria-label="${a[1]}">${a[2]}</button><div class="app-name">${a[1]}</div></div>`).join("");
+  grid.innerHTML=page2.map(a=>{
+  if(["netflixApp","snapchatApp","hboApp","alarmApp"].includes(a[0])) return appIcon(a[0],a[1],a[2],a[3]);
+  const marks={
+   "FC 27":'<span style="font:900 30px/1 Arial,sans-serif;letter-spacing:-3px;color:#d8ff63">FC</span>',
+   "Facebook":'<span style="font:900 52px/1 Arial,sans-serif;color:#fff;transform:translateY(7px)">f</span>',
+   "Uber":'<span style="font:600 22px/1 Arial,sans-serif;color:#111;letter-spacing:-1px">Uber</span>',
+   "Amazon":'<span style="position:relative;font:800 42px/1 Arial,sans-serif;color:#111">a<span style="position:absolute;left:2px;right:-5px;bottom:-2px;height:8px;border-bottom:3px solid #ff9900;border-radius:50%;transform:rotate(7deg)"></span></span>'
+  };
+  const styles={
+   "FC 27":"background:linear-gradient(145deg,#18251b,#050806);border:2px solid #c8ff38;box-shadow:inset 0 0 0 1px #c8ff3855",
+   "Facebook":"background:#1877f2",
+   "Uber":"background:#fff",
+   "Amazon":"background:#fff"
+  };
+  return '<div class="app-icon-wrap" data-coming-soon="'+a[1]+'"><button type="button" class="app-icon '+a[3]+'" aria-label="'+a[1]+'" tabindex="-1" style="'+styles[a[1]]+';display:grid;place-items:center;font-size:0;pointer-events:none">'+marks[a[1]]+'</button><div class="app-name">'+a[1]+'</div></div>';
+ }).join("");
   second.appendChild(grid);track.appendChild(first);track.appendChild(second);viewport.appendChild(track);
   desktop.insertBefore(viewport,dock);
   const indicator=document.createElement("div");indicator.id="homePageIndicator";indicator.className="home-page-indicator";indicator.innerHTML='<button class="active" aria-label="Page 1"></button><button aria-label="Page 2"></button>';desktop.insertBefore(indicator,dock);
