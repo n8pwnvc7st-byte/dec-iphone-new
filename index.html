@@ -836,6 +836,15 @@ function startPhoneCall(name){
    if(audioContext){try{audioContext.close();}catch(e){}}
    audioContext=null;masterGain=null;
  }
+ function playPhoneJudeGreeting(){
+   if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window))return;
+   const lines=["Hey, how are you? Good to hear from you!","Hey mate, how's your day going?","Alright, good to see you. Hope you're having a good one!"];
+   const utterance=new SpeechSynthesisUtterance(lines[Math.floor(Math.random()*lines.length)]);
+   utterance.lang="en-GB";utterance.rate=0.96;utterance.pitch=0.98;utterance.volume=1;
+   const voices=window.speechSynthesis.getVoices();const british=voices.filter(v=>/^en-GB/i.test(v.lang));
+   utterance.voice=british.find(v=>/male|daniel|george|ryan|oliver|arthur/i.test(v.name))||british[0]||voices.find(v=>/^en/i.test(v.lang))||null;
+   window.speechSynthesis.cancel();window.speechSynthesis.speak(utterance);
+ }
  function playRingback(){
    if(soundMuted||callConnected)return;
    tone([440,480],1.1,0.11);
@@ -847,6 +856,7 @@ function startPhoneCall(name){
  const connectTimeout=setTimeout(()=>{
    if(!document.getElementById("simPhoneCall"))return;
    callConnected=true;
+   if(/^jude(?: bellingham)?$/i.test(name.trim()))playPhoneJudeGreeting();
    if(ringTimer){clearInterval(ringTimer);ringTimer=null;}
    stopTone();
    state.textContent="00:00";
@@ -1808,22 +1818,9 @@ function startIncoming(){
   $("incomingAvatar").src=callerAvatar;
   $("incomingAvatar").onerror=()=>{$("incomingAvatar").onerror=null;$ ("incomingAvatar").src="./avatars/rice-ig.JPG";};
 }
-function playJudeGreeting(){
- if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window))return;
- const lines=["Hey, how are you? Good to hear from you!","Hey mate, how's your day going?","Alright, good to see you. Hope you're having a good one!"];
- const line=lines[Math.floor(Math.random()*lines.length)];
- window.speechSynthesis.cancel();
- const utterance=new SpeechSynthesisUtterance(line);
- utterance.lang="en-GB";utterance.rate=0.96;utterance.pitch=0.98;utterance.volume=1;
- const voices=window.speechSynthesis.getVoices();
- const british=voices.filter(v=>/^en-GB/i.test(v.lang));
- const preferred=british.find(v=>/male|daniel|george|ryan|oliver|arthur/i.test(v.name));
- utterance.voice=preferred||british[0]||voices.find(v=>/^en/i.test(v.lang))||null;
- window.speechSynthesis.speak(utterance);
-}
 function stopCall(reset=true){if("speechSynthesis" in window)window.speechSynthesis.cancel();if(callTicker){clearInterval(callTicker);callTicker=null}msgTimers.forEach(clearTimeout);msgTimers=[];presetIndex=0;const v=$("mainVideo");const p=$("pipVideo");[v,p].forEach(el=>{el.pause();el.removeAttribute("src");el.load()});$("incoming").classList.remove("active");$("videoCall").classList.remove("active");$("chatOverlay").innerHTML="";if(reset&&currentScreen==="instagramApp"){const dm=$("igDmPage"),inbox=$("igInboxPage"),profile=$("igProfilePage");if(dm){dm.classList.add("active");if(inbox)inbox.classList.remove("active");if(profile)profile.style.display="none";}}}
 $("declineCall").addEventListener("click",()=>{stopCall();showScreen("desktop")});
-$("acceptCall").addEventListener("click",async()=>{ if(/^jude(?: bellingham)?$/i.test(($("incomingName").textContent||"").trim()))playJudeGreeting(); $("incoming").classList.remove("active");$("videoCall").classList.add("active");const main=$("mainVideo"),pip=$("pipVideo");main.dataset.fallbackTried="";pip.dataset.fallbackTried="";main.poster=window.activeCallAvatar||$("incomingAvatar").src;const callerVideo=(window.activeCallVideos&&window.activeCallVideos.main)||callerFallbackVideo();if(callerVideo)main.src=callerVideo;else{main.removeAttribute("src");main.load();}pip.src=(window.activeCallVideos&&window.activeCallVideos.pip)||"./call-videos/rice-call.MP4";main.onerror=()=>{if(!main.dataset.fallbackTried){main.dataset.fallbackTried="1";const fallback=callerFallbackVideo();if(fallback&&fallback!==main.getAttribute("src")){main.src=fallback;}else{main.removeAttribute("src");main.load();}}else{main.removeAttribute("src");main.load();}};pip.onerror=()=>{if(!pip.dataset.fallbackTried){pip.dataset.fallbackTried="1";pip.src="./call-videos/rice.mov";}};main.muted=false;pip.muted=true;main.loop=true;pip.loop=true;main.playsInline=true;pip.playsInline=true;const soundButton=$("videoTap");soundButton.style.display="";soundButton.setAttribute("aria-label","Tap to enable video sound");const mainPlay=main.play().then(()=>{soundButton.style.display="none";}).catch(()=>{main.muted=true;soundButton.style.display="";});const pipPlay=pip.play().catch(()=>{});await Promise.allSettled([mainPlay,pipPlay]);callStart=Date.now();$("callTimer").textContent="00:00";if(callTicker)clearInterval(callTicker);callTicker=setInterval(()=>{const s=Math.floor((Date.now()-callStart)/1000);$("callTimer").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")},1000);scheduleMessages()});
+$("acceptCall").addEventListener("click",async()=>{ $("incoming").classList.remove("active");$("videoCall").classList.add("active");const main=$("mainVideo"),pip=$("pipVideo");main.dataset.fallbackTried="";pip.dataset.fallbackTried="";main.poster=window.activeCallAvatar||$("incomingAvatar").src;const callerVideo=(window.activeCallVideos&&window.activeCallVideos.main)||callerFallbackVideo();if(callerVideo)main.src=callerVideo;else{main.removeAttribute("src");main.load();}pip.src=(window.activeCallVideos&&window.activeCallVideos.pip)||"./call-videos/rice-call.MP4";main.onerror=()=>{if(!main.dataset.fallbackTried){main.dataset.fallbackTried="1";const fallback=callerFallbackVideo();if(fallback&&fallback!==main.getAttribute("src")){main.src=fallback;}else{main.removeAttribute("src");main.load();}}else{main.removeAttribute("src");main.load();}};pip.onerror=()=>{if(!pip.dataset.fallbackTried){pip.dataset.fallbackTried="1";pip.src="./call-videos/rice.mov";}};main.muted=false;pip.muted=true;main.loop=true;pip.loop=true;main.playsInline=true;pip.playsInline=true;const soundButton=$("videoTap");soundButton.style.display="";soundButton.setAttribute("aria-label","Tap to enable video sound");const mainPlay=main.play().then(()=>{soundButton.style.display="none";}).catch(()=>{main.muted=true;soundButton.style.display="";});const pipPlay=pip.play().catch(()=>{});await Promise.allSettled([mainPlay,pipPlay]);callStart=Date.now();$("callTimer").textContent="00:00";if(callTicker)clearInterval(callTicker);callTicker=setInterval(()=>{const s=Math.floor((Date.now()-callStart)/1000);$("callTimer").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")},1000);scheduleMessages()});
 $("videoTap").addEventListener("click",async()=>{const v=$("mainVideo");v.muted=false;try{await v.play();$("videoTap").style.display="none"}catch(e){$("videoTap").style.display="";}});
 $("hangupCall").addEventListener("click",()=>{stopCall();showScreen("desktop")});
 $("micToggle").addEventListener("click",e=>{e.currentTarget.classList.toggle("off");e.currentTarget.textContent=e.currentTarget.classList.contains("off")?"🎙̸":"🎙"});
