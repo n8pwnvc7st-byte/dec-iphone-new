@@ -389,22 +389,49 @@
 <section class="screen app-screen demo-stream" id="hboApp"><header><b style="font-size:22px">HBO <span style="color:#c9b5ff">MAX</span></b><button data-hsearch>⌕</button></header><div class="demo-scroll"><div class="demo-hero hbo-hero"><small>HBO ORIGINAL</small><h1 id="htitle">HOUSE OF THE DRAGON</h1><p>Stories worth watching</p><button data-play>▶ Play</button></div><h2>Trending now</h2><div class="demo-row"><button class="poster purple" data-htitle="House of the Dragon">HOUSE OF THE DRAGON</button><button class="poster blue" data-htitle="The Last of Us">THE LAST OF US</button><button class="poster gold" data-htitle="Dune">DUNE</button></div><h2>Continue Watching</h2><div class="demo-row"><button class="poster green" data-htitle="The White Lotus">THE WHITE LOTUS</button><button class="poster red" data-htitle="Succession">SUCCESSION</button></div></div><div class="homebar" data-home="home"></div></section>
 <section class="screen app-screen demo-snap" id="snapchatApp"><header><button data-snav="profile">☺</button><b>Snapchat</b><button data-snav="add">＋</button></header><div class="snap-camera" id="snapCamera">Camera preview<button data-snav="capture">●</button></div><div class="snap-friends" id="snapFriends"><h2>Friends</h2><button data-friend="Jude">👤 Jude　›</button><button data-friend="Rice">👤 Rice　›</button><button data-friend="Kai">👤 Kai　›</button></div><nav><button data-snav="chat">Chat</button><button data-snav="camera">Camera</button><button data-snav="stories">Stories</button></nav><div class="homebar" data-home="home"></div></section>
 <section class="screen app-screen demo-clock" id="alarmApp"><nav><button data-atab="World Clock">World Clock</button><button data-atab="Alarm">Alarm</button><button data-atab="Stopwatch">Stopwatch</button><button data-atab="Timer">Timer</button></nav><div id="alarmContent"></div><div class="homebar" data-home="home"></div></section>  <section class="screen app-screen arsenal-app" id="arsenalApp">
-    <div class="arsenal-splash" id="arsenalSplash" aria-hidden="true">
-      <div class="arsenal-splash-crest">ARSENAL</div><div class="arsenal-sponsor">adidas</div><div class="arsenal-sponsor serif">Emirates</div><div class="arsenal-sponsor serif small">SOBHA REALTY</div><div class="arsenal-sponsor deel">deel.</div>
-      <button id="arsenalSkipIntro">Skip</button>
-    </div>
-    <div class="arsenal-main" id="arsenalMain">
-      <header class="arsenal-topbar"><button aria-label="Search">⌕</button><strong>THE <span>ϟ</span> ARSENAL</strong><button id="arsenalRefresh" aria-label="Refresh fixtures">⟳</button><button aria-label="Settings">☷</button></header>
-      <nav class="arsenal-audience"><button class="active" data-ars-audience="men">MEN</button><button data-ars-audience="women">WOMEN</button><button data-ars-audience="academy">ACADEMY</button></nav>
-      <nav class="arsenal-sections"><button class="active" data-ars-tab="fixtures">FIXTURES</button><button data-ars-tab="tables">TABLES</button><button data-ars-tab="players">PLAYERS</button><button class="arsenal-calendar">▦</button></nav>
-      <div class="arsenal-month-strip"><button id="arsenalPrevMonth">‹</button><div id="arsenalMonthCards"></div><button id="arsenalNextMonth">›</button></div>
-      <div class="arsenal-data-status" id="arsenalDataStatus">Fixture schedule · last checked just now</div>
-      <div class="arsenal-fixtures" id="arsenalFixtures"></div>
-      <div class="arsenal-placeholder hidden" id="arsenalOtherTab"></div>
-      <nav class="arsenal-bottom-nav"><button class="active" data-ars-nav="fixtures"><span>▦</span>Fixtures</button><button data-ars-nav="video"><span>▣</span>Video</button><button data-ars-nav="home"><span>ϟ</span>Home</button><button data-ars-nav="shop"><span>▱</span>Shop</button><button data-ars-nav="profile"><span>●</span>Profile</button></nav>
-    </div>
-    <div class="homebar" data-home="home"></div>
-  </section>
+  <div class="arsenal-splash" id="arsenalSplash" aria-hidden="true">
+    <div class="arsenal-splash-crest">ARSENAL</div><div class="arsenal-sponsor">adidas</div><div class="arsenal-sponsor serif">Emirates</div><div class="arsenal-sponsor serif small">SOBHA REALTY</div><div class="arsenal-sponsor deel">deel.</div>
+    <button id="arsenalSkipIntro">Skip</button>
+  </div>
+  <div class="arsenal-main" id="arsenalMain">
+    <header class="arsenal-topbar"><button id="arsenalSearch" aria-label="Search">⌕</button><strong>THE <span>ϟ</span> ARSENAL</strong><button id="arsenalRefresh" aria-label="Refresh">⟳</button></header>
+    <main class="arsenal-scroll" id="arsenalScroll">
+      <section class="arsenal-view active" data-view="fixtures">
+        <nav class="arsenal-audience"><button class="active" data-ars-audience="all">ALL</button><button data-ars-audience="men">MEN</button><button data-ars-audience="women">WOMEN</button><button data-ars-audience="academy">ACADEMY</button><button data-ars-audience="club">CLUB</button></nav>
+        <nav class="arsenal-chips"><button class="active" data-ars-chip="news">NEWS</button><button data-ars-chip="video">VIDEO</button><button data-ars-chip="photos">PHOTOS</button><button data-ars-chip="quiz">QUIZ</button><button data-ars-chip="experiences">EXPERIENCES</button></nav>
+        <div class="arsenal-section-heading">Latest</div>
+        <article class="arsenal-story"><div class="arsenal-story-art arsenal-art-red"><span>ARSENAL</span><b>⚡</b></div><div class="arsenal-story-copy"><small>MEN · FIRST TEAM</small><h2>All the latest from Arsenal</h2><p>News, team updates and stories from across the club.</p></div></article>
+        <article class="arsenal-story"><div class="arsenal-story-art arsenal-art-dark"><span>THE GUNNERS</span><b>ARS</b></div><div class="arsenal-story-copy"><small>CLUB NEWS</small><h2>Inside the club</h2><p>Discover the people, moments and stories behind Arsenal.</p></div></article>
+        <div class="arsenal-section-heading">Fixtures</div>
+        <nav class="arsenal-sections"><button class="active" data-ars-tab="fixtures">FIXTURES</button><button data-ars-tab="tables">TABLES</button><button data-ars-tab="players">PLAYERS</button><button class="arsenal-calendar" id="arsenalCalendar">▦</button></nav>
+        <div class="arsenal-month-strip"><button id="arsenalPrevMonth">‹</button><div id="arsenalMonthCards"></div><button id="arsenalNextMonth">›</button></div>
+        <div class="arsenal-data-status" id="arsenalDataStatus">Fixture schedule</div><div class="arsenal-fixtures" id="arsenalFixtures"></div><div class="arsenal-placeholder hidden" id="arsenalOtherTab"></div>
+      </section>
+      <section class="arsenal-view" data-view="video">
+        <nav class="arsenal-subtabs"><button class="active">EVERTON</button><button>FOR YOU</button><button>LATEST</button></nav>
+        <div class="arsenal-filter-switch"><button class="active">EVERTON</button><button>SPURS</button></div>
+        <div class="arsenal-video-stage"><div class="arsenal-video-loading"><span></span></div><div class="arsenal-video-actions"><span>👏<small>161</small></span><span>↗</span></div></div>
+        <div class="arsenal-video-copy"><small>VIDEO</small><h1>👏 Marking PL game 200 with a vital goal</h1><p>Big Gabi with a big moment against Everton</p><button class="arsenal-cta" data-action="video">WATCH FULL VIDEO</button></div>
+        <div class="arsenal-video-row"><div><div class="arsenal-mini-art">▶</div><b>Match highlights</b></div><div><div class="arsenal-mini-art">⚽</div><b>Inside training</b></div></div>
+      </section>
+      <section class="arsenal-view" data-view="home">
+        <div class="arsenal-hero"><div class="arsenal-hero-label">NORTH LONDON FOREVER</div><h1>THIS IS ARSENAL.</h1><p>News, matches and stories from the club.</p><button class="arsenal-cta" data-go="video">EXPLORE VIDEOS</button></div>
+        <div class="arsenal-section-heading">Must Watch</div><div class="arsenal-horizontal-cards"><article><div class="arsenal-card-art arsenal-art-red">⚡</div><b>Matchday moments</b><small>VIDEO · FIRST TEAM</small></article><article><div class="arsenal-card-art arsenal-art-dark">ARSENAL</div><b>Inside the club</b><small>EXCLUSIVE</small></article></div>
+        <div class="arsenal-section-heading">Latest News</div><article class="arsenal-feature-card"><strong>From the training ground</strong><p>Club news, interviews and updates in one place.</p></article>
+      </section>
+      <section class="arsenal-view" data-view="shop">
+        <div class="arsenal-shop-hero"><small>OFFICIAL ARSENAL STORE</small><h1>RED. WHITE.<br>ARSENAL.</h1><p>Kit, training wear and club essentials.</p><button class="arsenal-cta" data-action="shop">SHOP NOW ↗</button></div>
+        <div class="arsenal-section-heading">Shop by category</div><div class="arsenal-shop-grid"><button data-action="shop">HOME KIT <span>↗</span></button><button data-action="shop">AWAY KIT <span>↗</span></button><button data-action="shop">TRAINING <span>↗</span></button><button data-action="shop">ACCESSORIES <span>↗</span></button></div>
+      </section>
+      <section class="arsenal-view" data-view="profile">
+        <div class="arsenal-profile-title">My Arsenal <button id="arsenalSettings">⚙</button></div><div class="arsenal-profile-name">Asahi Hamada</div>
+        <button class="arsenal-profile-row" data-profile="Personal Details"><span>PERSONAL DETAILS</span><b>▣</b></button><button class="arsenal-profile-row" data-profile="Ticket Hub"><span>TICKET HUB</span><b>♧</b></button><button class="arsenal-profile-row" data-profile="Notifications"><span>NOTIFICATIONS</span><b>♧</b></button><button class="arsenal-profile-row" data-profile="Preferences"><span>PREFERENCES</span><b>☏</b></button><button class="arsenal-profile-row" data-profile="Stadium Tours"><span>STADIUM TOURS</span><b>♙</b></button><div class="arsenal-profile-note" id="arsenalProfileNote">Choose a section to personalise your Arsenal experience.</div>
+      </section>
+    </main>
+    <nav class="arsenal-bottom-nav"><button data-ars-nav="fixtures"><span class="arsenal-pitch-icon">▦</span></button><button data-ars-nav="video"><span class="arsenal-video-icon">▶</span></button><button class="active" data-ars-nav="home"><span class="arsenal-lightning-icon">ϟ</span></button><button data-ars-nav="shop"><span class="arsenal-bag-icon">▱</span></button><button data-ars-nav="profile"><span class="arsenal-user-icon">●</span></button></nav>
+  </div>
+  <div class="homebar" data-home="home"></div>
+</section>
   <section class="screen app-screen" id="phoneApp">
     <div class="app-header">Recents <button id="phoneEditButton" style="font-size:14px;color:#1685ee;background:transparent">Edit</button></div><div class="app-content" id="callsContent"></div><div class="tabbar"><span data-phone-tab="Favorites"><b>★</b>Favorites</span><span data-phone-tab="Recents"><b>◷</b>Recents</span><span data-phone-tab="Contacts"><b>◉</b>Contacts</span><span data-phone-tab="Keypad"><b>⌨</b>Keypad</span></div><div class="homebar" data-home="home"></div>
   </section>
@@ -3761,17 +3788,35 @@ html,body{background:#09090b}
 
 <style id="arsenal-app-style">
 #arsenalApp{background:#050505;color:#f7f7f7;font-family:Arial,Helvetica,sans-serif;overflow:hidden}
-#arsenalApp .arsenal-main{position:absolute;inset:0;display:flex;flex-direction:column;background:#050505;opacity:0;transition:opacity .45s ease}
+#arsenalApp .arsenal-main{position:absolute;inset:0;display:flex;flex-direction:column;background:#050505;opacity:0;transition:opacity .35s ease}
 #arsenalApp .arsenal-main.ready{opacity:1}
-#arsenalApp .arsenal-topbar{padding:calc(var(--safe-top) + 10px) 20px 14px;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:calc(var(--safe-top) + 62px)}
-#arsenalApp .arsenal-topbar button{font-size:28px;background:transparent;color:#fff;min-width:28px}
+#arsenalApp .arsenal-topbar{flex:0 0 auto;padding:calc(var(--safe-top) + 10px) 20px 13px;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:calc(var(--safe-top) + 66px);border-bottom:1px solid #262626}
+#arsenalApp .arsenal-topbar button{font-size:30px;background:transparent;color:#fff;min-width:30px}
 #arsenalApp .arsenal-topbar strong{font-size:clamp(17px,4.3vw,24px);letter-spacing:2px;white-space:nowrap}
 #arsenalApp .arsenal-topbar strong span{font-size:30px}
-#arsenalApp .arsenal-audience{display:flex;justify-content:space-around;border-bottom:1px solid #292929}
-#arsenalApp .arsenal-audience button{width:33.33%;padding:19px 0 16px;background:transparent;color:#858585;font-size:14px;position:relative}
+#arsenalApp .arsenal-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:100px;scrollbar-width:none}
+#arsenalApp .arsenal-scroll::-webkit-scrollbar{display:none}
+#arsenalApp .arsenal-view{display:none;min-height:100%;padding-bottom:18px}
+#arsenalApp .arsenal-view.active{display:block}
+#arsenalApp .arsenal-audience{display:flex;justify-content:space-around;border-bottom:1px solid #292929;overflow-x:auto}
+#arsenalApp .arsenal-audience button{flex:1;min-width:max-content;padding:19px 12px 16px;background:transparent;color:#858585;font-size:clamp(12px,3.5vw,15px);position:relative}
 #arsenalApp .arsenal-audience button.active{color:#fff;font-weight:700}
-#arsenalApp .arsenal-audience button.active:after{content:"";height:3px;background:#ef002b;position:absolute;bottom:0;left:4%;right:4%}
-#arsenalApp .arsenal-sections{display:flex;align-items:center;gap:3px;padding:14px 16px 10px}
+#arsenalApp .arsenal-audience button.active:after{content:"";height:3px;background:#ef002b;position:absolute;bottom:0;left:15%;right:15%}
+#arsenalApp .arsenal-chips{display:flex;gap:9px;padding:13px 16px 10px;overflow-x:auto;scrollbar-width:none}
+#arsenalApp .arsenal-chips button{flex:0 0 auto;background:#303033;color:#c9c9c9;border-radius:24px;padding:13px 18px;font-size:12px;font-weight:700}
+#arsenalApp .arsenal-chips button.active{background:#ed002b;color:white}
+#arsenalApp .arsenal-section-heading{font-size:25px;font-weight:700;padding:22px 20px 14px}
+#arsenalApp .arsenal-story{margin:0 18px 18px;border-radius:12px;overflow:hidden;background:#171516}
+#arsenalApp .arsenal-story-art{height:155px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+#arsenalApp .arsenal-story-art span{font-size:23px;letter-spacing:3px;font-weight:800;z-index:1}
+#arsenalApp .arsenal-story-art b{font-size:100px;position:absolute;right:22px;opacity:.25}
+#arsenalApp .arsenal-art-red{background:linear-gradient(135deg,#e6002b,#4d000c)}
+#arsenalApp .arsenal-art-dark{background:linear-gradient(145deg,#242426,#090909);color:#eee}
+#arsenalApp .arsenal-story-copy{padding:15px}
+#arsenalApp .arsenal-story-copy small,#arsenalApp .arsenal-video-copy small{font-size:10px;letter-spacing:1.5px;color:#ef1740;font-weight:700}
+#arsenalApp .arsenal-story-copy h2{font-size:20px;margin:8px 0}
+#arsenalApp .arsenal-story-copy p,#arsenalApp .arsenal-feature-card p{color:#aaa;line-height:1.5;font-size:14px;margin:8px 0 0}
+#arsenalApp .arsenal-sections{display:flex;align-items:center;gap:3px;padding:8px 16px 10px}
 #arsenalApp .arsenal-sections button{background:#2a2a2d;color:#aaa;padding:13px 8px;flex:1;font-size:12px;font-weight:700}
 #arsenalApp .arsenal-sections button:first-child{border-radius:24px 0 0 24px}
 #arsenalApp .arsenal-sections button:nth-child(3){border-radius:0 24px 24px 0}
@@ -3784,7 +3829,7 @@ html,body{background:#09090b}
 #arsenalApp .arsenal-month-card b{display:block;font-size:16px;margin-bottom:4px}
 #arsenalApp .arsenal-month-card.active{background:#ed002b;color:#fff}
 #arsenalApp .arsenal-data-status{font-size:10px;color:#888;padding:9px 18px 3px}
-#arsenalApp .arsenal-fixtures{flex:1;min-height:0;overflow:auto;padding:10px 16px calc(var(--safe-bottom) + 90px);overscroll-behavior:contain}
+#arsenalApp .arsenal-fixtures{padding:10px 16px 20px}
 #arsenalApp .arsenal-match-card{background:#171516;border-radius:15px;padding:18px 15px;margin-bottom:16px}
 #arsenalApp .arsenal-match-date{text-align:center;font-size:13px;font-weight:700}
 #arsenalApp .arsenal-match-venue{text-align:center;color:#999;font-size:12px;margin-top:5px}
@@ -3796,13 +3841,57 @@ html,body{background:#09090b}
 #arsenalApp .arsenal-match-comp{color:#aaa;text-align:center;font-size:10px;margin-top:8px}
 #arsenalApp .arsenal-match-links{display:flex;gap:8px}
 #arsenalApp .arsenal-match-links button{flex:1;border-radius:22px;background:#555256;color:#fff;padding:11px 5px;font-size:11px;font-weight:700}
-#arsenalApp .arsenal-feature-card{background:#151515;border:1px solid #292929;border-radius:14px;padding:16px;margin:12px 0;color:#f4f4f4}.arsenal-feature-card p{color:#aaa;line-height:1.5;font-size:14px;margin:8px 0 0}
-.arsenal-bottom-nav{position:absolute;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#050505;border-top:1px solid #282828;padding:13px 5px calc(var(--safe-bottom) + 18px);z-index:4}
-#arsenalApp .arsenal-bottom-nav button{background:transparent;color:#8d8d8d;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:10px;flex:1}
-#arsenalApp .arsenal-bottom-nav button span{font-size:25px;line-height:1}
-#arsenalApp .arsenal-bottom-nav button.active{color:#ed002b}
+#arsenalApp .arsenal-feature-card{background:#151515;border:1px solid #292929;border-radius:14px;padding:16px;margin:12px 18px;color:#f4f4f4}
 #arsenalApp .arsenal-placeholder{padding:30px 20px;color:#ddd}
 #arsenalApp .arsenal-placeholder.hidden{display:none}
+#arsenalApp .arsenal-bottom-nav{position:absolute;bottom:0;left:0;right:0;height:calc(78px + var(--safe-bottom));display:flex;justify-content:space-around;align-items:center;background:#050505;border-top:1px solid #282828;padding:8px 5px calc(var(--safe-bottom) + 8px);z-index:4}
+#arsenalApp .arsenal-bottom-nav button{background:transparent;color:#8d8d8d;display:flex;align-items:center;justify-content:center;flex:1;height:54px}
+#arsenalApp .arsenal-bottom-nav button span{display:grid;place-items:center;font-size:31px;line-height:1;width:48px;height:48px}
+#arsenalApp .arsenal-bottom-nav button.active{color:#ed002b}
+#arsenalApp .arsenal-bottom-nav button.active .arsenal-lightning-icon{background:#ed002b;color:white;border-radius:14px;font-size:42px}
+#arsenalApp .arsenal-video-icon{border-top:4px solid currentColor;border-bottom:4px solid currentColor;position:relative}
+#arsenalApp .arsenal-bag-icon{font-size:39px!important}
+#arsenalApp .arsenal-user-icon{border-radius:50%;background:currentColor;color:#050505!important;position:relative}
+#arsenalApp .arsenal-user-icon:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#050505;top:8px}
+#arsenalApp .arsenal-user-icon:before{content:"";position:absolute;width:25px;height:13px;border-radius:13px 13px 8px 8px;background:#050505;bottom:6px}
+#arsenalApp .arsenal-subtabs{display:flex;justify-content:space-around;border-bottom:1px solid #292929}
+#arsenalApp .arsenal-subtabs button{background:transparent;color:#888;padding:18px 12px;font-weight:700;position:relative}
+#arsenalApp .arsenal-subtabs button.active{color:white}
+#arsenalApp .arsenal-subtabs button.active:after{content:"";height:3px;background:#ed002b;position:absolute;bottom:0;left:0;right:0}
+#arsenalApp .arsenal-filter-switch{display:flex;margin:14px 11%;background:#303033;border-radius:28px;overflow:hidden}
+#arsenalApp .arsenal-filter-switch button{flex:1;background:transparent;color:#ddd;padding:14px;font-weight:700}
+#arsenalApp .arsenal-filter-switch button.active{background:#ed002b;border-radius:28px}
+#arsenalApp .arsenal-video-stage{height:clamp(270px,48vh,470px);position:relative;display:grid;place-items:center}
+#arsenalApp .arsenal-video-loading span{display:block;width:42px;height:42px;border:6px dotted #ed002b;border-radius:50%;animation:arsenalSpin 1.2s linear infinite}
+@keyframes arsenalSpin{to{transform:rotate(360deg)}}
+#arsenalApp .arsenal-video-actions{position:absolute;right:15px;bottom:12px;display:grid;gap:25px;color:#ddd;font-size:25px}
+#arsenalApp .arsenal-video-actions span{display:grid;text-align:center;gap:4px}
+#arsenalApp .arsenal-video-actions small{font-size:11px}
+#arsenalApp .arsenal-video-copy{padding:12px 22px 20px}
+#arsenalApp .arsenal-video-copy h1{font-size:clamp(23px,6vw,30px);line-height:1.3;margin:10px 0 4px}
+#arsenalApp .arsenal-video-copy p{font-size:17px;color:#ddd;margin:4px 0 18px}
+#arsenalApp .arsenal-cta{background:#555;color:white;border-radius:28px;padding:13px 22px;font-weight:700;font-size:12px}
+#arsenalApp .arsenal-hero{min-height:300px;padding:38px 22px 25px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;background:linear-gradient(0deg,#080808 0%,#080808e0 25%,#a0001d 100%);position:relative;overflow:hidden}
+#arsenalApp .arsenal-hero:before{content:"ϟ";position:absolute;right:-8px;top:-75px;font-size:340px;color:#ffffff0b;font-weight:900}
+#arsenalApp .arsenal-hero-label{font-size:11px;letter-spacing:2px;color:#ff294d}
+#arsenalApp .arsenal-hero h1,#arsenalApp .arsenal-shop-hero h1{font-size:38px;line-height:1.05;margin:12px 0}
+#arsenalApp .arsenal-hero p,#arsenalApp .arsenal-shop-hero p{color:#ddd}
+#arsenalApp .arsenal-horizontal-cards{display:flex;gap:13px;overflow-x:auto;padding:0 18px}
+#arsenalApp .arsenal-horizontal-cards article{flex:0 0 72%;background:#171516;border-radius:10px;overflow:hidden;padding-bottom:13px}
+#arsenalApp .arsenal-card-art{height:150px;display:grid;place-items:center;font-size:36px;font-weight:800}
+#arsenalApp .arsenal-horizontal-cards b,#arsenalApp .arsenal-horizontal-cards small{display:block;margin:10px 12px 0}
+#arsenalApp .arsenal-horizontal-cards small{color:#aaa;font-size:10px}
+#arsenalApp .arsenal-shop-hero{min-height:390px;padding:32px 22px;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;background:linear-gradient(155deg,#170008,#e00028 60%,#30000a)}
+#arsenalApp .arsenal-shop-hero small{letter-spacing:2px}
+#arsenalApp .arsenal-shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 18px}
+#arsenalApp .arsenal-shop-grid button{background:#171516;color:white;padding:22px 14px;text-align:left;font-weight:700;border-radius:8px}
+#arsenalApp .arsenal-shop-grid span{float:right;color:#ed002b}
+#arsenalApp .arsenal-profile-title{display:flex;align-items:center;justify-content:space-between;padding:18px 24px 10px;font-size:26px;font-weight:700}
+#arsenalApp .arsenal-profile-title button{background:transparent;font-size:23px}
+#arsenalApp .arsenal-profile-name{text-align:center;padding:6px 0 18px;font-size:18px;border-bottom:1px solid #333}
+#arsenalApp .arsenal-profile-row{display:flex;align-items:center;justify-content:space-between;text-align:left;width:calc(100% - 36px);margin:10px 18px 0;min-height:118px;border-radius:13px;background:#151313;padding:20px 18px 20px 22px;font-size:clamp(16px,4vw,22px);font-weight:700;letter-spacing:.5px}
+#arsenalApp .arsenal-profile-row b{height:88px;width:88px;border-radius:10px;background:repeating-linear-gradient(135deg,#080808 0 18px,#25000a 19px 21px);display:grid;place-items:center;font-size:42px;color:#eee;flex:0 0 88px}
+#arsenalApp .arsenal-profile-note{padding:22px;color:#999;font-size:13px}
 #arsenalApp .arsenal-splash{position:absolute;inset:0;z-index:10;background:linear-gradient(155deg,#e60018 0%,#b6000b 58%,#280000 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;transition:opacity .5s ease}
 #arsenalApp .arsenal-splash:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 40%,#ffffff0b 41%,transparent 66%);pointer-events:none}
 #arsenalApp .arsenal-splash-crest{font-family:Georgia,serif;font-size:43px;font-weight:800;letter-spacing:-2px;color:#f7d5d4;border:4px solid #f7d5d4;border-radius:48% 48% 42% 42%;padding:28px 24px;margin-bottom:75px;transform:scale(.88);animation:arsenalCrest 1s ease both}
@@ -3818,12 +3907,12 @@ html,body{background:#09090b}
 #arsenalApp .arsenal-splash.hide{opacity:0;pointer-events:none}
 @keyframes arsenalCrest{from{opacity:0;transform:scale(.7) translateY(18px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes arsenalSponsor{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-#secondPageApps .icon-arsenal, #appsGrid .icon-arsenal{background:linear-gradient(145deg,#e60019,#650008)!important;color:#f6d6d6!important;font-weight:800}
+#secondPageApps .icon-arsenal,#appsGrid .icon-arsenal{background:linear-gradient(145deg,#e60019,#650008)!important;color:#f6d6d6!important;font-weight:800}
 </style>
 <script id="arsenal-app-behavior">
 (function(){
  const $=id=>document.getElementById(id);
- let introTimer=null,monthOffset=0,audience="men",tab="fixtures";
+ let introTimer=null,monthOffset=0,audience="all",tab="fixtures",view="home";
  const baseFixtures=[
   {date:"2026-11-04",time:"20:00",home:"Slavia Prague",away:"Arsenal",comp:"UEFA Champions League",venue:"Fortuna Arena",status:"Published · UK time"},
   {date:"2026-11-07",time:"15:00",home:"Arsenal",away:"Hull City",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
@@ -3848,45 +3937,32 @@ html,body{background:#09090b}
  function fmtDate(s){return new Date(s+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"2-digit",month:"short"}).toUpperCase()}
  function monthKey(s){return s.slice(0,7)}
  function monthLabel(s){const d=new Date(s+"-15T12:00:00");return d.toLocaleDateString("en-GB",{month:"short",year:"numeric"}).toUpperCase()}
- function start(){
-  $("arsenalSplash").classList.remove("hide");$("arsenalMain").classList.remove("ready");
-  if(introTimer)clearTimeout(introTimer);
-  introTimer=setTimeout(()=>{$("arsenalSplash").classList.add("hide");$("arsenalMain").classList.add("ready")},3400);
-  $("arsenalSkipIntro").onclick=()=>{clearTimeout(introTimer);$("arsenalSplash").classList.add("hide");$("arsenalMain").classList.add("ready")};
-  render();
- }
+ function start(){if(introTimer)clearTimeout(introTimer);$("arsenalSplash").classList.remove("hide");$("arsenalMain").classList.remove("ready");introTimer=setTimeout(()=>{hideIntro()},1400);$("arsenalSkipIntro").onclick=hideIntro;render();setView("home")}
+ function hideIntro(){$("arsenalSplash").classList.add("hide");$("arsenalMain").classList.add("ready")}
  function render(){
-  const months=[...new Set(fixtures.map(f=>monthKey(f.date)))].sort();
-  const now=new Date();let current=monthOffset===0?monthKey(now.toISOString().slice(0,10)):months[Math.max(0,Math.min(months.length-1,monthOffset>0?months.indexOf(monthKey(now.toISOString().slice(0,10)))+monthOffset:months.indexOf(monthKey(now.toISOString().slice(0,10)))+monthOffset))];
-  if(!months.includes(current))current=months[0]||"2026-10";
+  const months=[...new Set(fixtures.map(f=>monthKey(f.date)))].sort();const now=new Date();const thisMonth=monthKey(now.toISOString().slice(0,10));let idx=months.indexOf(thisMonth);if(idx<0)idx=0;let current=months[Math.max(0,Math.min(months.length-1,idx+monthOffset))]||months[0]||"2026-10";
   $("arsenalMonthCards").innerHTML=months.map(m=>'<button class="arsenal-month-card '+(m===current?'active':'')+'" data-month="'+m+'"><b>'+monthLabel(m).split(" ")[0]+'</b>'+monthLabel(m).split(" ")[1]+'</button>').join("");
-  $("arsenalMonthCards").querySelectorAll("[data-month]").forEach(b=>b.onclick=()=>{monthOffset=months.indexOf(b.dataset.month)-Math.max(0,months.indexOf(monthKey(now.toISOString().slice(0,10))));render()});
+  $("arsenalMonthCards").querySelectorAll("[data-month]").forEach(b=>b.onclick=()=>{monthOffset=months.indexOf(b.dataset.month)-idx;render()});
   const visible=fixtures.filter(f=>monthKey(f.date)===current);
   $("arsenalFixtures").innerHTML=visible.map(f=>'<article class="arsenal-match-card"><div class="arsenal-match-date">'+fmtDate(f.date)+'</div><div class="arsenal-match-venue">'+f.venue+'</div><div class="arsenal-match-divider"></div><div class="arsenal-match-row"><div><div class="arsenal-team-badge">'+(f.home==="Arsenal"?"🔴":"⚽")+'</div><div class="arsenal-team-name">'+f.home+'</div></div><div class="arsenal-match-time">'+f.time+'</div><div><div class="arsenal-team-badge">'+(f.away==="Arsenal"?"🔴":"⚽")+'</div><div class="arsenal-team-name">'+f.away+'</div></div></div><div class="arsenal-match-comp">'+f.comp+' · '+f.status+'</div><div class="arsenal-match-divider"></div><div class="arsenal-match-links"><button data-official>OFFICIAL FIXTURE INFO</button><button data-source>REFRESH DATA</button></div></article>').join("")||'<div class="arsenal-placeholder">No fixtures shown for this month.</div>';
   $("arsenalFixtures").querySelectorAll("[data-official]").forEach(b=>b.onclick=()=>window.open("https://www.arsenal.com/fixtures","_blank"));
   $("arsenalFixtures").querySelectorAll("[data-source]").forEach(b=>b.onclick=refresh);
-  $("arsenalDataStatus").textContent="Fixture list based on official published schedule · "+new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})+" · kickoff times may change";
+  $("arsenalDataStatus").textContent="Published schedule snapshot · kickoff times may change";
  }
- async function refresh(){
-  $("arsenalDataStatus").textContent="Checking current fixture data…";
-  // Official schedule page is the source of truth; this static Pages site cannot guarantee automatic sync without a backend/API feed.
-  window.open("https://help.arsenal.com/support/solutions/articles/101000594163-fixture-and-event-timings-for-local-residents","_blank");
-  $("arsenalDataStatus").textContent="Showing published schedule snapshot. Opened official Arsenal timings; automatic sync needs a live data feed.";
- }
- function setTab(next){
-  tab=next;
-  document.querySelectorAll("#arsenalApp [data-ars-tab]").forEach(b=>b.classList.toggle("active",b.dataset.arsTab===tab));
-  const list=$("arsenalFixtures"),other=$("arsenalOtherTab");
-  if(tab==="fixtures"){list.classList.remove("hidden");other.classList.add("hidden");render();return}
-  list.classList.add("hidden");other.classList.remove("hidden");
-  other.innerHTML=tab==="tables"?"<h2>LEAGUE TABLES</h2><p>Standings can be connected when a live football data source is configured.</p>":"<h2>FIRST TEAM</h2><p>Player profiles and squad details can be added to this simulator.</p>";
- }
+ function refresh(){$("arsenalDataStatus").textContent="Opening official Arsenal fixture information…";window.open("https://www.arsenal.com/fixtures","_blank")}
+ function setView(next){view=next;document.querySelectorAll("#arsenalApp [data-view]").forEach(x=>x.classList.toggle("active",x.dataset.view===next));document.querySelectorAll("#arsenalApp [data-ars-nav]").forEach(x=>x.classList.toggle("active",x.dataset.arsNav===next));$("arsenalScroll").scrollTop=0}
+ function setTab(next){tab=next;document.querySelectorAll("#arsenalApp [data-ars-tab]").forEach(b=>b.classList.toggle("active",b.dataset.arsTab===tab));const list=$("arsenalFixtures"),other=$("arsenalOtherTab");if(tab==="fixtures"){list.classList.remove("hidden");other.classList.add("hidden");render();return}list.classList.add("hidden");other.classList.remove("hidden");other.innerHTML=tab==="tables"?"<h2>LEAGUE TABLES</h2><p>Standings can be connected when a live football data source is configured.</p>":"<h2>FIRST TEAM</h2><p>Player profiles and squad details can be added to this simulator.</p>"}
  document.querySelectorAll("#arsenalApp [data-ars-tab]").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.arsTab)));
- document.querySelectorAll("#arsenalApp [data-ars-audience]").forEach(b=>b.addEventListener("click",()=>{audience=b.dataset.arsAudience;document.querySelectorAll("#arsenalApp [data-ars-audience]").forEach(x=>x.classList.toggle("active",x===b));if(audience!=="men"){$("arsenalFixtures").innerHTML='<div class="arsenal-placeholder"><h2>'+audience.toUpperCase()+'</h2><p>Fixtures for this section will appear once its schedule is added.</p></div>'}else render()}));
- document.querySelectorAll("#arsenalApp [data-ars-nav]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#arsenalApp [data-ars-nav]").forEach(x=>x.classList.toggle("active",x===b));if(b.dataset.arsNav==="fixtures"){audience="men";setTab("fixtures");document.querySelectorAll("#arsenalApp [data-ars-audience]").forEach(x=>x.classList.toggle("active",x.dataset.arsAudience==="men"))}else{$("arsenalOtherTab").classList.remove("hidden");$("arsenalFixtures").classList.add("hidden");const tab=b.dataset.arsNav;const content={video:"<h2>Latest Videos</h2><div class=\"arsenal-feature-card\"><strong>First Team</strong><p>Match highlights, training ground footage and interviews.</p></div><div class=\"arsenal-feature-card\"><strong>Behind the scenes</strong><p>Follow the squad through the week.</p></div>",home:"<h2>Arsenal</h2><div class=\"arsenal-feature-card\"><strong>North London Forever</strong><p>News, fixtures and updates from the men’s and women’s first teams.</p></div><div class=\"arsenal-feature-card\"><strong>Next match</strong><p>Check Fixtures for the latest published schedule.</p></div>",shop:"<h2>Official Store</h2><div class=\"arsenal-feature-card\"><strong>2026/27 Collection</strong><p>Home kit, training wear and club essentials.</p></div>",profile:"<h2>My Arsenal</h2><div class=\"arsenal-feature-card\"><strong>Matchday preferences</strong><p>Follow fixtures, videos and first-team updates in one place.</p></div><div class=\"arsenal-feature-card\"><strong>Personalise your experience</strong><p>Your saved teams and preferences will appear here.</p></div>"};$("arsenalOtherTab").innerHTML=content[tab]||content.home}}));
- $("arsenalRefresh").addEventListener("click",refresh);
- $("arsenalPrevMonth").addEventListener("click",()=>{monthOffset--;render()});
- $("arsenalNextMonth").addEventListener("click",()=>{monthOffset++;render()});
+ document.querySelectorAll("#arsenalApp [data-ars-audience]").forEach(b=>b.addEventListener("click",()=>{audience=b.dataset.arsAudience;document.querySelectorAll("#arsenalApp [data-ars-audience]").forEach(x=>x.classList.toggle("active",x===b));$("arsenalProfileNote").textContent="Showing "+audience.toUpperCase()+" club updates.";if(view==="fixtures")render()}));
+ document.querySelectorAll("#arsenalApp [data-ars-chip]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#arsenalApp [data-ars-chip]").forEach(x=>x.classList.toggle("active",x===b));const label=b.dataset.arsChip.toUpperCase();const heading=$("arsenalApp").querySelector('[data-view="fixtures"] .arsenal-section-heading');if(heading)heading.textContent=label==="NEWS"?"Latest "+label:label+" from Arsenal";}));
+ document.querySelectorAll("#arsenalApp [data-ars-nav]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.arsNav)));
+ document.querySelectorAll("#arsenalApp [data-go]").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.go)));
+ document.querySelectorAll("#arsenalApp [data-action='shop']").forEach(b=>b.addEventListener("click",()=>window.open("https://arsenaldirect.arsenal.com/","_blank")));
+ document.querySelectorAll("#arsenalApp [data-action='video']").forEach(b=>b.addEventListener("click",()=>window.open("https://www.arsenal.com/video","_blank")));
+ document.querySelectorAll("#arsenalApp [data-profile]").forEach(b=>b.addEventListener("click",()=>{$("arsenalProfileNote").textContent=b.dataset.profile+" · This section is ready to personalise.";document.querySelectorAll("#arsenalApp [data-profile]").forEach(x=>x.style.outline="none");b.style.outline="1px solid #ed002b"}));
+ $("arsenalRefresh").addEventListener("click",refresh);$("arsenalPrevMonth").addEventListener("click",()=>{monthOffset--;render()});$("arsenalNextMonth").addEventListener("click",()=>{monthOffset++;render()});$("arsenalCalendar").addEventListener("click",()=>{setView("fixtures");$("arsenalScroll").scrollTop=0});
+ $("arsenalSearch").addEventListener("click",()=>{const q=prompt("Search Arsenal content");if(q)alert("Search for: "+q+" · Search service is not connected in this simulator.")});
+ $("arsenalSettings").addEventListener("click",()=>{$("arsenalProfileNote").textContent="Settings · Notifications, preferences and personal details."});
  window.startArsenalApp=start;
 })();
 </script>
