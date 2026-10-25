@@ -4220,3 +4220,36 @@ html,body{background:#09090b}
 #deliverooApp .icon-deliveroo svg{width:66%;height:66%}
 #deliverooApp .icon-deliveroo:before{content:"";display:none}
 </style>
+
+
+<!-- desktop-recovery-v2: restore complete home screen and keep clock in sync -->
+<script id="desktop-recovery-v2">
+(function(){
+  function restore(){
+    try {
+      var grid=document.getElementById("appsGrid");
+      var dock=document.getElementById("dock");
+      if(!grid||!dock) return;
+      if(!grid.children.length || !dock.children.length ||
+         !document.getElementById("secondPageApps") ||
+         !document.getElementById("homePagesViewport")) {
+        if(typeof renderDesktop==="function") renderDesktop();
+      }
+      if(typeof updateClock==="function") updateClock();
+      var g=document.getElementById("appsGrid");
+      var d=document.getElementById("dock");
+      if(g && !g.children.length && typeof renderDesktop==="function") renderDesktop();
+      if(g && g.children.length) g.style.visibility="visible";
+      if(d && d.children.length) d.style.visibility="visible";
+    } catch(e) {
+      console.warn("Home screen recovery skipped",e);
+    }
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",restore);
+  else restore();
+  window.addEventListener("pageshow",restore);
+  window.addEventListener("focus",restore);
+  setTimeout(restore,500);
+  setTimeout(restore,1500);
+})();
+</script>
