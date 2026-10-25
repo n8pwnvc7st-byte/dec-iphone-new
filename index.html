@@ -309,21 +309,6 @@
     <div class="dock" id="dock"></div>
     <div class="homebar" data-home="home"></div>
   </section>
-  <section class="screen app-screen stream-app" id="netflixApp">
-    <div class="stream-top"><strong class="netflix-mark">N</strong><button data-stream-back>‹</button><button data-stream-tab="series">Series</button><button data-stream-tab="films">Films</button><button data-stream-tab="my">My Netflix</button></div>
-    <div class="stream-scroll"><div class="netflix-hero"><div class="stream-brand">NETFLIX</div><h1 id="netflixHeroTitle">Popular on Netflix</h1><p>Discover series and films in this interactive preview.</p><div><button data-netflix-play>▶ Play preview</button><button data-netflix-info>ⓘ More info</button></div></div><h2>Continue Watching</h2><div class="poster-row"><button class="poster poster-red" data-title="The Final Whistle">THE FINAL<br>WHISTLE</button><button class="poster poster-blue" data-title="Matchday">MATCHDAY</button><button class="poster poster-gold" data-title="Beyond the Game">BEYOND<br>THE GAME</button></div><h2>Popular Now</h2><div class="poster-row"><button class="poster poster-purple" data-title="Night Shift">NIGHT SHIFT</button><button class="poster poster-green" data-title="The Academy">THE ACADEMY</button><button class="poster poster-red" data-title="Rivals">RIVALS</button></div></div>
-    <div class="homebar" data-home="home"></div>
-  </section>
-  <section class="screen app-screen snap-app" id="snapchatApp">
-    <header class="snap-header"><button data-snap-tab="profile">👤</button><strong>Snapchat</strong><button data-snap-tab="add">＋</button></header>
-    <div class="snap-camera" id="snapCamera"><div class="snap-camera-hint">Camera preview</div><div class="snap-camera-controls"><button data-snap-tab="chat">Chat</button><button class="snap-capture" id="snapCapture" aria-label="Take a snap">●</button><button data-snap-tab="stories">Stories</button></div></div>
-    <div class="snap-panel" id="snapPanel"><h2>Friends</h2><button class="snap-friend" data-snap-friend="Jude">👤 Jude <span>Tap to open chat ›</span></button><button class="snap-friend" data-snap-friend="Rice">👤 Rice <span>Tap to open chat ›</span></button><button class="snap-friend" data-snap-friend="Kai">👤 Kai <span>Tap to open chat ›</span></button></div>
-    <nav class="snap-nav"><button data-snap-tab="camera">Camera</button><button data-snap-tab="chat">Chat</button><button data-snap-tab="stories">Stories</button></nav><div class="homebar dark" data-home="home"></div>
-  </section>
-  <section class="screen app-screen hbo-app" id="hboApp">
-    <header class="hbo-header"><strong>HBO<span> MAX</span></strong><button data-hbo-tab="search">⌕</button><button data-hbo-tab="profile">●</button></header>
-    <div class="hbo-scroll"><div class="hbo-hero"><small>HBO ORIGINAL</small><h1 id="hboHeroTitle">HOUSE OF THE DRAGON</h1><p>Explore a curated streaming-style preview.</p><button data-hbo-play>▶ Play preview</button><button data-hbo-info>More info</button></div><div class="hbo-brands"><span>HBO</span><span>MAX ORIGINALS</span><span>WARNER BROS.</span></div><h2>Trending now</h2><div class="poster-row"><button class="poster poster-purple" data-hbo-title="House of the Dragon">HOUSE OF<br>THE DRAGON</button><button class="poster poster-blue" data-hbo-title="The Last of Us">THE LAST<br>OF US</button><button class="poster poster-gold" data-hbo-title="Dune">DUNE</button></div><h2>Continue Watching</h2><div class="poster-row"><button class="poster poster-green" data-hbo-title="The White Lotus">THE WHITE<br>LOTUS</button><button class="poster poster-red" data-hbo-title="Succession">SUCCESSION</button></div></div><div class="homebar" data-home="home"></div>
-  </section>
   <section class="screen app-screen arsenal-app" id="arsenalApp">
     <div class="arsenal-splash" id="arsenalSplash" aria-hidden="true">
       <div class="arsenal-splash-crest">ARSENAL</div><div class="arsenal-sponsor">adidas</div><div class="arsenal-sponsor serif">Emirates</div><div class="arsenal-sponsor serif small">SOBHA REALTY</div><div class="arsenal-sponsor deel">deel.</div>
@@ -589,7 +574,7 @@ function avatarFallback(person) { return person === "jude" ? "./avatars/jude.JPG
 function avatarImgTag(person, app, alt="") { const src=avatarSrc(person,app), fallback=avatarFallback(person); return `<img src="${src}" alt="${safeText(alt)}" onerror="this.onerror=null;this.src='${fallback}'" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;display:block">`; }
 
 const $ = id => document.getElementById(id);
-const screens = ["lockScreen","desktop","phoneApp","whatsApp","xApp","instagramApp","spotifyApp","photosApp","decorApp","arsenalApp","netflixApp","snapchatApp","hboApp"];
+const screens = ["lockScreen","desktop","phoneApp","whatsApp","xApp","instagramApp","spotifyApp","photosApp","decorApp","arsenalApp"];
 let currentScreen = "lockScreen", callStart = 0, callTicker = null, msgTimers = [], presetIndex = 0, audioEl = null;
 let trackIndex = Number(localStorage.getItem("iphone-music-track")||0), playing = false, simulatedTime = Number(localStorage.getItem("iphone-music-time")||0), playerTicker = null, shuffle = false, repeatMode = Number(localStorage.getItem("iphone-music-repeat")||0);
 let favorites = new Set(JSON.parse(localStorage.getItem("iphone-music-favorites")||"[]"));
@@ -603,7 +588,7 @@ function updateClock(){const d=new Date();const t=d.toLocaleTimeString(currentLa
 function appIcon(id,name,emoji,cls){const mark=emoji;return `<div class="app-icon-wrap" data-app="${id}" data-label="${name}"><button class="app-icon ${cls}" aria-label="${name}">${mark}</button><div class="app-name">${name}</div></div>`}
 function renderDesktop(){
  const apps=[["arsenalApp","The Arsenal","ϟ","icon-arsenal"],["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["whatsApp","WhatsApp","◉","icon-wa"],["decorApp","YouTube","▶","icon-youtube"],["spotifyApp","Spotify","≋","icon-spotify"],["xApp","X","𝕏","icon-x"],["instagramApp","Instagram","◎","icon-instagram"],["photosApp","Photos","✿","icon-photos"],["decorApp","Notes","▤","icon-notes"],["decorApp","Maps","⌖","icon-maps"],["decorApp","Weather","☀","icon-weather"],["decorApp","Calendar","25","icon-calendar"],["decorApp","Settings","⚙","icon-settings"]];
- const page2=[["netflixApp","Netflix","N","icon-netflix"],["snapchatApp","Snapchat","👻","icon-snapchat"],["hboApp","HBO Max","MAX","icon-hbo"],["FC 27","FC","icon-fc27"],["Facebook","f","icon-facebook"],["Uber","U","icon-uber"],["Amazon","a","icon-amazon"]];
+ const page2=[["FC 27","FC","icon-fc27"],["Facebook","f","icon-facebook"],["Uber","U","icon-uber"],["Amazon","a","icon-amazon"]];
  $("appsGrid").innerHTML=apps.map(a=>appIcon(a[0],a[1],a[2],a[3])).join("");
  $("dock").innerHTML=[["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["decorApp","TikTok","♪","icon-tiktok"]].map(a=>`<div class="app-icon-wrap" data-app="${a[0]}" data-label="${a[1]}"><button class="app-icon ${a[3]}" aria-label="${a[1]}">${a[2]}</button></div>`).join("");
  $("events").innerHTML=(CONFIG.events||[]).slice(0,3).map(e=>`<div class="event"><span class="event-time">${safeText(e.time)}</span><span>${safeText(e.title)}</span></div>`).join("");
@@ -617,7 +602,7 @@ function renderDesktop(){
   const second=document.createElement("div");second.id="homePageTwo";second.className="home-page home-page-two";
   first.appendChild(widgets);first.appendChild(appsGrid);
   const grid=document.createElement("div");grid.id="secondPageApps";grid.className="apps second-page-apps";
-  grid.innerHTML=page2.map(a=>a[0].endsWith("App")||["netflixApp","snapchatApp","hboApp"].includes(a[0])?`<div class="app-icon-wrap" data-app="${a[0]}" data-label="${a[1]}"><button class="app-icon ${a[3]}" aria-label="${a[1]}">${a[2]}</button><div class="app-name">${a[1]}</div></div>`:`<div class="app-icon-wrap" data-coming-soon="${a[0]}"><button class="app-icon ${a[2]}" aria-label="${a[0]}">${a[1]}</button><div class="app-name">${a[0]}</div></div>`).join("");
+  grid.innerHTML=page2.map(a=>`<div class="app-icon-wrap" data-coming-soon="${a[0]}"><button class="app-icon ${a[2]}" aria-label="${a[0]}">${a[1]}</button><div class="app-name">${a[0]}</div></div>`).join("");
   second.appendChild(grid);track.appendChild(first);track.appendChild(second);viewport.appendChild(track);
   desktop.insertBefore(viewport,dock);
   const indicator=document.createElement("div");indicator.id="homePageIndicator";indicator.className="home-page-indicator";indicator.innerHTML='<button class="active" aria-label="Page 1"></button><button aria-label="Page 2"></button>';desktop.insertBefore(indicator,dock);
@@ -1641,7 +1626,7 @@ function renderCalendarApp(){
  $("calendarPrev").onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()-1,1);paint()};$("calendarNext").onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()+1,1);paint()};$("calendarToday").onclick=()=>{month=new Date();paint()};paint();
 }
 
-function openApp(id,label){if(["netflixApp","snapchatApp","hboApp"].includes(id)){showScreen(id);renderStreamingApp(id);return;}if(id==="arsenalApp"){showScreen(id);startArsenalApp();return;}if(id==="decorApp"&&/weather/i.test(label||"")){showScreen(id);renderWeatherApp();return}if(id==="decorApp"&&/calendar/i.test(label||"")){showScreen(id);renderCalendarApp();return}if(id==="messagesApp"){showScreen("decorApp");$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");renderRiceMessages();return}if(id==="emailApp"){showScreen("decorApp");$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");renderRiceEmail();return}if(id==="xApp"){showScreen(id);showXFeed();renderTweets();renderXFeed();return}if(id==="photosApp"){showScreen(id);renderPhotos();return}if(id==="instagramApp"){showScreen(id);showInstagramHome();return}if(id==="spotifyApp"){showScreen(id);return}if(id==="decorApp"){if(/설정|Settings/i.test(label||"")){openSettings();return}if(/tiktok/i.test(label||"")){showScreen(id);renderTikTok();return}showScreen(id);if(/sky sports/i.test(label||"")){renderSkySports();return}if(/youtube/i.test(label||"")){renderRiceYouTube();return}if(/notes/i.test(label||"")){renderRiceNotes();return}if(/maps/i.test(label||"")){renderRiceMaps();return}$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");$("decorTitle").textContent=label||"App";return}showScreen(id)}
+function openApp(id,label){if(id==="arsenalApp"){showScreen(id);startArsenalApp();return;}if(id==="decorApp"&&/weather/i.test(label||"")){showScreen(id);renderWeatherApp();return}if(id==="decorApp"&&/calendar/i.test(label||"")){showScreen(id);renderCalendarApp();return}if(id==="messagesApp"){showScreen("decorApp");$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");renderRiceMessages();return}if(id==="emailApp"){showScreen("decorApp");$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");renderRiceEmail();return}if(id==="xApp"){showScreen(id);showXFeed();renderTweets();renderXFeed();return}if(id==="photosApp"){showScreen(id);renderPhotos();return}if(id==="instagramApp"){showScreen(id);showInstagramHome();return}if(id==="spotifyApp"){showScreen(id);return}if(id==="decorApp"){if(/설정|Settings/i.test(label||"")){openSettings();return}if(/tiktok/i.test(label||"")){showScreen(id);renderTikTok();return}showScreen(id);if(/sky sports/i.test(label||"")){renderSkySports();return}if(/youtube/i.test(label||"")){renderRiceYouTube();return}if(/notes/i.test(label||"")){renderRiceNotes();return}if(/maps/i.test(label||"")){renderRiceMaps();return}$("decorApp").classList.remove("youtube-mode","notes-mode","maps-mode");$("decorTitle").textContent=label||"App";return}showScreen(id)}
 function unlock(){ $("passcodePanel").classList.add("active"); passcodeValue=""; renderPasscodeDots(); }
 let passcodeValue="";
 function renderPasscodeDots(){document.querySelectorAll("#passcodeDots .passcode-dot").forEach((d,i)=>d.classList.toggle("filled",i<passcodeValue.length));}
@@ -3788,79 +3773,4 @@ html,body{background:#09090b}
  window.startArsenalApp=start;
 })();
 </script>
-<style id="streaming-app-styles">
-#appsGrid .icon-netflix{background:#111!important;color:#e50914!important;font-weight:900;font-size:36px}
-#appsGrid .icon-snapchat{background:#fffc00!important;color:#111!important;font-size:39px;text-shadow:0 1px 0 #fff}
-#appsGrid .icon-hbo{background:linear-gradient(145deg,#6c2ce5,#21084b)!important;color:#fff!important;font-weight:900;font-size:18px}
-.stream-app{background:#090909;color:#fff;font-family:Arial,Helvetica,sans-serif}
-.stream-top{height:62px;padding:calc(var(--safe-top) + 4px) 14px 8px;display:flex;align-items:center;gap:13px;background:#090909}
-.stream-top button{background:transparent;color:#eee;font-size:12px;white-space:nowrap}
-.stream-top .netflix-mark{font-size:32px;color:#e50914;font-weight:900;margin-right:auto}
-.stream-scroll{height:calc(100% - 115px);overflow:auto;padding-bottom:calc(var(--safe-bottom) + 20px)}
-.netflix-hero{min-height:310px;padding:24px 20px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(0deg,#080808 0%,#180a0b 43%,#400d11 100%);position:relative}
-.netflix-hero:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 65% 25%,#a82a32 0,transparent 55%);opacity:.55}
-.netflix-hero>*{position:relative}
-.stream-brand{color:#e50914;font-size:12px;letter-spacing:5px;font-weight:900}
-.netflix-hero h1,.hbo-hero h1{font-size:31px;margin:10px 0}
-.netflix-hero p,.hbo-hero p{font-size:13px;color:#ddd;max-width:280px;line-height:1.5}
-.netflix-hero button,.hbo-hero button{border-radius:5px;padding:10px 13px;margin-right:7px;background:#fff;color:#111;font-weight:700}
-.stream-app h2,.hbo-app h2{font-size:18px;margin:22px 14px 10px}
-.poster-row{display:flex;gap:10px;overflow:auto;padding:0 14px 8px}
-.poster{flex:0 0 116px;height:160px;border-radius:7px;color:#fff;font-size:15px;font-weight:900;letter-spacing:1px;text-align:left;padding:10px;display:flex;align-items:flex-end;box-shadow:inset 0 -70px 55px #0008}
-.poster-red{background:linear-gradient(150deg,#a72a34,#18090d)}
-.poster-blue{background:linear-gradient(145deg,#1e6c8b,#08182d)}
-.poster-gold{background:linear-gradient(145deg,#a66b23,#27190b)}
-.poster-purple{background:linear-gradient(145deg,#6233b9,#140b28)}
-.poster-green{background:linear-gradient(145deg,#42765c,#101b17)}
-.hbo-app{background:linear-gradient(180deg,#120b27,#07060c 65%);color:#fff;font-family:Arial,Helvetica,sans-serif}
-.hbo-header{height:62px;padding:calc(var(--safe-top) + 4px) 17px 8px;display:flex;align-items:center;gap:20px}
-.hbo-header strong{font-size:22px;letter-spacing:-1px;margin-right:auto}.hbo-header strong span{font-weight:400;color:#c9b5ff}
-.hbo-header button{background:transparent;color:#fff;font-size:20px}
-.hbo-scroll{height:calc(100% - 115px);overflow:auto;padding-bottom:calc(var(--safe-bottom) + 20px)}
-.hbo-hero{min-height:340px;padding:28px 19px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(0deg,#0c0816 0%,#20113c 48%,#482f71 100%)}
-.hbo-hero small{letter-spacing:3px;color:#d7c7ff;font-weight:700}
-.hbo-hero h1{font-size:29px;max-width:310px}
-.hbo-hero button{background:#fff;color:#151020;margin:6px 8px 0 0;align-self:flex-start}
-.hbo-brands{display:flex;justify-content:space-around;gap:8px;padding:17px 6px;color:#c9b5ff;font-size:11px;font-weight:700}
-.snap-app{background:#fffc00;color:#111;font-family:Arial,Helvetica,sans-serif}
-.snap-header{height:60px;padding:calc(var(--safe-top) + 4px) 15px 8px;display:flex;align-items:center;justify-content:space-between}
-.snap-header button{background:transparent;color:#111;font-size:23px}.snap-header strong{font-size:19px}
-.snap-camera{position:absolute;inset:calc(var(--safe-top) + 60px) 12px calc(var(--safe-bottom) + 178px);background:linear-gradient(145deg,#555,#222 45%,#888);border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.snap-camera:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#b5b5b5,#3c3c3c 55%,#111)}
-.snap-camera-hint{position:relative;color:#fff;background:#0005;padding:8px 12px;border-radius:20px;font-size:13px}
-.snap-camera-controls{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:space-around;align-items:center}
-.snap-camera-controls button{background:#fff;color:#111;padding:9px 13px;border-radius:22px;font-size:12px}
-.snap-camera-controls .snap-capture{width:68px;height:68px;border:5px solid #fff;border-radius:50%;font-size:0;background:#fffc00;box-shadow:0 0 0 3px #111}
-.snap-panel{position:absolute;left:0;right:0;bottom:calc(var(--safe-bottom) + 63px);height:105px;overflow:auto;background:#fff;padding:12px 17px;border-radius:20px 20px 0 0}
-.snap-panel h2{font-size:15px;margin:0 0 8px}.snap-friend{display:block;width:100%;text-align:left;background:#f1f1f1;padding:8px;border-radius:9px;margin:4px 0;color:#111}.snap-friend span{float:right;font-size:10px;color:#666}
-.snap-nav{position:absolute;bottom:calc(var(--safe-bottom) + 8px);left:0;right:0;display:flex;justify-content:space-around;padding:10px;background:#fff}.snap-nav button{background:transparent;color:#111;font-weight:700}
-.snap-app .homebar{background:#111}
-</style>
-<script id="streaming-app-behavior">
-function renderStreamingApp(id){
- const $=x=>document.getElementById(x);
- if(id==="netflixApp"){
-  document.querySelectorAll("#netflixApp [data-title]").forEach(b=>b.onclick=()=>{$("netflixHeroTitle").textContent=b.dataset.title;$("netflixApp").querySelector(".netflix-hero").scrollIntoView({behavior:"smooth",block:"start"})});
-  document.querySelectorAll("#netflixApp [data-stream-tab]").forEach(b=>b.onclick=()=>{$("netflixHeroTitle").textContent=b.dataset.streamTab==="my"?"My Netflix":b.dataset.streamTab==="films"?"Films":"Series";});
-  $("netflixApp").querySelector("[data-netflix-play]").onclick=()=>showStreamToast("Preview player · sample interface only");
-  $("netflixApp").querySelector("[data-netflix-info]").onclick=()=>showStreamToast("This is a UI simulation, not Netflix playback.");
- }
- if(id==="hboApp"){
-  document.querySelectorAll("#hboApp [data-hbo-title]").forEach(b=>b.onclick=()=>{$("hboHeroTitle").textContent=b.dataset.hboTitle.toUpperCase();$("hboApp").querySelector(".hbo-hero").scrollIntoView({behavior:"smooth",block:"start"})});
-  $("hboApp").querySelector("[data-hbo-play]").onclick=()=>showStreamToast("Preview player · sample interface only");
-  $("hboApp").querySelector("[data-hbo-info]").onclick=()=>showStreamToast("This is a UI simulation, not HBO Max playback.");
-  document.querySelectorAll("#hboApp [data-hbo-tab]").forEach(b=>b.onclick=()=>showStreamToast(b.dataset.hboTab==="search"?"Search is a demo control.":"Profile is a demo control."));
- }
- if(id==="snapchatApp"){
-  const panel=$("snapPanel"),camera=$("snapCamera");
-  document.querySelectorAll("#snapchatApp [data-snap-tab]").forEach(b=>b.onclick=()=>{const tab=b.dataset.snapTab;if(tab==="camera"){camera.style.display="flex";panel.style.display="block";panel.innerHTML="<h2>Friends</h2><button class='snap-friend' data-snap-friend='Jude'>👤 Jude <span>Tap to open chat ›</span></button><button class='snap-friend' data-snap-friend='Rice'>👤 Rice <span>Tap to open chat ›</span></button><button class='snap-friend' data-snap-friend='Kai'>👤 Kai <span>Tap to open chat ›</span></button>";bindSnapFriends()}else if(tab==="chat"){camera.style.display="none";panel.style.height="calc(100% - 170px)";panel.innerHTML="<h2>Chat</h2><p>Recent conversations</p><button class='snap-friend' data-snap-friend='Jude'>👤 Jude <span>Open conversation ›</span></button><button class='snap-friend' data-snap-friend='Rice'>👤 Rice <span>Open conversation ›</span></button>";bindSnapFriends()}else if(tab==="stories"){camera.style.display="none";panel.style.height="calc(100% - 170px)";panel.innerHTML="<h2>Stories</h2><p>Friends' stories</p><button class='snap-friend' data-story='Jude'>🟣 Jude's Story</button><button class='snap-friend' data-story='Rice'>🟣 Rice's Story</button>";panel.querySelectorAll("[data-story]").forEach(x=>x.onclick=()=>showStreamToast(x.dataset.story+" · story preview"))}else showStreamToast("Profile / add friends preview");});
-  function bindSnapFriends(){panel.querySelectorAll("[data-snap-friend]").forEach(x=>x.onclick=()=>{panel.innerHTML="<h2>"+x.dataset.snapFriend+"</h2><p>Chat preview</p><div style='background:#eee;border-radius:12px;padding:12px;margin:8px 0'>Hey mate 👋</div><button class='snap-friend' data-send-demo>Send a demo message</button><button class='snap-friend' data-snap-back>‹ Back to chats</button>";panel.querySelector("[data-send-demo]").onclick=()=>{panel.querySelector("[data-send-demo]").textContent="Message sent ✓"};panel.querySelector("[data-snap-back]").onclick=()=>{panel.innerHTML="<h2>Chat</h2><button class='snap-friend' data-snap-friend='Jude'>👤 Jude</button><button class='snap-friend' data-snap-friend='Rice'>👤 Rice</button>";bindSnapFriends()}})}
-  bindSnapFriends();
-  $("snapCapture").onclick=()=>showStreamToast("Snap captured · demo only");
- }
- document.querySelectorAll("#"+id+" [data-stream-back]").forEach(b=>b.onclick=()=>showScreen("desktop"));
-}
-function showStreamToast(message){
- let toast=document.getElementById("streamToast");if(!toast){toast=document.createElement("div");toast.id="streamToast";toast.style.cssText="position:absolute;z-index:100;left:50%;bottom:calc(var(--safe-bottom) + 70px);transform:translateX(-50%);background:#222;color:#fff;padding:12px 16px;border-radius:18px;font-size:12px;max-width:85%;text-align:center";document.body.appendChild(toast)}toast.textContent=message;toast.style.display="block";clearTimeout(window.__streamToastTimer);window.__streamToastTimer=setTimeout(()=>toast.style.display="none",2200);
-}
-</script>
+
