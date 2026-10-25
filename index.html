@@ -358,6 +358,11 @@
 #secondPageApps [data-coming-soon] .app-icon svg{display:block!important;width:100%!important;height:100%!important;min-width:100%!important;min-height:100%!important}
 #secondPageApps [data-coming-soon] .app-name{display:block!important;visibility:visible!important;opacity:1!important;color:#fff!important;font-size:11px!important;line-height:1.2!important;text-shadow:0 1px 5px #0008!important}
 </style>
+<style id="instagram-full-photo-feed-fix">
+/* Instagram feed photos should retain their full source aspect ratio. */
+#instagramApp .ig-feed-photo{width:100%!important;height:auto!important;aspect-ratio:auto!important;overflow:visible!important;background:#000!important;display:block!important}
+#instagramApp .ig-feed-photo img{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:center!important}
+</style>
 </head>
 <body>
 <div class="phone" id="phone">
@@ -662,7 +667,7 @@ function updateClock(){const d=new Date();const t=d.toLocaleTimeString(currentLa
 function appIcon(id,name,emoji,cls){const mark=emoji;return `<div class="app-icon-wrap" data-app="${id}" data-label="${name}"><button class="app-icon ${cls}" aria-label="${name}">${mark}</button><div class="app-name">${name}</div></div>`}
 function renderDesktop(){
  const apps=[["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["whatsApp","WhatsApp","◉","icon-wa"],["decorApp","YouTube","▶","icon-youtube"],["spotifyApp","Spotify","≋","icon-spotify"],["xApp","X","𝕏","icon-x"],["instagramApp","Instagram","◎","icon-instagram"],["photosApp","Photos","✿","icon-photos"],["decorApp","Notes","▤","icon-notes"],["decorApp","Maps","⌖","icon-maps"],["decorApp","Weather","☀","icon-weather"],["decorApp","Calendar","25","icon-calendar"],["decorApp","Settings","⚙","icon-settings"],["arsenalApp","The Arsenal","ϟ","icon-arsenal"],["alarmApp","Clock","◷","icon-clock"]];
- const page2=[["netflixApp","Netflix","N","icon-netflix"],["snapchatApp","Snapchat","👻","icon-snapchat"],["hboApp","HBO Max","MAX","icon-hbo"],["FC 27","FC","icon-fc27"],["Facebook","f","icon-facebook"],["Uber","U","icon-uber"],["Amazon","a","icon-amazon"]];
+ const page2=[["netflixApp","Netflix","N","icon-netflix"],["snapchatApp","Snapchat","👻","icon-snapchat"],["hboApp","HBO Max","MAX","icon-hbo"]];
  $("appsGrid").innerHTML=apps.map(a=>appIcon(a[0],a[1],a[2],a[3])).join("");
  $("dock").innerHTML=[["phoneApp","Phone","☎","icon-phone"],["messagesApp","Messages","●","icon-msg"],["emailApp","Mail","✉","icon-mail"],["decorApp","TikTok","♪","icon-tiktok"]].map(a=>`<div class="app-icon-wrap" data-app="${a[0]}" data-label="${a[1]}"><button class="app-icon ${a[3]}" aria-label="${a[1]}">${a[2]}</button></div>`).join("");
  $("events").innerHTML=(CONFIG.events||[]).slice(0,3).map(e=>`<div class="event"><span class="event-time">${safeText(e.time)}</span><span>${safeText(e.title)}</span></div>`).join("");
