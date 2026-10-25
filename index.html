@@ -3030,6 +3030,16 @@ function renderAlarmApp(tab="Alarm"){
 }
 </style>
 
+<style id="home-screen-apps-recovery">
+/* Keep app icons visible after the first-page grid is moved into the swipeable home viewport. */
+#desktop #homePagesViewport{display:block!important;flex:1 1 0!important;width:100%!important;min-height:0!important;overflow:hidden!important;position:relative!important}
+#desktop #homePagesTrack{display:flex!important;width:200%!important;height:100%!important;min-height:0!important}
+#desktop #homePageOne{display:flex!important;flex-direction:column!important;width:50%!important;min-width:50%!important;height:100%!important;min-height:0!important;flex:0 0 50%!important}
+#desktop #homePageOne .widgets{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;flex:0 0 auto!important}
+#desktop #homePageOne #appsGrid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;flex:1 1 auto!important;min-height:180px!important;align-content:space-evenly!important;visibility:visible!important;opacity:1!important}
+#desktop #appsGrid .app-icon-wrap,#desktop #dock .app-icon-wrap{display:flex!important;visibility:visible!important;opacity:1!important}
+#desktop #dock{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;visibility:visible!important;opacity:1!important}
+</style>
 <style id="home-screen-visual-refresh">
 /* Home screen inspired by the reference: starry night, clean widgets, clear status bar. */
 #desktop {
