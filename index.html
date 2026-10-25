@@ -908,6 +908,8 @@ $("igDmBack").addEventListener("click",()=>{
 document.querySelectorAll(".ig-inbox-row").forEach(row=>row.addEventListener("click",()=>{
   const name=row.querySelector("strong")?.textContent||row.dataset.igContact||"Jude Bellingham";
   window.currentIgCallName=name;
+  const messages=$("igDmMessages");
+  if(messages){const greeting=name==="Jude Bellingham"?"Hey Rice 👋":"Hey mate 👋";const first=messages.querySelector(".ig-dm-bubble.theirs");if(first)first.textContent=greeting;}
   const header=$("igDmPage").querySelector(".ig-dm-header");
   if(header){
     const title=header.querySelector("div strong");
