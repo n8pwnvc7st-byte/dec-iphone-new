@@ -363,6 +363,9 @@
 #instagramApp .ig-feed-photo{width:100%!important;height:auto!important;aspect-ratio:auto!important;overflow:visible!important;background:#000!important;display:block!important}
 #instagramApp .ig-feed-photo img{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;object-position:center!important}
 </style>
+<style id="remove-retired-second-page-apps">
+#secondPageApps [data-coming-soon="FC"],#secondPageApps [data-coming-soon="FC 27"],#secondPageApps [data-coming-soon="FC27"],#secondPageApps [data-coming-soon="Facebook"],#secondPageApps [data-coming-soon="Uber"],#secondPageApps [data-coming-soon="Amazon"],#secondPageApps .icon-fc27,#secondPageApps .icon-facebook,#secondPageApps .icon-uber,#secondPageApps .icon-amazon{display:none!important}
+</style>
 </head>
 <body>
 <div class="phone" id="phone">
@@ -722,6 +725,8 @@ function renderDesktop(){
   desktop.insertBefore(viewport,dock);
   const indicator=document.createElement("div");indicator.id="homePageIndicator";indicator.className="home-page-indicator";indicator.innerHTML='<button class="active" aria-label="Page 1"></button><button aria-label="Page 2"></button>';desktop.insertBefore(indicator,dock);
  }
+ // Remove legacy second-page placeholders that were deleted from the app list.
+ document.querySelectorAll('#secondPageApps [data-coming-soon="FC"],#secondPageApps [data-coming-soon="FC 27"],#secondPageApps [data-coming-soon="FC27"],#secondPageApps [data-coming-soon="Facebook"],#secondPageApps [data-coming-soon="Uber"],#secondPageApps [data-coming-soon="Amazon"],#secondPageApps .icon-fc27,#secondPageApps .icon-facebook,#secondPageApps .icon-uber,#secondPageApps .icon-amazon').forEach(el=>{const wrap=el.closest('.app-icon-wrap')||el;wrap.remove()});
  const track=$("homePagesTrack"),indicator=$("homePageIndicator");
  let page=0;
  function setPage(next){page=next?1:0;track.style.transform=page?"translateX(-50%)":"translateX(0)";indicator.querySelectorAll("button").forEach((b,i)=>b.classList.toggle("active",i===page));}
