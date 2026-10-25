@@ -1331,7 +1331,7 @@ function renderRiceMessages(){
    const autoBtn=c.querySelector("#msgAutoToggle");
    autoBtn.textContent="⏱ Auto replies: "+(allSmartReplies?"On":"Off");
    autoBtn.addEventListener("click",()=>{allSmartReplies=!allSmartReplies;localStorage.setItem(SMART_REPLY_KEY,String(allSmartReplies));autoBtn.textContent="⏱ Auto replies: "+(allSmartReplies?"On":"Off");});
-   c.querySelector("#msgForm").addEventListener("submit",e=>{e.preventDefault();const input=c.querySelector("#msgInput"),v=input.value.trim();if(!v)return;history.push(["mine",v]);saveAndPaint();if(allSmartReplies){setTimeout(()=>{const key="rice-msg-"+selected;let latest=[];try{latest=JSON.parse(localStorage.getItem(key)||"[]")}catch(e){}latest.push(["them",smartReply(p,v)]);localStorage.setItem(key,JSON.stringify(latest));paint()},1200)}});
+   c.querySelector("#msgForm").addEventListener("submit",e=>{e.preventDefault();const input=c.querySelector("#msgInput"),v=input.value.trim();if(!v)return;const contactIndex=selected;const key="rice-msg-"+contactIndex;history.push(["mine",v]);localStorage.setItem(key,JSON.stringify(history));paint();if(allSmartReplies){setTimeout(()=>{let latest=[];try{latest=JSON.parse(localStorage.getItem(key)||"[]")}catch(e){}latest.push(["them",smartReply(p,v)]);localStorage.setItem(key,JSON.stringify(latest));if(selected===contactIndex)paint()},900)}});
   }
  }
  paint();if(window.judeUpdateRandomButtons)window.judeUpdateRandomButtons();
