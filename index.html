@@ -652,12 +652,55 @@ function startPhoneCall(name){
  const updateClock=()=>{const d=new Date();clock.textContent=d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});};
  updateClock();
  const state=overlay.querySelector(".ios-call-state");
- // Simulated outgoing call: connect after a short ringing interval, then count until End is pressed.
- const timer=overlay.querySelector(".ios-call-number");
- timer.textContent=phoneActiveContact.number||"Mobile";
+ // Lightweight simulated call audio generated locally in the browser (no external audio files).
+ let audioContext=null, masterGain=null, activeTones=[], ringTimer=null, ringPhase=0, callConnected=false, soundMuted=false, speakerOn=false;
+ function ensureAudio(){
+   try{
+     const AC=window.AudioContext||window.webkitAudioContext;
+     if(!AC)return false;
+     if(!audioContext){audioContext=new AC();masterGain=audioContext.createGain();masterGain.gain.value=0.28;masterGain.connect(audioContext.destination);}
+     if(audioContext.state==="suspended")audioContext.resume();
+     return true;
+   }catch(e){return false;}
+ }
+ function stopTone(){
+   activeTones.forEach(o=>{try{o.stop();}catch(e){} try{o.disconnect();}catch(e){}});
+   activeTones=[];
+ }
+ function tone(freqs,duration,volume=0.16){
+   if(soundMuted||!ensureAudio())return;
+   stopTone();
+   const now=audioContext.currentTime;
+   freqs.forEach(freq=>{
+     const osc=audioContext.createOscillator(),gain=audioContext.createGain();
+     osc.type="sine";osc.frequency.value=freq;gain.gain.setValueAtTime(0.0001,now);
+     gain.gain.exponentialRampToValueAtTime(Math.max(0.0002,volume),now+0.035);
+     gain.gain.setTargetAtTime(0.0001,now+Math.max(0.05,duration-0.08),0.025);
+     osc.connect(gain);gain.connect(masterGain);osc.start(now);osc.stop(now+duration);
+     activeTones.push(osc);
+   });
+ }
+ function stopCallAudio(){
+   if(ringTimer){clearInterval(ringTimer);ringTimer=null;}
+   stopTone();
+   if(audioContext){try{audioContext.close();}catch(e){}}
+   audioContext=null;masterGain=null;
+ }
+ function playRingback(){
+   if(soundMuted||callConnected)return;
+   tone([440,480],1.1,0.11);
+ }
+ // Start the familiar outgoing ringback cadence; it stops automatically when the simulated call connects.
+ ensureAudio();
+ playRingback();
+ ringTimer=setInterval(()=>{ringPhase=(ringPhase+1)%4;if(ringPhase===0)playRingback();else stopTone();},1000);
  const connectTimeout=setTimeout(()=>{
    if(!document.getElementById("simPhoneCall"))return;
+   callConnected=true;
+   if(ringTimer){clearInterval(ringTimer);ringTimer=null;}
+   stopTone();
    state.textContent="00:00";
+   tone([480,620],0.16,0.08);
    phoneCallStart=Date.now();
    phoneCallTicker=setInterval(()=>{
      const el=document.getElementById("simPhoneCall");
@@ -666,21 +709,37 @@ function startPhoneCall(name){
      el.querySelector(".ios-call-state").textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");
      updateClock();
    },1000);
- },1500);
+ },4500);
  overlay.querySelector("#simPhoneHangup").onclick=()=>{
    clearTimeout(connectTimeout);
    if(phoneCallTicker)clearInterval(phoneCallTicker);
    phoneCallTicker=null;
+   if(callConnected)tone([480,440],0.22,0.09);
+   stopCallAudio();
    overlay.remove();
  };
  overlay.querySelectorAll("[data-call-control]").forEach(b=>b.onclick=()=>{
    const key=b.dataset.callControl;
    b.classList.toggle("selected");
    if(key==="facetime"){state.textContent="FaceTime unavailable in demo";}
+   else if(key==="mute"){
+     soundMuted=!soundMuted;
+     b.classList.toggle("selected",soundMuted);
+     b.querySelector("small").textContent=soundMuted?"Muted":"Mute";
+     if(soundMuted)stopTone();else if(!callConnected)playRingback();
+   }
+   else if(key==="speaker"){
+     speakerOn=!speakerOn;
+     b.classList.toggle("selected",speakerOn);
+     b.querySelector("small").textContent=speakerOn?"Speaker On":"Speaker";
+     if(masterGain)masterGain.gain.value=speakerOn?0.55:0.28;
+   }
    else if(key==="keypad"){
      const panel=document.createElement("div");panel.className="ios-call-keypad";
      panel.innerHTML=`<button>1</button><button>2<small>ABC</small></button><button>3<small>DEF</small></button><button>4<small>GHI</small></button><button>5<small>JKL</small></button><button>6<small>MNO</small></button><button>7<small>PQRS</small></button><button>8<small>TUV</small></button><button>9<small>WXYZ</small></button><button>*</button><button>0<small>+</small></button><button>#</button>`;
      const previous=overlay.querySelector(".ios-call-keypad");if(previous)previous.remove();else overlay.appendChild(panel);
+   }else if(key==="more"){
+     tone([660],0.09,0.06);
    }
  });
 }
@@ -2361,6 +2420,11 @@ button.ios-setting-row{cursor:pointer}
 #msgHistory{flex:1 1 auto;min-height:0!important;max-height:100%;overflow-y:auto!important;overflow-x:hidden;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;scrollbar-width:thin}
 .rice-comm.dark:has(#msgHistory) .rice-comm-compose{flex:0 0 auto;position:relative;bottom:auto;padding-bottom:max(8px,env(safe-area-inset-bottom,0px))}
 .rice-comm.dark:has(#msgHistory)>div:not(#msgHistory){flex-shrink:0}
+</style>
+
+<style id="simulated-call-audio-states">
+#simPhoneCall [data-call-control].selected{background:rgba(255,255,255,.9);color:#111}
+#simPhoneCall [data-call-control="speaker"]:not(.selected),#simPhoneCall [data-call-control="mute"]:not(.selected){transition:background .15s,color .15s}
 </style>
 </html>
 
