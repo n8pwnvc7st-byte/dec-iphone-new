@@ -3077,3 +3077,153 @@ document.addEventListener("click",function(e){if(e.target.closest("#ytPlayerBack
   },true);
 })();
 </script>
+
+
+<style id="ig-mobile-inbox-dm-layout-fix">
+/* Mobile-first Instagram inbox and DM layout */
+#instagramApp .ig-inbox-page,
+#instagramApp .ig-dm-page {
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+  max-height:100% !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  overscroll-behavior:contain;
+  -webkit-text-size-adjust:100%;
+}
+#instagramApp .ig-inbox-page.active,
+#instagramApp .ig-dm-page.active {
+  display:flex !important;
+  flex-direction:column !important;
+}
+#instagramApp .ig-inbox-page .ig-inbox-header {
+  flex:0 0 auto !important;
+  min-height:58px !important;
+}
+#instagramApp .ig-inbox-page .ig-inbox-title {
+  flex:0 0 auto !important;
+  font-size:clamp(22px,5.6vw,28px) !important;
+  line-height:1.2 !important;
+}
+#instagramApp .ig-inbox-page .ig-inbox-search {
+  flex:0 0 auto !important;
+  min-height:42px !important;
+  font-size:15px !important;
+}
+#instagramApp .ig-inbox-list {
+  display:block !important;
+  flex:1 1 0% !important;
+  min-height:0 !important;
+  height:auto !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+  -webkit-overflow-scrolling:touch !important;
+  overscroll-behavior-y:contain !important;
+  touch-action:pan-y !important;
+  padding-bottom:calc(76px + env(safe-area-inset-bottom, 0px)) !important;
+}
+#instagramApp .ig-inbox-row {
+  min-height:88px !important;
+  padding:14px 16px !important;
+  gap:14px !important;
+}
+#instagramApp .ig-inbox-row img {
+  width:60px !important;
+  height:60px !important;
+}
+#instagramApp .ig-inbox-person strong {
+  font-size:17px !important;
+  line-height:1.25 !important;
+}
+#instagramApp .ig-inbox-person small {
+  font-size:14px !important;
+  line-height:1.35 !important;
+}
+#instagramApp .ig-dm-page {
+  padding:0 !important;
+}
+#instagramApp .ig-dm-header {
+  flex:0 0 auto !important;
+  min-height:76px !important;
+  height:auto !important;
+  padding:calc(env(safe-area-inset-top, 0px) + 8px) 14px 12px !important;
+  gap:12px !important;
+}
+#instagramApp .ig-dm-header img {
+  width:48px !important;
+  height:48px !important;
+  flex:0 0 48px !important;
+}
+#instagramApp .ig-dm-header>button {
+  font-size:28px !important;
+  padding:8px !important;
+}
+#instagramApp .ig-dm-header strong {
+  font-size:17px !important;
+  line-height:1.25 !important;
+}
+#instagramApp .ig-dm-header small {
+  font-size:12px !important;
+  margin-top:4px !important;
+}
+#instagramApp .ig-dm-messages {
+  display:flex !important;
+  flex:1 1 0% !important;
+  min-height:0 !important;
+  height:auto !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+  -webkit-overflow-scrolling:touch !important;
+  overscroll-behavior-y:contain !important;
+  touch-action:pan-y !important;
+  padding:20px 14px !important;
+  gap:12px !important;
+}
+#instagramApp .ig-dm-date {
+  font-size:12px !important;
+  margin-bottom:12px !important;
+}
+#instagramApp .ig-dm-bubble {
+  max-width:82% !important;
+  padding:13px 16px !important;
+  border-radius:20px !important;
+  font-size:16px !important;
+  line-height:1.4 !important;
+  overflow-wrap:anywhere !important;
+}
+#instagramApp .ig-dm-compose {
+  display:flex !important;
+  flex:0 0 auto !important;
+  align-items:center !important;
+  min-height:72px !important;
+  gap:10px !important;
+  padding:12px 14px calc(env(safe-area-inset-bottom, 0px) + 14px) !important;
+  background:#090c12 !important;
+  border-top:1px solid #252830 !important;
+}
+#instagramApp .ig-dm-compose input {
+  min-width:0 !important;
+  height:48px !important;
+  flex:1 1 auto !important;
+  padding:12px 16px !important;
+  font-size:16px !important;
+  border-radius:24px !important;
+}
+#instagramApp .ig-dm-compose button {
+  min-width:38px !important;
+  min-height:42px !important;
+  font-size:24px !important;
+}
+#instagramApp .ig-bottom-nav {
+  z-index:6 !important;
+}
+@media (max-height:650px) {
+  #instagramApp .ig-inbox-row { min-height:76px !important; }
+  #instagramApp .ig-inbox-row img { width:52px !important; height:52px !important; }
+  #instagramApp .ig-dm-header { min-height:64px !important; }
+  #instagramApp .ig-dm-header img { width:42px !important; height:42px !important; flex-basis:42px !important; }
+}
+</style>
