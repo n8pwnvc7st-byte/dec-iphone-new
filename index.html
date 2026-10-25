@@ -3708,17 +3708,24 @@ html,body{background:#09090b}
  const $=id=>document.getElementById(id);
  let introTimer=null,monthOffset=0,audience="men",tab="fixtures";
  const baseFixtures=[
-  {date:"2026-10-28",time:"20:00",home:"Arsenal",away:"Fleetwood Town",comp:"Carabao Cup",venue:"Highbury Stadium",status:"Scheduled"},
-  {date:"2026-11-04",time:"20:00",home:"Slavia Prague",away:"Arsenal",comp:"UEFA Champions League",venue:"Fortuna Arena",status:"Scheduled"},
-  {date:"2026-11-07",time:"15:00",home:"Arsenal",away:"Hull City",comp:"Premier League",venue:"Emirates Stadium",status:"Time subject to change"},
-  {date:"2026-11-24",time:"20:00",home:"Arsenal",away:"Borussia Dortmund",comp:"UEFA Champions League",venue:"Emirates Stadium",status:"Scheduled"},
-  {date:"2026-11-29",time:"16:30",home:"Arsenal",away:"Manchester City",comp:"Premier League",venue:"Emirates Stadium",status:"Scheduled"},
-  {date:"2026-12-09",time:"20:00",home:"Arsenal",away:"Real Madrid",comp:"UEFA Champions League",venue:"Emirates Stadium",status:"Scheduled"},
-  {date:"2026-12-13",time:"14:00",home:"Arsenal",away:"Bournemouth",comp:"Premier League",venue:"Emirates Stadium",status:"Time subject to change"},
-  {date:"2026-12-20",time:"16:30",home:"Arsenal",away:"Manchester United",comp:"Premier League",venue:"Emirates Stadium",status:"Time subject to change"},
-  {date:"2027-01-05",time:"19:30",home:"Arsenal",away:"Brentford",comp:"Premier League",venue:"Emirates Stadium",status:"Scheduled"},
-  {date:"2027-01-20",time:"20:00",home:"Real Betis",away:"Arsenal",comp:"UEFA Champions League",venue:"Benito Villamarín Stadium",status:"Scheduled"},
-  {date:"2027-01-27",time:"20:00",home:"Arsenal",away:"Sabah FK",comp:"UEFA Champions League",venue:"Emirates Stadium",status:"Scheduled"}
+  {date:"2026-11-04",time:"20:00",home:"Slavia Prague",away:"Arsenal",comp:"UEFA Champions League",venue:"Fortuna Arena",status:"Published · UK time"},
+  {date:"2026-11-07",time:"15:00",home:"Arsenal",away:"Hull City",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
+  {date:"2026-11-24",time:"20:00",home:"Arsenal",away:"Borussia Dortmund",comp:"UEFA Champions League",venue:"Emirates Stadium",status:"Published · UK time"},
+  {date:"2026-11-29",time:"16:30",home:"Arsenal",away:"Manchester City",comp:"Premier League",venue:"Emirates Stadium",status:"Published · UK time"},
+  {date:"2026-12-09",time:"20:00",home:"Arsenal",away:"Real Madrid",comp:"UEFA Champions League",venue:"Emirates Stadium",status:"Published · UK time"},
+  {date:"2026-12-13",time:"14:00",home:"Arsenal",away:"Bournemouth",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
+  {date:"2026-12-20",time:"16:30",home:"Arsenal",away:"Manchester United",comp:"Premier League",venue:"Emirates Stadium",status:"Published · UK time"},
+  {date:"2027-01-02",time:"15:00",home:"Arsenal",away:"Ipswich Town",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
+  {date:"2027-01-05",time:"19:30",home:"Arsenal",away:"Brentford",comp:"Premier League",venue:"Emirates Stadium",status:"Published · UK time"},
+  {date:"2027-01-20",time:"20:00",home:"Real Betis",away:"Arsenal",comp:"UEFA Champions League",venue:"Benito Villamarín Stadium",status:"Published · UK time"},
+  {date:"2027-01-23",time:"15:00",home:"Arsenal",away:"Newcastle United",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
+  {date:"2027-01-27",time:"20:00",home:"Arsenal",away:"Sabah FK",comp:"UEFA Champions League",venue:"Emirates Stadium",status:"Published · UK time"},
+  {date:"2027-02-06",time:"15:00",home:"Arsenal",away:"Liverpool",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
+  {date:"2027-02-20",time:"15:00",home:"Arsenal",away:"Fulham",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
+  {date:"2027-04-17",time:"15:00",home:"Arsenal",away:"Aston Villa",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
+  {date:"2027-05-01",time:"15:00",home:"Arsenal",away:"Tottenham Hotspur",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
+  {date:"2027-05-15",time:"15:00",home:"Arsenal",away:"Nottingham Forest",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"},
+  {date:"2027-05-30",time:"16:00",home:"Arsenal",away:"Brighton",comp:"Premier League",venue:"Emirates Stadium",status:"Subject to change"}
  ];
  let fixtures=baseFixtures.slice();
  function fmtDate(s){return new Date(s+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"2-digit",month:"short"}).toUpperCase()}
@@ -3745,10 +3752,9 @@ html,body{background:#09090b}
  }
  async function refresh(){
   $("arsenalDataStatus").textContent="Checking current fixture data…";
-  // GitHub Pages is static; cross-origin access to the official Arsenal site may be blocked by CORS.
-  // Open the official fixture page as a dependable current source rather than pretending this static list is live.
-  window.open("https://www.arsenal.com/fixtures","_blank");
-  $("arsenalDataStatus").textContent="Opened Arsenal official fixtures. This static simulator needs a backend/API feed for automatic sync.";
+  // Official schedule page is the source of truth; this static Pages site cannot guarantee automatic sync without a backend/API feed.
+  window.open("https://help.arsenal.com/support/solutions/articles/101000594163-fixture-and-event-timings-for-local-residents","_blank");
+  $("arsenalDataStatus").textContent="Showing published schedule snapshot. Opened official Arsenal timings; automatic sync needs a live data feed.";
  }
  function setTab(next){
   tab=next;
