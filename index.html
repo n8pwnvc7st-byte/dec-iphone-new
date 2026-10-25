@@ -909,7 +909,7 @@ document.querySelectorAll(".ig-inbox-row").forEach(row=>row.addEventListener("cl
   const name=row.querySelector("strong")?.textContent||row.dataset.igContact||"Jude Bellingham";
   window.currentIgCallName=name;
   const messages=$("igDmMessages");
-  if(messages){const greeting=name==="Jude Bellingham"?"Hey Rice 👋":"Hey mate 👋";const first=messages.querySelector(".ig-dm-bubble.theirs");if(first)first.textContent=greeting;}
+  if(messages){const greeting=name==="Jude Bellingham"?"Hey Rice 👋":"Hey mate 👋";const first=messages.querySelector(".ig-dm-bubble.theirs");if(first)first.textContent=greeting;const reply=messages.querySelector(".ig-dm-bubble.mine");if(reply)reply.textContent=name==="Jude Bellingham"?"What’s up, Jude?":"What’s up?";}
   const header=$("igDmPage").querySelector(".ig-dm-header");
   if(header){
     const title=header.querySelector("div strong");
