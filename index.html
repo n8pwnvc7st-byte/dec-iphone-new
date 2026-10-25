@@ -1882,7 +1882,8 @@ lock.addEventListener("touchstart",e=>{touchStartY=e.touches[0].clientY},{passiv
 lock.addEventListener("touchend",e=>{if(touchStartY-e.changedTouches[0].clientY>25)unlock()},{passive:true});
 lock.addEventListener("pointerdown",e=>{mouseStartY=e.clientY},{passive:true});
 lock.addEventListener("pointerup",e=>{if(e.pointerType==="mouse" && mouseStartY-e.clientY>25)unlock()},{passive:true});
-lock.addEventListener("click",e=>{if(!e.target.closest(".lock-circle")&&!e.target.closest(".passcode-panel"))unlock()});
+lock.addEventListener("click",e=>{if(e.target.closest(".passcode-panel"))return;unlock()});
+document.querySelectorAll("#lockScreen .lock-circle, #lockScreen .unlock-hint").forEach(el=>el.addEventListener("click",e=>{e.stopPropagation();unlock()}));
 
 $("myName").textContent=CONFIG.userName;$("friendName").textContent=CONFIG.contactName;$("chatFriendTitle").textContent=CONFIG.contactName;$("xName").textContent=CONFIG.userName+"　🔒";$("xHandle").textContent="@"+CONFIG.twitterHandle;$("profileName").textContent=CONFIG.userName;
 $("myProfile").addEventListener("click",()=> openWaStudio("profile"));$("closeProfile").addEventListener("click",()=> $("profileModal").classList.remove("active"));$("backMessages").addEventListener("click",()=>{$("chatPage").classList.remove("active");showScreen("whatsApp")});
@@ -2922,6 +2923,11 @@ function renderAlarmApp(tab="Alarm"){
 </style>
 
 <style>
+/* Passcode reliability fix: keep the keypad above lock-screen controls and tappable on mobile. */
+#lockScreen .passcode-panel{z-index:200;pointer-events:auto;touch-action:manipulation}
+#lockScreen .passcode-panel.active{display:flex!important;visibility:visible!important;opacity:1!important}
+#lockScreen .passcode-grid{position:relative;z-index:2;pointer-events:auto}
+#lockScreen .passcode-key,#lockScreen .passcode-cancel{pointer-events:auto;touch-action:manipulation}
 @media(max-height:760px){
  .passcode-dots{margin-bottom:30px}
  .passcode-grid{gap:10px 16px;width:min(100%,320px)}
