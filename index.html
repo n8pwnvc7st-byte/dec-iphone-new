@@ -879,7 +879,12 @@ async function loadIgRepoPosts(){
   const files=await response.json();
   IG_REPO_POSTS=files.filter(f=>f.type==="file"&&/\.(jpe?g|png|webp|gif)$/i.test(f.name)).sort((a,b)=>a.name.localeCompare(b.name)).map((f,i)=>({src:f.download_url,name:f.name,label:f.name.replace(/\.[^.]+$/,""),caption:"Football moments ⚽",repoAsset:true,index:i}));
   renderInstagramPosts();renderIgHomeFeed();renderIgExplore();renderIgReels();
- }catch(e){console.warn("Instagram repository posts could not be loaded",e);renderIgHomeFeed();}
+ }catch(e){
+  console.warn("Instagram repository posts could not be loaded; using bundled path fallback",e);
+  const fallbackNames=["rice-ig-1.JPG","rice-ig-3.JPG","rice-ig-4.JPG","rice-ig-6.JPG","rice-ig-7.PNG","rice-ig-9.JPG","rice-ig-10.JPG","rice-ig-11.JPG","rice-ig-12.JPG","rice-ig-14.JPG","rice-ig-15.JPG","rice-ig-16.JPG","rice-ig-18.JPG","rice-ig-20.JPG","rice-ig-21.JPG","rice-ig-26.JPG"];
+  IG_REPO_POSTS=fallbackNames.map((name,i)=>({src:"https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/ig-posts/"+name,name,label:name.replace(/\\.[^.]+$/,""),caption:"Football moments ⚽",repoAsset:true,index:i}));
+  renderInstagramPosts();renderIgHomeFeed();renderIgExplore();renderIgReels();
+ }
 }
 function igPostAuthor(post){
  const n=(post.name||post.label||"").toLowerCase();
