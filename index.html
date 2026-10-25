@@ -736,7 +736,7 @@ function startPhoneCall(name){
    }
    else if(key==="keypad"){
      const panel=document.createElement("div");panel.className="ios-call-keypad";
-     panel.innerHTML=`<button>1</button><button>2<small>ABC</small></button><button>3<small>DEF</small></button><button>4<small>GHI</small></button><button>5<small>JKL</small></button><button>6<small>MNO</small></button><button>7<small>PQRS</small></button><button>8<small>TUV</small></button><button>9<small>WXYZ</small></button><button>*</button><button>0<small>+</small></button><button>#</button>`;
+     panel.innerHTML=`<button type="button">1</button><button type="button">2<small>ABC</small></button><button type="button">3<small>DEF</small></button><button type="button">4<small>GHI</small></button><button type="button">5<small>JKL</small></button><button type="button">6<small>MNO</small></button><button type="button">7<small>PQRS</small></button><button type="button">8<small>TUV</small></button><button type="button">9<small>WXYZ</small></button><button type="button">*</button><button type="button">0<small>+</small></button><button type="button">#</button>`;panel.querySelectorAll("button").forEach(key=>key.addEventListener("click",()=>{key.classList.add("pressed");setTimeout(()=>key.classList.remove("pressed"),120);}));
      const previous=overlay.querySelector(".ios-call-keypad");if(previous)previous.remove();else overlay.appendChild(panel);
    }else if(key==="more"){
      tone([660],0.09,0.06);
@@ -2425,6 +2425,20 @@ button.ios-setting-row{cursor:pointer}
 <style id="simulated-call-audio-states">
 #simPhoneCall [data-call-control].selected{background:rgba(255,255,255,.9);color:#111}
 #simPhoneCall [data-call-control="speaker"]:not(.selected),#simPhoneCall [data-call-control="mute"]:not(.selected){transition:background .15s,color .15s}
+</style>
+
+<style id="keypad-and-imessage-mobile-fit">
+#simPhoneCall .ios-call-keypad{inset:24% 15% 24%;gap:10px;grid-template-columns:repeat(3,minmax(0,1fr));align-content:center;max-height:52%;overflow:hidden}
+#simPhoneCall .ios-call-keypad button{min-width:0;width:100%;height:auto;aspect-ratio:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#simPhoneCall .ios-call-keypad button.pressed{background:#424242;transform:scale(.96)}
+@media(max-height:760px){#simPhoneCall .ios-call-keypad{inset:22% 17% 22%;gap:7px;max-height:56%}#simPhoneCall .ios-call-keypad button{font-size:22px}}
+/* Fit the iMessage demo to the phone viewport and keep the compose row at the bottom. */
+.rice-comm.dark:has(#msgHistory){height:100%;min-height:0!important;max-height:100%;padding:8px 12px max(6px,env(safe-area-inset-bottom,0px));gap:0}
+.rice-comm.dark:has(#msgHistory) .rice-comm-header{padding:5px 2px 10px;flex:0 0 auto}
+#msgHistory{flex:1 1 0!important;height:0;min-height:0!important;max-height:none!important;margin:0;overscroll-behavior:contain}
+.rice-comm.dark:has(#msgHistory) .rice-comm-compose{flex:0 0 auto;margin-top:4px;padding:6px 0 2px}
+.rice-comm.dark:has(#msgHistory) .rice-comm-compose input{min-height:42px}
+.rice-comm.dark:has(#msgHistory) .rice-comm-compose button{min-width:44px;min-height:42px}
 </style>
 </html>
 
