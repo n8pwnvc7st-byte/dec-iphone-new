@@ -456,10 +456,23 @@
     </div><div class="homebar" data-home="home"></div>
   </section>
   <section class="screen spotify-screen" id="spotifyApp">
-    <div class="app-header">Spotify <span style="font-size:13px;color:#bbb">☷</span></div><div class="app-content" style="padding:0">
-      <div class="playlist-head"><div class="cover-art" id="playlistCover">♫</div><div class="playlist-name" id="playlistName">Playlist</div><div class="playlist-owner" id="playlistOwner">Made for you · 1</div></div>
-      <div class="playlist-actions"><button class="plain-action" aria-label="Download">⇩</button><button class="plain-action" aria-label="Share">↗</button><button class="plain-action" aria-label="More options">•••</button><button class="plain-action" aria-label="Shuffle">⤨</button><button class="play-big" id="playAll">▶</button></div>
-      <input class="track-search" id="trackSearch" type="search" placeholder="Search songs or artists"><div class="library-actions"><button id="showAllTracks">All songs</button><button id="showFavorites">Liked songs</button><button id="createPlaylist">+ Playlist</button></div><div class="track-list" id="trackList"></div>
+    <div class="spotify-home-view" id="spotifyHomeView">
+      <div class="spotify-home-header"><div class="spotify-user-dot">D</div><div class="spotify-home-filters"><button class="selected">All</button><button>Music</button><button>Podcasts</button></div></div>
+      <div class="spotify-quick-row" id="spotifyQuickRow"></div>
+      <h2>Made for you</h2><div class="spotify-home-grid" id="spotifyMadeForYou"></div>
+      <h2>Radio & mixes</h2><div class="spotify-radio-row"><div class="spotify-radio-card"><div class="spotify-radio-art">♫</div><b>Blur</b><small>The Strokes, Weezer, Blur and more</small></div><div class="spotify-radio-card"><div class="spotify-radio-art pink">♫</div><b>The Weeknd</b><small>Pop, R&B and late-night tracks</small></div></div>
+      <h2>Recently played</h2><div class="spotify-recent-list" id="spotifyRecentList"></div>
+    </div>
+    <div class="spotify-library-view" id="spotifyLibraryView" style="display:none">
+      <div class="spotify-library-heading"><h1>Your Library</h1><button id="createPlaylist" aria-label="Create playlist">＋</button></div>
+      <div class="spotify-library-filters"><button class="selected">Playlists</button><button>Artists</button><button>Albums</button></div>
+      <input class="track-search" id="trackSearch" type="search" placeholder="Search songs or artists">
+      <div class="library-actions"><button id="showAllTracks">All songs</button><button id="showFavorites">Liked songs</button></div>
+      <div class="spotify-library-playlist" id="spotifyLibraryPlaylist"><div class="spotify-library-cover">♫</div><div><strong id="playlistName">Late Night Drives</strong><small id="playlistOwner">Playlist · declanrice</small></div><button id="playAll" aria-label="Play all">▶</button></div>
+      <div class="spotify-library-section-title">Your music files</div><div class="track-list" id="trackList"></div>
+    </div>
+    <div class="spotify-bottom-nav" id="spotifyBottomNav">
+      <button class="active" data-spotify-tab="home"><span>⌂</span>Home</button><button data-spotify-tab="search"><span>⌕</span>Search</button><button data-spotify-tab="library"><span>▤</span>Your Library</button><button data-spotify-tab="premium"><span>◉</span>Premium</button><button data-spotify-tab="create"><span>＋</span>Create</button>
     </div>
     <div class="mini-player" id="miniPlayer"><div class="mini-art" id="miniArt">♫</div><div class="mini-copy"><div class="mini-title" id="miniTitle">Song</div><div class="mini-artist" id="miniArtist">Artist</div></div><button class="mini-play" id="miniToggle">Ⅱ</button><div class="mini-progress" id="miniProgress"></div></div><div class="homebar" data-home="home"></div>
     <div class="spotify-detail" id="spotifyDetail"><div class="spotify-detail-top"><button id="closePlayer" style="background:transparent;font-size:22px">⌄</button><span>Now Playing</span><button style="background:transparent;font-size:22px">•••</button></div><div class="spotify-big-cover" id="bigCover">♫</div><div class="spotify-song-title" id="bigTitle">Song</div><div class="spotify-song-artist" id="bigArtist">Artist</div><div class="progress-wrap"><input id="songSeek" type="range" min="0" max="180" value="0"><div class="progress-times"><span id="elapsed">0:00</span><span id="duration">3:00</span></div></div><div class="player-controls"><button id="shuffleBtn">⤨</button><button id="prevSong">|◀</button><button class="main-play" id="bigToggle">Ⅱ</button><button id="nextSong">▶|</button><button id="repeatBtn">↻</button></div><div style="display:flex;align-items:center;gap:10px;margin:18px 24px 0;color:#bbb"><span>−</span><input id="volumeControl" type="range" min="0" max="1" step="0.05" value="0.8" style="flex:1"><span>＋</span></div><div class="small-note" id="audioNote" style="margin-top:16px;text-align:center"></div><div class="homebar" data-home="close-player"></div></div>
@@ -3486,3 +3499,92 @@ document.addEventListener("click",function(e){if(e.target.closest("#ytPlayerBack
   #decorApp.tiktok-mode #decorContent .tt-chat-row .tt-avatar { width:50px !important;height:50px !important;min-width:50px !important;min-height:50px !important;flex-basis:50px !important; }
 }
 </style>
+
+<style id="spotify-modern-home-library">
+#spotifyApp{background:#09090b;color:#fff}
+#spotifyApp .spotify-home-view,#spotifyApp .spotify-library-view{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:calc(var(--safe-top) + 14px) 18px calc(var(--safe-bottom) + 155px);-webkit-overflow-scrolling:touch}
+#spotifyApp .spotify-home-header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+#spotifyApp .spotify-user-dot{width:38px;height:38px;flex:0 0 38px;border-radius:50%;display:grid;place-items:center;background:#b49bd9;color:#15121c;font-weight:800;font-size:18px}
+#spotifyApp .spotify-home-filters,#spotifyApp .spotify-library-filters{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+#spotifyApp .spotify-home-filters button,#spotifyApp .spotify-library-filters button{border-radius:22px;padding:10px 16px;background:#242424;color:#fff;white-space:nowrap}
+#spotifyApp .spotify-home-filters button.selected,#spotifyApp .spotify-library-filters button.selected{background:#1ed760;color:#101010}
+#spotifyApp .spotify-home-view h2{font-size:21px;margin:26px 0 14px;font-weight:800}
+#spotifyApp .spotify-quick-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#spotifyApp .spotify-quick-card{display:flex;align-items:center;gap:9px;min-width:0;border-radius:6px;overflow:hidden;background:#292929;font-size:12px;font-weight:700}
+#spotifyApp .spotify-quick-card img{width:58px;height:58px;object-fit:cover}
+#spotifyApp .spotify-quick-cover{width:58px;height:58px;display:grid;place-items:center;background:linear-gradient(135deg,#15382e,#242424);font-size:25px}
+#spotifyApp .spotify-home-grid,#spotifyApp .spotify-radio-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(140px,42%);gap:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:3px}
+#spotifyApp .spotify-home-card,#spotifyApp .spotify-radio-card{min-width:0;display:flex;flex-direction:column;gap:8px;text-align:left}
+#spotifyApp .spotify-home-cover{width:100%;aspect-ratio:1;display:grid;place-items:center;background:linear-gradient(145deg,#123b31,#17231f 65%,#39443c);overflow:hidden;font-size:44px}
+#spotifyApp .spotify-home-cover img{width:100%;height:100%;object-fit:cover}
+#spotifyApp .spotify-home-card strong,#spotifyApp .spotify-radio-card b{font-size:14px;line-height:1.25}
+#spotifyApp .spotify-home-card small,#spotifyApp .spotify-radio-card small{font-size:12px;color:#b3b3b3;line-height:1.4}
+#spotifyApp .spotify-radio-art{aspect-ratio:1;width:100%;display:grid;place-items:center;background:#f49ac8;color:#101010;font-size:48px}
+#spotifyApp .spotify-radio-art.pink{background:#d5a0ff}
+#spotifyApp .spotify-recent-list{display:flex;flex-direction:column;gap:12px}
+#spotifyApp .spotify-recent-item{display:flex;align-items:center;gap:12px;min-width:0}
+#spotifyApp .spotify-recent-item img,#spotifyApp .spotify-recent-item .spotify-recent-art{width:54px;height:54px;object-fit:cover;display:grid;place-items:center;background:#222;font-size:22px}
+#spotifyApp .spotify-recent-item div:nth-child(2){min-width:0;flex:1}
+#spotifyApp .spotify-recent-item strong{font-size:14px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#spotifyApp .spotify-recent-item small{font-size:12px;color:#aaa;display:block;margin-top:4px}
+#spotifyApp .spotify-library-heading{display:flex;align-items:center;justify-content:space-between;margin:2px 0 18px}
+#spotifyApp .spotify-library-heading h1{font-size:28px;margin:0;font-weight:800}
+#spotifyApp .spotify-library-heading button{font-size:28px;background:transparent;color:#fff}
+#spotifyApp .spotify-library-filters{margin-bottom:18px}
+#spotifyApp .spotify-library-playlist{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #252525}
+#spotifyApp .spotify-library-cover{width:58px;height:58px;display:grid;place-items:center;background:linear-gradient(135deg,#21483d,#141414);font-size:26px}
+#spotifyApp .spotify-library-playlist>div:nth-child(2){flex:1;min-width:0}
+#spotifyApp .spotify-library-playlist strong,#spotifyApp .spotify-library-playlist small{display:block}
+#spotifyApp .spotify-library-playlist small{color:#aaa;font-size:12px;margin-top:5px}
+#spotifyApp .spotify-library-playlist>button{border:1px solid #555;border-radius:50%;width:36px;height:36px;background:transparent;color:#fff}
+#spotifyApp .spotify-library-section-title{font-size:17px;font-weight:750;margin:22px 0 8px}
+#spotifyApp .spotify-library-view .track-list{padding:0 0 24px}
+#spotifyApp .spotify-library-view .track-art img{width:100%;height:100%;object-fit:cover}
+#spotifyApp .spotify-bottom-nav{position:absolute;z-index:12;left:0;right:0;bottom:0;padding:10px 5px calc(var(--safe-bottom) + 20px);display:flex;justify-content:space-around;align-items:center;background:linear-gradient(180deg,#09090bdf,#09090b 28%);border-top:1px solid #242424}
+#spotifyApp .spotify-bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:transparent;color:#aaa;font-size:10px;white-space:nowrap;padding:2px 0}
+#spotifyApp .spotify-bottom-nav button span{font-size:24px;line-height:1.1}
+#spotifyApp .spotify-bottom-nav button.active{color:#fff}
+#spotifyApp .mini-player{bottom:calc(var(--safe-bottom) + 83px);background:#242424}
+#spotifyApp .spotify-detail{z-index:30}
+#spotifyApp .homebar{z-index:31}
+#spotifyApp .app-header{display:none}
+@media(max-height:700px){#spotifyApp .spotify-home-view,#spotifyApp .spotify-library-view{padding-bottom:140px}#spotifyApp .spotify-bottom-nav{padding-bottom:calc(var(--safe-bottom) + 12px)}}
+</style>
+<style id="imessage-fill-mobile-viewport">
+#chatPage{position:fixed!important;inset:0!important;width:100vw!important;height:100dvh!important;min-height:100dvh!important;max-height:100dvh!important;z-index:999!important;background:#000!important;box-sizing:border-box;overflow:hidden}
+#chatPage .chat-messages{min-height:0;flex:1 1 0;padding-bottom:10px}
+#chatPage .chat-compose{padding-bottom:calc(var(--safe-bottom) + 10px)}
+#chatPage .homebar{bottom:calc(var(--safe-bottom) + 5px)}
+html,body{background:#09090b}
+</style>
+
+<script id="spotify-home-library-behavior">
+(function(){
+ const $s=id=>document.getElementById(id);
+ const songs=(window.CONFIG&&CONFIG.spotify&&CONFIG.spotify.songs)||[];
+ function cover(song){return song&&song.cover?'<img src="'+song.cover+'" alt="">':'♫'}
+ function setTab(tab){
+   const home=$s('spotifyHomeView'),lib=$s('spotifyLibraryView');
+   if(home)home.style.display=tab==='home'?'block':'none';
+   if(lib)lib.style.display=tab==='library'||tab==='search'?'block':'none';
+   document.querySelectorAll('#spotifyBottomNav [data-spotify-tab]').forEach(b=>b.classList.toggle('active',b.dataset.spotifyTab===tab));
+   if(tab==='search'){const q=$s('trackSearch');if(q){q.focus();q.scrollIntoView({block:'nearest'})}}
+   if(tab==='create'){$s('createPlaylist')?.click();setTab('library')}
+   if(tab==='premium'){setTab('home')}
+ }
+ function renderHome(){
+   const quick=$s('spotifyQuickRow'),made=$s('spotifyMadeForYou'),recent=$s('spotifyRecentList');
+   if(quick)quick.innerHTML=songs.slice(0,4).map((s,i)=>'<button class="spotify-quick-card" data-home-track="'+i+'">'+(s.cover?cover(s):'<span class="spotify-quick-cover">♫</span>')+'<span>'+esc(s.title)+'</span></button>').join('');
+   if(made)made.innerHTML=songs.slice(0,6).map((s,i)=>'<button class="spotify-home-card" data-home-track="'+i+'"><span class="spotify-home-cover">'+cover(s)+'</span><strong>'+esc(s.title)+'</strong><small>'+esc(s.artist||'Unknown Artist')+'</small></button>').join('');
+   const recentIds=(()=>{try{return JSON.parse(localStorage.getItem('iphone-music-recent')||'[]')}catch(e){return []}})();
+   const ids=[...new Set([...recentIds,...songs.map((_,i)=>i)])].filter(i=>songs[i]!==undefined).slice(0,8);
+   if(recent)recent.innerHTML=ids.map(i=>'<button class="spotify-recent-item" data-home-track="'+i+'"><span class="spotify-recent-art">'+cover(songs[i])+'</span><div><strong>'+esc(songs[i].title)+'</strong><small>'+esc(songs[i].artist||'Unknown Artist')+'</small></div><span>▶</span></button>').join('');
+   document.querySelectorAll('#spotifyApp [data-home-track]').forEach(el=>el.addEventListener('click',()=>{if(typeof selectTrack==='function')selectTrack(Number(el.dataset.homeTrack),true)}));
+ }
+ function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ document.querySelectorAll('#spotifyBottomNav [data-spotify-tab]').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.spotifyTab)));
+ const back=$s('closePlayer');if(back)back.addEventListener('click',()=>{setTab('library')});
+ renderHome();setTab('home');
+ window.addEventListener('pageshow',renderHome);
+})();
+</script>
