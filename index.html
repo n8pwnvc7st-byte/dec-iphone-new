@@ -1634,6 +1634,20 @@ function openSettings(){
       <button class="ios-setting-row" data-ios-detail="Display & Brightness"><span class="ios-setting-icon display">☼</span><span class="ios-setting-label">Display & Brightness</span><span class="ios-chevron">›</span></button>
       <button class="ios-setting-row" data-ios-detail="Siri"><span class="ios-setting-icon siri">✺</span><span class="ios-setting-label">Siri</span><span class="ios-chevron">›</span></button>
     </div>
+    <div class="ios-group ios-group-extra">
+      <button class="ios-setting-row" data-ios-detail="Notifications"><span class="ios-setting-icon notifications">♟</span><span class="ios-setting-label">Notifications</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="Sounds & Haptics"><span class="ios-setting-icon sounds">◖</span><span class="ios-setting-label">Sounds & Haptics</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="Focus"><span class="ios-setting-icon focus">☾</span><span class="ios-setting-label">Focus</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="Screen Time"><span class="ios-setting-icon screentime">⌁</span><span class="ios-setting-label">Screen Time</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="Privacy & Security"><span class="ios-setting-icon privacy">✋</span><span class="ios-setting-label">Privacy & Security</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="App Store"><span class="ios-setting-icon appstore">A</span><span class="ios-setting-label">App Store</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="Wallet"><span class="ios-setting-icon wallet">▣</span><span class="ios-setting-label">Wallet</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="Passwords"><span class="ios-setting-icon passwords">⚿</span><span class="ios-setting-label">Passwords</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="Mail"><span class="ios-setting-icon mail">✉</span><span class="ios-setting-label">Mail</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="Phone"><span class="ios-setting-icon phone">☎</span><span class="ios-setting-label">Phone</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="Messages"><span class="ios-setting-icon messages">●</span><span class="ios-setting-label">Messages</span><span class="ios-chevron">›</span></button>
+      <button class="ios-setting-row" data-ios-detail="FaceTime"><span class="ios-setting-icon facetime">▣</span><span class="ios-setting-label">FaceTime</span><span class="ios-chevron">›</span></button>
+    </div>
     <div class="ios-settings-note">Demo settings · Language: <span id="iosLanguageValue">${currentLanguage==="zh"?"简体中文":"English"}</span></div>
   </div>`;
   showScreen("decorApp");
@@ -1962,7 +1976,7 @@ button.ios-setting-row{cursor:pointer}
 
 <style id="ios-settings-onepage-layout">
 #decorApp .ios-settings-onepage{
-  height:100%;min-height:0;max-height:100%;overflow:hidden;
+  height:100%;min-height:0;max-height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
   padding:calc(var(--safe-top) + 7px) 14px calc(var(--safe-bottom) + 28px);
   box-sizing:border-box;display:flex;flex-direction:column;gap:8px;
 }
@@ -1983,10 +1997,12 @@ button.ios-setting-row{cursor:pointer}
 #decorApp .ios-settings-onepage .ios-switch{width:39px;height:23px;flex-basis:39px}
 #decorApp .ios-settings-onepage .ios-switch span:before{width:19px;height:19px;left:2px;top:2px}
 #decorApp .ios-settings-onepage .ios-switch input:checked+span:before{transform:translateX(16px)}
-#decorApp .ios-settings-onepage .ios-group-main{min-height:0;overflow:hidden}
+#decorApp .ios-settings-onepage .ios-group-main{min-height:0;overflow:visible;flex:0 0 auto}
 #decorApp .ios-settings-onepage .ios-settings-note{font-size:9px;margin:0;color:#8e8e93;flex:0 0 auto}
 #decorApp .ios-settings-onepage .ios-setting-row:nth-child(n){border-bottom:1px solid #dedee3}
 #decorApp .ios-settings-onepage .ios-setting-row:last-child{border-bottom:0}
+#decorApp .ios-settings-onepage .ios-group-extra{flex:0 0 auto}
+#decorApp .ios-settings-onepage .ios-settings-note{padding-bottom:calc(var(--safe-bottom) + 18px)}
 @media(max-height:850px){
  #decorApp .ios-settings-onepage{gap:5px;padding-top:calc(var(--safe-top) + 3px)}
  #decorApp .ios-settings-onepage .ios-settings-title{font-size:25px}
