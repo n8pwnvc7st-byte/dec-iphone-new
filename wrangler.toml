@@ -1,0 +1,8 @@
+name = "dec-iphone-ig-reply"
+main = "worker.js"
+compatibility_date = "2026-10-25"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGIN = "https://n8pwnvc7st-byte.github.io"
+OPENAI_MODEL = "gpt-4.1-mini"
