@@ -516,7 +516,10 @@ const CONFIG = {
       { title: "float 2.0", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/float.wav", cover: "./covers/float.JPG", duration: 30 },
       { title: "Together", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/together.wav", cover: "./covers/together.JPG", duration: 30 },
       { title: "One Sided", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/one-sided.wav", cover: "./covers/one-sided.JPG", duration: 30 },
-      { title: "Run It Back #JerseyClub (Slowed)", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/run-it-back.wav", cover: "./covers/run-it-back.JPG", duration: 30 }
+      { title: "Run It Back #JerseyClub (Slowed)", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/run-it-back.wav", cover: "./covers/run-it-back.JPG", duration: 30 },
+      { title: "Basic Minimum", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/basic-minimum.wav", cover: "./covers/basic-minimum.JPG", duration: 30 },
+      { title: "Copines", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/copines.wav", cover: "./covers/copines.JPG", duration: 30 },
+      { title: "When We Kiss", artist: "Unknown Artist", audio: "https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/when-we-kiss.wav", cover: "./covers/when-we-kiss.JPG", duration: 30 }
     ]
   }
 };
@@ -3058,8 +3061,8 @@ document.addEventListener("click",function(e){if(e.target.closest("#ytPlayerBack
       if(typeof CONFIG!=="undefined"&&CONFIG.spotify&&Array.isArray(CONFIG.spotify.songs)){
         CONFIG.spotify.songs.forEach(function(song){
           if(!song||!song.audio)return;
-          var m=String(song.audio).match(/(?:^|\/)music\/(float|together|one-sided|run-it-back)\.wav(?:\?.*)?$/i);
-          if(m)song.audio="https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/"+m[1]+".wav";
+          var m=String(song.audio).match(/(?:^|\/)music\/(float|together|one-sided|run-it-back|basic-minimum|copines|when-we-kiss)\.wav(?:\?.*)?$/i);
+          if(m)song.audio="https://raw.githubusercontent.com/n8pwnvc7st-byte/dec-iphone-new/main/music/"+m[1].toLowerCase()+".wav";
         });
       }
     }catch(e){}
