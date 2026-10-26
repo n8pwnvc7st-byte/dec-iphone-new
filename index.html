@@ -781,9 +781,10 @@ const $ = id => document.getElementById(id);
 const screens = ["lockScreen","desktop","phoneApp","whatsApp","xApp","instagramApp","spotifyApp","photosApp","decorApp","arsenalApp","netflixApp","snapchatApp","hboApp","alarmApp"];
 let currentScreen = "lockScreen", callStart = 0, callTicker = null, msgTimers = [], presetIndex = 0, audioEl = null;
 let trackIndex = Number(localStorage.getItem("iphone-music-track")||0), playing = false, simulatedTime = Number(localStorage.getItem("iphone-music-time")||0), playerTicker = null, shuffle = false, repeatMode = Number(localStorage.getItem("iphone-music-repeat")||0);
-let favorites = new Set(JSON.parse(localStorage.getItem("iphone-music-favorites")||"[]"));
-let recentTracks = JSON.parse(localStorage.getItem("iphone-music-recent")||"[]");
-let customPlaylists = JSON.parse(localStorage.getItem("iphone-music-playlists")||"[]");
+function safeLocalJSON(key, fallback){try{const raw=localStorage.getItem(key);return raw===null||raw===""?fallback:JSON.parse(raw)}catch(error){console.warn("Ignoring invalid saved data:",key);return fallback}}
+let favorites = new Set(safeLocalJSON("iphone-music-favorites", []));
+let recentTracks = safeLocalJSON("iphone-music-recent", []);
+let customPlaylists = safeLocalJSON("iphone-music-playlists", []);
 let visibleTrackIndices = null;
 function safeText(v){return String(v ?? "");}
 function showScreen(id){screens.forEach(s=>$(s).classList.toggle("active",s===id));currentScreen=id;$("chatPage").classList.remove("active");$("profileModal").classList.remove("active");}
@@ -1014,7 +1015,7 @@ async function loadIgRepoPosts(){
   const response=await fetch("https://api.github.com/repos/n8pwnvc7st-byte/dec-iphone-new/contents/ig-posts?ref=main",{headers:{Accept:"application/vnd.github+json"}});
   if(!response.ok)throw new Error("Instagram asset listing unavailable");
   const files=await response.json();
-  IG_REPO_POSTS=files.filter(f=>f.type==="file"&&/\.(jpe?g|png|webp|gif)$/i.test(f.name)).sort((a,b)=>a.name.localeCompare(b.name)).map((f,i)=>({src:f.download_url,name:f.name,label:f.name.replace(/\.[^.]+$/,""),caption:"Football moments ⚽",repoAsset:true,index:i}));
+  IG_REPO_POSTS=files.filter(f=>f.type==="file"&&/\.(jpe?g|png|webp|gif)$/i.test(f.name)&&!/^photo-(3|9)\./i.test(f.name)).sort((a,b)=>a.name.localeCompare(b.name)).map((f,i)=>({src:f.download_url,name:f.name,label:f.name.replace(/\.[^.]+$/,""),caption:"Football moments ⚽",repoAsset:true,index:i}));
   renderInstagramPosts();renderIgHomeFeed();renderIgExplore();renderIgReels();
  }catch(e){
   console.warn("Instagram repository posts could not be loaded; using bundled path fallback",e);
