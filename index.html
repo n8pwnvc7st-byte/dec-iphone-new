@@ -4254,3 +4254,64 @@ html,body{background:#09090b}
   setTimeout(restore,1500);
 })();
 </script>
+
+<!-- recovery-pack-2026-10-26: photos, music and call interactions -->
+<style id="recovery-pack-2026-10-26">
+/* Keep the incoming call controls above decorative overlays and tappable on mobile. */
+#incoming.active { z-index: 90 !important; pointer-events: auto !important; }
+#incoming.active .call-actions, #incoming.active .call-action { pointer-events: auto !important; }
+#incoming.active .call-actions { z-index: 95 !important; }
+#videoCall.active { z-index: 91 !important; pointer-events: auto !important; }
+#videoCall.active .video-controls, #videoCall.active .pip { pointer-events: auto !important; }
+/* Keep Spotify list and mini player visible within the app's scroll area. */
+#spotifyApp .app-content { overflow-y: auto !important; -webkit-overflow-scrolling: touch; }
+#spotifyApp #trackList { display: block !important; min-height: 80px; }
+#spotifyApp #miniPlayer.active { display: flex !important; }
+#photosApp #photosGrid { min-height: 120px; }
+</style>
+<script id="recovery-pack-2026-10-26-script">
+(function(){
+  function recoverSimulatorFeatures(){
+    try {
+      /* Re-render Spotify from the existing CONFIG instead of relying on cached markup. */
+      if (typeof renderTracks === "function") renderTracks();
+      if (typeof updatePlayer === "function") updatePlayer();
+      var playAll = document.getElementById("playAll");
+      if (playAll && !playAll.dataset.recoveryPlayBound) {
+        playAll.dataset.recoveryPlayBound = "1";
+        playAll.addEventListener("click", function(){
+          if (typeof selectTrack === "function" && Array.isArray(CONFIG && CONFIG.spotify && CONFIG.spotify.songs) && CONFIG.spotify.songs.length) {
+            if (typeof trackIndex === "number" && typeof playing === "boolean") {
+              if (!playing) { if (typeof togglePlayer === "function") togglePlayer(); }
+              else if (typeof togglePlayer === "function") togglePlayer();
+            } else selectTrack(0, true);
+          }
+        });
+      }
+      /* Re-attempt repository photo discovery when Photos is opened, with a safe fallback. */
+      var photosApp = document.getElementById("photosApp");
+      if (photosApp && !photosApp.dataset.recoveryPhotoBound) {
+        photosApp.dataset.recoveryPhotoBound = "1";
+        photosApp.addEventListener("click", function(){
+          if (typeof loadPhotos === "function") loadPhotos().catch(function(err){ console.warn("Photos reload failed", err); });
+        });
+      }
+      /* Ensure accepting an incoming call switches screens immediately, even if media playback fails. */
+      var accept = document.getElementById("acceptCall");
+      if (accept && !accept.dataset.recoveryAcceptBound) {
+        accept.dataset.recoveryAcceptBound = "1";
+        accept.addEventListener("click", function(){
+          var incoming = document.getElementById("incoming");
+          var videoCall = document.getElementById("videoCall");
+          if (incoming) incoming.classList.remove("active");
+          if (videoCall) videoCall.classList.add("active");
+          if (videoCall) videoCall.style.pointerEvents = "auto";
+        }, true);
+      }
+    } catch (err) { console.warn("Feature recovery skipped", err); }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", recoverSimulatorFeatures);
+  else recoverSimulatorFeatures();
+  window.addEventListener("pageshow", recoverSimulatorFeatures);
+})();
+</script>
