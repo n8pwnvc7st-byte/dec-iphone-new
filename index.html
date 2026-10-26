@@ -4315,3 +4315,40 @@ html,body{background:#09090b}
   window.addEventListener("pageshow", recoverSimulatorFeatures);
 })();
 </script>
+
+
+<!-- recovery-pack-v2-2026-10-26 -->
+<style>
+#incoming.active{z-index:999!important;pointer-events:auto!important}
+#incoming.active .call-actions{z-index:1000!important;pointer-events:auto!important}
+#incoming.active .call-action{position:relative;z-index:1001!important;pointer-events:auto!important;touch-action:manipulation}
+#videoCall.active{z-index:999!important;pointer-events:auto!important}
+#spotifyApp .spotify-library-view[style*="display: block"],#spotifyApp .spotify-library-view:not([style*="display: none"]){overflow-y:auto!important}
+#spotifyApp #trackList{min-height:100px}
+</style>
+<script>
+(function(){
+ function fix(){
+  try{
+   var tabs=document.querySelectorAll('#spotifyApp [data-spotify-tab]');
+   tabs.forEach(function(tab){
+    if(tab.dataset.trackRecoveryBound)return;
+    tab.dataset.trackRecoveryBound='1';
+    tab.addEventListener('click',function(){
+     if(tab.dataset.spotifyTab==='library'){
+      setTimeout(function(){try{if(typeof renderTracks==='function')renderTracks();}catch(e){}},0);
+     }
+    },true);
+   });
+   var all=document.getElementById('showAllTracks');
+   if(all&&!all.dataset.trackRecoveryBound){all.dataset.trackRecoveryBound='1';all.addEventListener('click',function(){try{visibleTrackIndices=null;if(typeof renderTracks==='function')renderTracks();}catch(e){}},true);}
+   var play=document.getElementById('playAll');
+   if(play&&!play.dataset.trackRecoveryBound){play.dataset.trackRecoveryBound='1';play.addEventListener('click',function(){setTimeout(function(){try{if(typeof renderTracks==='function')renderTracks();}catch(e){}},0);},true);}
+   var photos=document.getElementById('photosApp');
+   if(photos&&!photos.dataset.photoRetryBound){photos.dataset.photoRetryBound='1';photos.addEventListener('click',function(){if(typeof loadPhotos==='function')loadPhotos().catch(function(e){console.warn(e)});},true);}
+  }catch(e){console.warn('recovery patch',e)}
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fix);else fix();
+ window.addEventListener('pageshow',fix);
+})();
+</script>
