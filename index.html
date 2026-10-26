@@ -2751,7 +2751,62 @@ function renderAlarmApp(tab="Alarm"){
 #alarmApp .clock-round-actions button{width:100px;height:100px;border-radius:50%;background:#1c1c1e;color:#ff9f0a;font-size:16px;border:1px solid #333}
 #alarmApp .clock-round-actions button+button{color:#fff}
 #alarmApp .homebar{z-index:30}
-</style><style id="snapchat-contact-avatar-sync">#snapchatApp .sc-avatar{overflow:hidden;padding:0!important;flex-shrink:0}#snapchatApp .sc-avatar img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}#snapchatApp .sc-chat-profile-head{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 0 4px}#snapchatApp .sc-chat-large-avatar{width:78px;height:78px;font-size:28px}#snapchatApp .sc-chat-profile-head h2{margin:0;font-size:21px}</style></body>
+</style><style id="snapchat-contact-avatar-sync">#snapchatApp .sc-avatar{overflow:hidden;padding:0!important;flex-shrink:0}#snapchatApp .sc-avatar img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}#snapchatApp .sc-chat-profile-head{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 0 4px}#snapchatApp .sc-chat-large-avatar{width:78px;height:78px;font-size:28px}#snapchatApp .sc-chat-profile-head h2{margin:0;font-size:21px}</style>
+<style id="wa-add-contacts-v1">
+#whatsApp .wa-add-contact-row{display:flex;align-items:center;gap:12px;width:100%;padding:12px 8px;border:0;border-bottom:1px solid #ededed;background:transparent;color:#111;text-align:left}
+#whatsApp .wa-add-contact-avatar{width:48px;height:48px;flex:0 0 48px;border-radius:50%;display:grid;place-items:center;background:#d9f5e3;color:#167a3c;font-weight:700;font-size:18px}
+#whatsApp .wa-add-contact-meta{font-size:12px;color:#777;margin-top:4px}
+#whatsApp .wa-empty-contacts{padding:12px 4px;color:#888;font-size:12px}
+</style>
+<script id="wa-add-contacts-v1">
+(function(){
+ const KEY="iphone-wa-contacts-v1";
+ function read(){try{const x=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(x)?x:[]}catch(e){return []}}
+ function save(list){try{localStorage.setItem(KEY,JSON.stringify(list));return true}catch(e){alert("无法保存联系人，请检查浏览器存储空间。");return false}}
+ function render(){
+  const listEl=document.getElementById("waChatList");if(!listEl)return;
+  listEl.querySelectorAll("[data-added-wa-contact]").forEach(n=>n.remove());
+  const contacts=read();
+  contacts.forEach((c,index)=>{
+   const row=document.createElement("button");row.type="button";row.className="wa-add-contact-row";row.dataset.addedWaContact=String(index);
+   const avatar=document.createElement("span");avatar.className="wa-add-contact-avatar";avatar.textContent=(c.name||"?").trim().slice(0,1).toUpperCase();
+   const copy=document.createElement("span");copy.style.cssText="flex:1;min-width:0";
+   const name=document.createElement("span");name.style.cssText="display:block;font-weight:650;font-size:15px";name.textContent=c.name;
+   const detail=document.createElement("span");detail.className="wa-add-contact-meta";detail.textContent=c.phone||"新联系人";
+   copy.append(name,detail);const mark=document.createElement("span");mark.style.color="#1685ee";mark.textContent="✓";
+   row.append(avatar,copy,mark);
+   row.addEventListener("click",()=>alert("联系人“"+c.name+"”已保存。当前这一步只增加联系人列表，聊天绑定会在下一步单独处理。"));
+   listEl.appendChild(row);
+  });
+  const search=document.getElementById("waSearchInput");
+  if(search)filter(search.value);
+ }
+ function filter(value){
+  const q=String(value||"").trim().toLowerCase();
+  document.querySelectorAll("#waChatList [data-added-wa-contact]").forEach(row=>{row.style.display=row.textContent.toLowerCase().includes(q)?"flex":"none"});
+ }
+ function init(){
+  const old=document.getElementById("waOpenStudio2");
+  if(old){const btn=old.cloneNode(true);btn.setAttribute("aria-label","添加 WhatsApp 联系人");btn.title="添加联系人";btn.textContent="＋";old.replaceWith(btn);
+   btn.addEventListener("click",()=>{
+    const name=prompt("输入联系人姓名：");if(name===null)return;
+    const clean=name.trim();if(!clean){alert("联系人姓名不能为空。");return}
+    const phoneRaw=prompt("输入电话号码（可选）：");if(phoneRaw===null)return;
+    const phone=phoneRaw.trim();const contacts=read();
+    if(contacts.some(c=>c.name.toLowerCase()===clean.toLowerCase()||(phone&&c.phone===phone))){alert("这个联系人已存在。");return}
+    contacts.push({id:Date.now(),name:clean,phone});
+    if(save(contacts))render();
+   });
+  }
+  const search=document.getElementById("waSearchInput");
+  if(search)search.addEventListener("input",()=>filter(search.value));
+  render();
+ }
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+
+</body>
 
 <style id="imessage-scroll-and-call-audio-ready-fix">
 /* Keep the iMessage transcript in a bounded flex column so the message list itself scrolls on mobile. */
